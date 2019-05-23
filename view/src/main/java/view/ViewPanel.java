@@ -1,5 +1,8 @@
 package view;
 
+import entity.Block;
+import entity.Map;
+
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -68,9 +71,32 @@ class ViewPanel extends JPanel implements Observer {
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		//graphics.drawString(this.getViewFrame().getModel().getMap().getSchema(), 10, 20);
 
+		//for each blocks in the map
+		Map map = viewFrame.getModel().getMap();
+		Block[][] blocks = map.getBlocks();
+		System.out.println(map.getLenght()+","+map.getHeight());
+		for(int y = 0; y<map.getHeight(); y++){
+			for(int x = 0;x<viewFrame.getModel().getMap().getLenght();x++){
+				switch (blocks[y][x].getType()){
+					case WALL:
+						graphics.drawImage(viewFrame.getModel().getMap().getSprites(0),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+						break;
+					case DIRT:
+						graphics.drawImage(viewFrame.getModel().getMap().getSprites(1),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+						break;
+					case EMPTY:
+						graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+						break;
+					case ROCK:
+						graphics.drawImage(viewFrame.getModel().getMap().getSprites(3),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+						break;
+				}
+			}
+		}
+/*
 		// for each line
 		int posY = 0;
-		for(int i = 0;i<viewFrame.getModel().getMap().getNline();i++){
+		for(int i = 0; i<viewFrame.getModel().getMap().getHeight(); i++){
 			String lineToWrite = viewFrame.getModel().getMap().getSchema(i);
 			int posX = 0;
 			for(char c : lineToWrite.toCharArray()){
@@ -95,7 +121,7 @@ class ViewPanel extends JPanel implements Observer {
 				posX+=16;
 			}
 			posY+=16;
-		}
+		}*/
 	}
 
 }

@@ -1,8 +1,6 @@
 package model;
 
-import entity.Entity;
-import entity.HelloWorld;
-import entity.Map;
+import entity.*;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -55,10 +53,37 @@ class DAOMap extends DAOEntity<Map> {
                 System.out.println(line.get(nline));
                 nline++;
             }
-                map = new Map(id, nline);
+                map = new Map(id, nline,line.get(0).length());
 
-            for(int i = 0;i<nline;i++){
-                map.setSchema(i,line.get(i));
+                map.setBlocksSize(map.getLenght(),map.getHeight());
+            // Create map blocks
+            for(int y = 0;y<nline;y++){
+                for(int x = 0;x<line.get(y).length();x++){
+                    BlockType type;
+                    switch(line.get(y).charAt(x)){
+                        case 'V':
+                            type = BlockType.EMPTY;
+                            break;
+                        case 'C':
+                            type = BlockType.ROCK;
+                            break;
+                        case 'T':
+                            type = BlockType.DIRT;
+                            break;
+                        case 'X':
+                            type = BlockType.WALL;
+                            break;
+                        default:
+                            type = BlockType.WALL;
+                            break;
+                    }
+
+
+                    Block block = new Block(x*16,y*16,type);
+                    map.setBlocks(x, y, block);
+                }
+                // txt char line
+                map.setSchema(y,line.get(y));
             }
 
             return map;

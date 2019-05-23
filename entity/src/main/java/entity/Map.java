@@ -1,17 +1,16 @@
 package entity;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 
 public class Map extends Entity {
 
     private int	id;
-    private int nline;
+    private int height;
+    private int lenght;
     private String[] schema;
     private BufferedImage spriteSheet;
     private Image[] sprites;
@@ -24,10 +23,11 @@ public class Map extends Entity {
      * @param id
      *          the id
      */
-    public Map(final int id, final int n_line) {
+    public Map(final int id, final int lenght, final int height) {
         this.setId(id);
-        this.nline = n_line;
-        schema = new String[n_line];
+        this.lenght = lenght;
+        this.height = height;
+        schema = new String[height];
 
         /** ? Entity or Model ? **/
         try {
@@ -51,7 +51,7 @@ public class Map extends Entity {
      * Instantiates a new map.
      */
     public Map() {
-        this(0,0);
+        this(0,0,0);
     }
 
     /**
@@ -73,12 +73,20 @@ public class Map extends Entity {
         this.id = id;
     }
 
-    public int getNline() {
-        return nline;
+    public int getHeight() {
+        return height;
     }
 
-    public void setNline(int n_line) {
-        this.nline = n_line;
+    public void setHeight(int n_line) {
+        this.height = n_line;
+    }
+
+    public int getLenght() {
+        return lenght;
+    }
+
+    public void setLenght(int lenght) {
+        this.lenght = lenght;
     }
 
     /**
@@ -114,5 +122,21 @@ public class Map extends Entity {
 
     public Image getSprites(int index) {
         return sprites[index];
+    }
+
+    public Block[][] getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(Block[][] blocks) {
+        this.blocks = blocks;
+    }
+
+    public void setBlocks(int x, int y, Block block){
+        this.blocks[x][y] = block;
+    }
+
+    public void setBlocksSize(int lenght, int height) {
+        this.blocks = new Block[height][lenght];
     }
 }
