@@ -5,6 +5,7 @@ Projet de création d'un abandonware lors de la 1ières années Exia-Cesi.
 
 ---
 ##Traduction des caratères en sprits : 
+
 **V : Vide**
 
 **C : Rochets**
