@@ -22,6 +22,6 @@ Port : 3306
 
 Data Base : _projet_uml_
 
-Admin : _Admini_
+Admin : _admini_
 
 Password : _Kru0!2g7_

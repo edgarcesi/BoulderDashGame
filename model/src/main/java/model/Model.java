@@ -69,6 +69,15 @@ public final class Model extends Observable implements IModel {
 		}
 	}
 
+	public void loadMap(final int code){
+		try {
+			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
+			this.setHelloWorld(daoHelloWorld.find(code));
+		} catch (final SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
      * Gets the observable.
      *
