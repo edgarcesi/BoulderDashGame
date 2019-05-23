@@ -8,6 +8,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 class DAOMap extends DAOEntity<Map> {
 
@@ -38,6 +39,32 @@ class DAOMap extends DAOEntity<Map> {
 
     @Override
     public Map find(int id) {
+        Map map = new Map();
+        try {
+            final String sql = "{call getSchemaByMap(?)}";
+            final CallableStatement call = this.getConnection().prepareCall(sql);
+            call.setInt(1, id);
+            call.execute();
+            final ResultSet resultSet = call.getResultSet();
+
+            int nline = 0;
+            ArrayList<String> line = new ArrayList<>();
+
+            while (resultSet.next()){
+                line.add(resultSet.getString("schema"));
+                System.out.println(line.get(nline));
+                nline++;
+            }
+                map = new Map(id, nline);
+
+            for(int i = 0;i<nline;i++){
+                map.setSchema(i,line.get(i));
+            }
+
+            return map;
+        } catch (final SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
