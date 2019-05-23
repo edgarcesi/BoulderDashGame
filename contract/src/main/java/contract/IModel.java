@@ -5,6 +5,8 @@ import java.util.Observable;
 import entity.HelloWorld;
 import entity.Map;
 
+import javax.swing.*;
+
 /**
  * The Interface IModel.
  *
@@ -42,6 +44,8 @@ public interface IModel {
 	 */
 	void loadHelloWorld(String code);
 
+
+	void ResizeByMapSize(JFrame frame);
 
 	/**
 	 * Gets the observable.

@@ -55,7 +55,6 @@ class DAOMap extends DAOEntity<Map> {
             }
                 map = new Map(id, nline,line.get(0).length());
 
-                map.setBlocksSize(map.getLenght(),map.getHeight());
             // Create map blocks
             for(int y = 0;y<nline;y++){
                 for(int x = 0;x<line.get(y).length();x++){
@@ -77,10 +76,8 @@ class DAOMap extends DAOEntity<Map> {
                             type = BlockType.WALL;
                             break;
                     }
-
-
                     Block block = new Block(x*16,y*16,type);
-                    map.setBlocks(x, y, block);
+                    map.setBlocks(y, x, block);
                 }
                 // txt char line
                 map.setSchema(y,line.get(y));

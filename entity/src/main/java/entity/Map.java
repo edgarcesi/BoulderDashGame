@@ -23,11 +23,12 @@ public class Map extends Entity {
      * @param id
      *          the id
      */
-    public Map(final int id, final int lenght, final int height) {
+    public Map(final int id, final int height, final int lenght) {
         this.setId(id);
-        this.lenght = lenght;
-        this.height = height;
+        this.lenght = lenght; // x
+        this.height = height; // y
         schema = new String[height];
+        blocks = new Block[height][lenght];
 
         /** ? Entity or Model ? **/
         try {
@@ -101,11 +102,11 @@ public class Map extends Entity {
     /**
      * Sets the message.
      *
-     * @param schema
+     * @param content
      *          the new message
      */
-    public void setSchema(final int index, final String schema) {
-        this.schema[index] = schema;
+    public void setSchema(final int index, final String content) {
+        this.schema[index] = content;
     }
 
     public void setSprites(Image[] sprites) {
@@ -132,8 +133,8 @@ public class Map extends Entity {
         this.blocks = blocks;
     }
 
-    public void setBlocks(int x, int y, Block block){
-        this.blocks[x][y] = block;
+    public void setBlocks(int y, int x, Block block){
+        this.blocks[y][x] = block;
     }
 
     public void setBlocksSize(int lenght, int height) {

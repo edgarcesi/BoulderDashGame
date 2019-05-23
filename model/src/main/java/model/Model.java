@@ -7,6 +7,9 @@ import contract.IModel;
 import entity.HelloWorld;
 import entity.Map;
 
+import javax.swing.*;
+import javax.swing.text.View;
+
 /**
  * The Class Model.
  *
@@ -116,6 +119,9 @@ public final class Model extends Observable implements IModel {
 		}
 	}
 
+	public void ResizeByMapSize(JFrame frame){
+		frame.setBounds(0,0,getMap().getLenght(),getMap().getHeight());
+	}
 	/**
      * Gets the observable.
      *

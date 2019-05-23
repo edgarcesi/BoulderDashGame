@@ -27,6 +27,8 @@ public final class Controller implements IController {
 	public Controller(final IView view, final IModel model) {
 		this.setView(view);
 		this.setModel(model);
+
+		control();
 	}
 
 	/**
@@ -84,23 +86,6 @@ public final class Controller implements IController {
 				break;
 			case NOTHING:
 				break;
-			/*case English:
-				this.model.loadHelloWorld("GB");
-				break;
-			case Francais:
-				this.model.loadHelloWorld("FR");
-				break;
-			case Deutsch:
-				this.model.loadHelloWorld("DE");
-				break;
-			case Italian:
-				this.model.loadHelloWorld("IT");
-				break;
-			case Spanish:
-				this.model.loadHelloWorld("ES");
-				break;
-			default:
-				break;*/
 		}
 	}
 
