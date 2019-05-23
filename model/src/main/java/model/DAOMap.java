@@ -2,14 +2,14 @@ package model;
 
 import entity.Entity;
 import entity.HelloWorld;
+import entity.Map;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class DAOMap extends DAOEntity{
-
+class DAOMap extends DAOEntity<Map> {
 
     /**
      * Instantiates a new DAO entity.
@@ -22,27 +22,27 @@ class DAOMap extends DAOEntity{
     }
 
     @Override
-    public boolean create(Entity entity) {
+    public boolean create(Map entity) {
         return false;
     }
 
     @Override
-    public boolean delete(Entity entity) {
+    public boolean delete(Map entity) {
         return false;
     }
 
     @Override
-    public boolean update(Entity entity) {
+    public boolean update(Map entity) {
         return false;
     }
 
     @Override
-    public Entity find(int id) {
+    public Map find(int id) {
         return null;
     }
 
     @Override
-    public Entity find(String code) {
+    public Map find(String code) {
         return null;
     }
 }
