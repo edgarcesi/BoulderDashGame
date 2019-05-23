@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../JPU-BlankProject" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../JPU-BlankProject/contract" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../JPU-BlankProject/controller" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../JPU-BlankProject/entity" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../JPU-BlankProject/main" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../JPU-BlankProject/model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../JPU-BlankProject/view" charset="UTF-8" />
+  </component>
+</project>
