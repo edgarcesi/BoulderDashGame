@@ -20,18 +20,16 @@ import javax.swing.text.View;
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16;
 
-	private Map map;
 	private int mapID = 3;
+    private Map map;
 	private Player player;
-	private int startX = RealPos(2);
-	private int startY = RealPos(2);
 
 	/**
 	 * Instantiates a new model.
 	 */
 	public Model() {
 		this.loadMap(mapID);
-		this.player = new Player(startX,startY);
+		this.player = new Player(map.getStartX(),map.getStartY());
 	}
 
 
@@ -70,15 +68,16 @@ public final class Model extends Observable implements IModel {
 	public void loadMap(final int id){
 		try {
 			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
+			// Get the map
 			this.setMap(daoMap.find(id));
+            // Fill map info
 			ResultSet mapInfo = daoMap.mapInfo(id);
-			// Fill map info
 			this.map.setStartX(mapInfo.getInt("StartX"));
 			this.map.setStartY(mapInfo.getInt("StartY"));
 			this.map.setEndX(mapInfo.getInt("EndX"));
 			this.map.setEndY(mapInfo.getInt("EndY"));
 			this.map.setDiamond(mapInfo.getInt("Diamond"));
-
+            // [DEBUG]-Write map info
 			System.out.println("MAP INFO:");
 			System.out.println("Start : "+map.getStartX()+","+map.getStartY());
 			System.out.println("End : "+map.getEndX()+","+map.getEndY());
