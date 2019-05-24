@@ -16,6 +16,9 @@ import javax.swing.text.View;
  * @author Jean-Aymeric Diet
  */
 public final class Model extends Observable implements IModel {
+	private final int OFFSET = 16;
+
+
 
 	/** The helloWorld. */
 	private HelloWorld helloWorld;
@@ -119,9 +122,7 @@ public final class Model extends Observable implements IModel {
 		}
 	}
 
-	public void ResizeByMapSize(JFrame frame){
-		frame.setBounds(0,0,getMap().getLenght(),getMap().getHeight());
-	}
+
 	/**
      * Gets the observable.
      *
@@ -135,4 +136,6 @@ public final class Model extends Observable implements IModel {
 	public Observable getObservable() {
 		return this;
 	}
+
+	public int RealPos(int index){ return index*OFFSET;}
 }

@@ -45,7 +45,7 @@ public interface IModel {
 	void loadHelloWorld(String code);
 
 
-	void ResizeByMapSize(JFrame frame);
+	int RealPos(int index);
 
 	/**
 	 * Gets the observable.

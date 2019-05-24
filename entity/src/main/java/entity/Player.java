@@ -7,14 +7,17 @@ import java.io.File;
 import java.io.IOException;
 
 public class Player extends Entity {
+    private int posX, posY;
     private BufferedImage spriteSheet;
     private Image[] sprites;
+    private int activeSprite;
 
-    public Player(final int height, final int lenght) {
-
+    public Player(final int x, final int y) {
+        setPosX(x);
+        setPosY(y);
         /** ? Entity or Model ? **/
         try {
-            spriteSheet = ImageIO.read(new File("src/level.png"));
+            spriteSheet = ImageIO.read(new File("src/player.png"));
             sprites = new Image[4];
             // Perso à l'arrêt
             sprites[0] = spriteSheet.getSubimage(0*16, 0 * 16, 16, 16);
@@ -33,53 +36,33 @@ public class Player extends Entity {
     /**
      * Instantiates a new map.
      */
-    public Map() {
-        this(0,0,0);
+    public Player() {
+        this(0,0);
     }
-
     /**
-     * Gets the id.
+     * Getters.
      *
      * @return the id
      */
-    public int getId() {
-        return this.id;
+    public Image getPlayerSprites(int index) {
+        return sprites[index];
+    }
+    public int getPosX() {
+        return posX;
     }
 
-    /**
-     * Sets the id.
-     *
-     * @param id
-     *          the new id
-     */
-    public void setId(final int id) {
-        this.id = id;
+    public void setPosX(int posX) {
+        this.posX = posX;
     }
 
-    public int getHeight() {
-        return height;
+    public int getPosY() {
+        return posY;
     }
 
-    public void setHeight(int n_line) {
-        this.height = n_line;
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 
-    public int getLenght() {
-        return lenght;
-    }
-
-    public void setLenght(int lenght) {
-        this.lenght = lenght;
-    }
-
-    /**
-     * Gets the schema.
-     *
-     * @return the schema
-     */
-    public String getSchema(int index) {
-        return this.schema[index];
-    }
 
     /**
      * Sets the message.
@@ -87,9 +70,6 @@ public class Player extends Entity {
      * @param content
      *          the new message
      */
-    public void setSchema(final int index, final String content) {
-        this.schema[index] = content;
-    }
 
     public void setSprites(Image[] sprites) {
         this.sprites = sprites;
@@ -107,23 +87,7 @@ public class Player extends Entity {
         return sprites[index];
     }
 
-    public Block[][] getBlocks() {
-        return blocks;
-    }
-    public Block getBlocks(int x, int y) {
-        return blocks[y][x];
-    }
 
 
-    public void setBlocks(Block[][] blocks) {
-        this.blocks = blocks;
-    }
 
-    public void setBlocks(int y, int x, Block block){
-        this.blocks[y][x] = block;
-    }
-
-    public void setBlocksSize(int lenght, int height) {
-        this.blocks = new Block[height][lenght];
-    }
 }

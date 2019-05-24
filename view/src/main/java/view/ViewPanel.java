@@ -2,12 +2,13 @@ package view;
 
 import entity.Block;
 import entity.Map;
+import entity.Player;
 
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * The Class ViewPanel.
@@ -73,6 +74,8 @@ class ViewPanel extends JPanel implements Observer {
 		//System.out.println("run");
 		//for each blocks in the map
 		Map map = viewFrame.getModel().getMap();
+		Player player = new Player(viewFrame.getModel().RealPos(2), viewFrame.getModel().RealPos(2));
+		//System.out.println(viewFrame.getModel().RealPos(2));
 		Block[][] blocks = map.getBlocks();
 		//System.out.println(map.getLenght()+","+map.getHeight());
 		for(int y = 0; y<map.getHeight(); y++){
@@ -93,6 +96,8 @@ class ViewPanel extends JPanel implements Observer {
 				}
 			}
 		}
+		//ImageIcon img = new ImageIcon("src")
+		graphics.drawImage(player.getPlayerSprites(0),player.getPosX(),player.getPosY(), this);
 		repaint();
 	}
 
