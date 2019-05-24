@@ -95,7 +95,7 @@ class ViewPanel extends JPanel implements Observer {
 			}
 		}
 		//ImageIcon img = new ImageIcon("src")
-		System.out.println(viewFrame.getModel().getPlayer().getPosY());
+		//System.out.println(viewFrame.getModel().getPlayer().getPosY());
 		graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
 		repaint();
 	}
