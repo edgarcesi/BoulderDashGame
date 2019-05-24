@@ -68,12 +68,12 @@ class ViewPanel extends JPanel implements Observer {
 	 */
 	@Override
 	protected void paintComponent(final Graphics graphics) {
-		Graphics2D g2 = (Graphics2D)graphics;
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		//for each blocks in the map
+
 		Map map = viewFrame.getModel().getMap();
 		Block[][] blocks = map.getBlocks();
-		for(int y = 0; y<map.getHeight(); y++){
+        //for each blocks in the map
+        for(int y = 0; y<map.getHeight(); y++){
 			for(int x = 0;x<map.getLenght();x++){
 				switch (blocks[y][x].getType()){
 					case WALL:
@@ -97,10 +97,12 @@ class ViewPanel extends JPanel implements Observer {
 				}
 			}
 		}
-		//ImageIcon img = new ImageIcon("src")
-		//System.out.println(viewFrame.getModel().getPlayer().getPosY());
-		graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
-		graphics.drawString(String.valueOf(viewFrame.getModel().getPlayer().getScore()), 20,300);
+
+		// Draw Player
+        graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
+		// Draw score
+        graphics.drawString(String.valueOf(viewFrame.getModel().getPlayer().getScore()), 20,300);
+
 		repaint();
 	}
 
