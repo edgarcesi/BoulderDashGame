@@ -116,29 +116,38 @@ public final class Controller implements IController {
 			// gravité
 			int run = 0;
 			int prevTopX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP");
-			int prevTopY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP");
+			int prevTopY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP") - 16;
 			int prevBotX = nowX;
-			int prevBotY = nowY;
+			int prevBotY = nowY - 16;
 			int i = 0;
+			BlockType prevTopType, prevBotType;
 			while (run == 0){
-				prevTopX -= i * 16;
-				prevTopY -= i * 16;
-				prevBotX -= i * 16;
-				prevBotY -= i * 16;
+				System.out.println(prevTopX);
+				System.out.println(prevTopY);
+				System.out.println(prevBotX);
+				System.out.println(prevBotY);
+				//prevTopX -= i * 16;
+				prevTopY += 16;
+				//prevBotX -= i * 16;
+				prevBotY += 16;
 
-				BlockType prevTopType =  model.getMap().getBlockType(prevTopX/16, prevTopY/16);
-				BlockType prevBotType =  model.getMap().getBlockType(prevBotX/16, prevBotY/16);
+				prevTopType =  model.getMap().getBlockType(prevTopX/16, prevTopY/16);
+				prevBotType =  model.getMap().getBlockType(prevBotX/16, prevBotY/16);
 				System.out.println(prevTopType);
 				System.out.println(prevBotType);
-                System.out.println("---------");
+				System.out.println(i);
+
 				if (prevBotType.equals(BlockType.EMPTY) && prevTopType.equals(BlockType.ROCK)){
 					model.getMap().TransformToDirt(prevTopX/16, prevTopY/16);
 					model.getMap().TransformToRock(prevBotX/16, prevBotY/16);
+					System.out.println("done");
+
 				}else{
 					run = 1;
+					System.out.println("err");
 				}
-
-				i++;
+				System.out.println("---------");
+				i += 1;
 			}
 
 			//changement de position du player
