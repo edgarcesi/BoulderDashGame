@@ -18,9 +18,9 @@ import javax.swing.text.View;
  * @author Jean-Aymeric Diet
  */
 public final class Model extends Observable implements IModel {
-	private final int OFFSET = 16;
+	private final int OFFSET = 16; // Const offset 16px
+	private int mapID = 3; // Map to load
 
-	private int mapID = 3;
     private Map map;
 	private Player player;
 
