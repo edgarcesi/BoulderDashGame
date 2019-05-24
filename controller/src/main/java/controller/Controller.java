@@ -115,14 +115,14 @@ public final class Controller implements IController {
 			model.getPlayer().setPosX(nextX);
 			model.getPlayer().setPosY(nextY);
 			nowBlockType = nextBlockType;
-			if (nowBlockType.equals(BlockType.DIAMOND){
+			if (nowBlockType.equals(BlockType.DIAMOND)){
 				model.getMap().TransformToDirt(nextX/16, nextY/16);
 				model.getPlayer().IncrementScore(500);
 				System.out.println(model.getPlayer().getScore());
-			}
+			}/*
 			// gravité
 			BlockType prevTopType
-			if
+			if*/
 		}
 	}
 
