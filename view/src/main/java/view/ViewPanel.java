@@ -70,7 +70,7 @@ class ViewPanel extends JPanel implements Observer {
 		Graphics2D g2 = (Graphics2D)graphics;
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		//graphics.drawString(this.getViewFrame().getModel().getMap().getSchema(), 10, 20);
-
+		System.out.println("ntm");
 		//for each blocks in the map
 		Map map = viewFrame.getModel().getMap();
 		Block[][] blocks = map.getBlocks();
@@ -93,6 +93,7 @@ class ViewPanel extends JPanel implements Observer {
 				}
 			}
 		}
+		repaint();
 	}
 
 }

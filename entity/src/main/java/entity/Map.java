@@ -128,6 +128,10 @@ public class Map extends Entity {
     public Block[][] getBlocks() {
         return blocks;
     }
+    public Block getBlocks(int x, int y) {
+        return blocks[y][x];
+    }
+
 
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;

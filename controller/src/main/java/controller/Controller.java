@@ -4,6 +4,7 @@ import contract.ControllerOrder;
 import contract.IController;
 import contract.IModel;
 import contract.IView;
+import entity.BlockType;
 
 /**
  * The Class Controller.
@@ -77,7 +78,10 @@ public final class Controller implements IController {
 	public void orderPerform(final ControllerOrder controllerOrder) {
 		switch (controllerOrder) {
 			case UP:
+				model.getMap().getBlocks(5,5).setType(BlockType.WALL);
 
+				//graphics.drawImage(viewFrame.getModel().getMap().getSprites(0),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+				System.out.println(model.getMap().getBlocks(5,5).getType());
 				break;
 			case DOWN:
 				break;
