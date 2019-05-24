@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entity.Entity;
@@ -78,10 +79,10 @@ abstract class DAOEntity<E extends Entity> {
 	/**
 	 * Find.
 	 *
-	 * @param code
+	 * @param id
 	 *          the code
 	 * @return the e
 	 */
-	public abstract E find(String code);
+	public abstract ResultSet mapInfo(int id);
 
 }

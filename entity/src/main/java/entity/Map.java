@@ -8,9 +8,7 @@ import java.io.IOException;
 
 public class Map extends Entity {
 
-    private int	id;
-    private int height;
-    private int lenght;
+    private int	id, height, length,startX,startY;
     private String[] schema;
     private BufferedImage spriteSheet;
     private Image[] sprites;
@@ -23,12 +21,12 @@ public class Map extends Entity {
      * @param id
      *          the id
      */
-    public Map(final int id, final int height, final int lenght) {
+    public Map(final int id, final int height, final int length) {
         this.setId(id);
-        this.lenght = lenght; // x
+        this.length = length; // x
         this.height = height; // y
         schema = new String[height];
-        blocks = new Block[height][lenght];
+        blocks = new Block[height][length];
 
         // fill sprites array
         try {
@@ -84,11 +82,11 @@ public class Map extends Entity {
     }
 
     public int getLenght() {
-        return lenght;
+        return length;
     }
 
     public void setLenght(int lenght) {
-        this.lenght = lenght;
+        this.length = lenght;
     }
 
     /**
@@ -144,5 +142,21 @@ public class Map extends Entity {
 
     public void setBlocksSize(int lenght, int height) {
         this.blocks = new Block[height][lenght];
+    }
+
+    public int getStartX() {
+        return startX;
+    }
+
+    public void setStartX(int startX) {
+        this.startX = startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public void setStartY(int startY) {
+        this.startY = startY;
     }
 }
