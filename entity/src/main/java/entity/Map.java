@@ -30,7 +30,7 @@ public class Map extends Entity {
         schema = new String[height];
         blocks = new Block[height][lenght];
 
-        /** ? Entity or Model ? **/
+        // fill sprites array
         try {
             spriteSheet = ImageIO.read(new File("src/level.png"));
             sprites = new Image[4];
@@ -45,7 +45,6 @@ public class Map extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /** ?------------------? **/
     }
 
     /**
