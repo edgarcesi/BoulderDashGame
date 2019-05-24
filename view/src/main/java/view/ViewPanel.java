@@ -74,9 +74,6 @@ class ViewPanel extends JPanel implements Observer {
 		//System.out.println("run");
 		//for each blocks in the map
 		Map map = viewFrame.getModel().getMap();
-		Player player = new Player(viewFrame.getModel().RealPos(2), viewFrame.getModel().RealPos(2));
-		//System.out.println(viewFrame.getModel().RealPos(2));
-		viewFrame.getModel().setPlayer(player);
 		Block[][] blocks = map.getBlocks();
 		//System.out.println(map.getLenght()+","+map.getHeight());
 		for(int y = 0; y<map.getHeight(); y++){
@@ -101,7 +98,8 @@ class ViewPanel extends JPanel implements Observer {
 			}
 		}
 		//ImageIcon img = new ImageIcon("src")
-		graphics.drawImage(player.getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
+		System.out.println(viewFrame.getModel().getPlayer().getPosY());
+		graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
 		repaint();
 	}
 

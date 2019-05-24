@@ -27,6 +27,8 @@ public final class Model extends Observable implements IModel {
 	private Map map;
 	private int mapID = 2;
 	private Player player;
+	private int startX = RealPos(2);
+	private int startY = RealPos(2);
 
 	/**
 	 * Instantiates a new model.
@@ -34,6 +36,7 @@ public final class Model extends Observable implements IModel {
 	public Model() {
 		this.helloWorld = new HelloWorld();
 		this.loadMap(mapID);
+		this.player = new Player(startX,startY);
 	}
 
 	/**
@@ -149,5 +152,5 @@ public final class Model extends Observable implements IModel {
 	 * @param player
 	 *            the new player
 	 */
-	public void setPlayer(final Player player){this.player = player;}
+	public void setPlayer(Player player){this.player = player;}
 }
