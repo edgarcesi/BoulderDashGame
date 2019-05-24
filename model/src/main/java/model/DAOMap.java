@@ -72,6 +72,9 @@ class DAOMap extends DAOEntity<Map> {
                         case 'X':
                             type = BlockType.WALL;
                             break;
+                        case 'D':
+                            type = BlockType.DIAMOND;
+                            break;
                         default:
                             type = BlockType.WALL;
                             break;

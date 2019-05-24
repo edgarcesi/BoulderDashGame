@@ -92,6 +92,9 @@ class ViewPanel extends JPanel implements Observer {
 						break;
 					case ROCK:
 						graphics.drawImage(viewFrame.getModel().getMap().getSprites(3),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+					break;
+					case DIAMOND:
+						graphics.drawImage(viewFrame.getModel().getMap().getSprites(4),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
 						break;
 				}
 			}
