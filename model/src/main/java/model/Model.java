@@ -6,6 +6,7 @@ import java.util.Observable;
 import contract.IModel;
 import entity.HelloWorld;
 import entity.Map;
+import entity.Player;
 
 import javax.swing.*;
 import javax.swing.text.View;
@@ -24,7 +25,8 @@ public final class Model extends Observable implements IModel {
 	private HelloWorld helloWorld;
 
 	private Map map;
-	private int mapID = 1;
+	private int mapID = 2;
+	private Player player;
 
 	/**
 	 * Instantiates a new model.
@@ -138,4 +140,14 @@ public final class Model extends Observable implements IModel {
 	}
 
 	public int RealPos(int index){ return index*OFFSET;}
+	public int IndexPos(int realPos){ return realPos/OFFSET;}
+
+	public Player getPlayer(){return this.player;}
+	/**
+	 * Sets the player.
+	 *
+	 * @param player
+	 *            the new player
+	 */
+	public void setPlayer(final Player player){this.player = player;}
 }

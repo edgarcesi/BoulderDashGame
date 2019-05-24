@@ -78,10 +78,12 @@ public final class Controller implements IController {
 	public void orderPerform(final ControllerOrder controllerOrder) {
 		switch (controllerOrder) {
 			case UP:
-				model.getMap().getBlocks(5,5).setType(BlockType.WALL);
-
+				//System.out.println(model.getMap().getBlocks(model.IndexPos(model.getPlayer().getPosX() - model.RealPos(1)),model.IndexPos(model.getPlayer().getPosY() - model.RealPos(1))));
+				System.out.println(model.IndexPos(model.getPlayer().getPosX() - model.RealPos(1)));
+				System.out.println(model.getPlayer().getPosX() - model.RealPos(1)
+				);
 				//graphics.drawImage(viewFrame.getModel().getMap().getSprites(0),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-				System.out.println(model.getMap().getBlocks(5,5).getType());
+				//System.out.println(model.getMap().getBlocks(5,5).getType());
 				break;
 			case DOWN:
 				break;

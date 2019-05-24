@@ -4,6 +4,7 @@ import java.util.Observable;
 
 import entity.HelloWorld;
 import entity.Map;
+import entity.Player;
 
 import javax.swing.*;
 
@@ -46,6 +47,10 @@ public interface IModel {
 
 
 	int RealPos(int index);
+	public int IndexPos(int realPos);
+
+	public void setPlayer(final Player player);
+	public Player getPlayer();
 
 	/**
 	 * Gets the observable.
