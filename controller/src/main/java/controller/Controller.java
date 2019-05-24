@@ -76,61 +76,53 @@ public final class Controller implements IController {
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
+		int nextX, nextY;
+		BlockType nextBlockType = BlockType.WALL;
+		int nowX = nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "NOW");
+		int nowY = nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "NOW");
+		BlockType nowBlockType = model.getMap().getBlockType(nowX/16, nowY/16);
+
 		switch (controllerOrder) {
 			case UP:
-
-				if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY() - model.RealPos(1))).getType() == BlockType.WALL || model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY() - model.RealPos(1))).getType() == BlockType.ROCK){
-
-				}else{
-
-                    if (model.getMap().TypeNextBlock(model.getPlayer(), "UP") == BlockType.DIRT){
-                        model.getMap().getBlocks(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).setType(BlockType.EMPTY);
-                    }
-					if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.DIAMOND){
-						model.getMap().getBlocks(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).setType(BlockType.EMPTY);
-						model.getPlayer().IncrementScore(500);
-						System.out.println(model.getPlayer().getScore());
-					}
-					model.getPlayer().setPosY(model.getPlayer().getPosY() - model.RealPos(1));
-
-
-				}
-
+				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP");
+				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP");
+				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
 				break;
 			case DOWN:
-				if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY() + model.RealPos(1))).getType() == BlockType.WALL || model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY() + model.RealPos(1))).getType() == BlockType.ROCK){
-
-				}else{
-                    if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.DIRT){
-                        model.getMap().getBlocks(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).setType(BlockType.EMPTY);
-                    }
-				    model.getPlayer().setPosY(model.getPlayer().getPosY() + model.RealPos(1));
-				}
-
-
+				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "DOWN");
+				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "DOWN");
+				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
 				break;
 			case LEFT:
-				if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX() - model.RealPos(1)), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.WALL || model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX() - model.RealPos(1)), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.ROCK){
-				}else{
-                    if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.DIRT){
-                        model.getMap().getBlocks(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).setType(BlockType.EMPTY);
-                    }
-				    model.getPlayer().setPosX(model.getPlayer().getPosX() - model.RealPos(1));
-				}
-
-
+				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "LEFT");
+				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "LEFT");
+				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
 				break;
 			case RIGHT:
-				if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX() + model.RealPos(1)), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.WALL || model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX() + model.RealPos(1)), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.ROCK){
-				}else{
-                    if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.DIRT){
-                        model.getMap().getBlocks(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).setType(BlockType.EMPTY);
-                    }
-				    model.getPlayer().setPosX(model.getPlayer().getPosX() + model.RealPos(1));
-				}
+				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "RIGHT");
+				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "RIGHT");
+				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
 				break;
 			case NOTHING:
 				break;
+		}
+
+		if (nextBlockType != BlockType.WALL && nextBlockType != BlockType.ROCK){
+			if (nowBlockType == BlockType.DIRT){
+				model.getMap().TransformToDirt(nowX/16, nowY/16);
+			}
+
+			model.getPlayer().setPosX(nextX);
+			model.getPlayer().setPosY(nextY);
+			nowBlockType = nextBlockType;
+			if (nowBlockType.equals(BlockType.DIAMOND){
+				model.getMap().TransformToDirt(nextX/16, nextY/16);
+				model.getPlayer().IncrementScore(500);
+				System.out.println(model.getPlayer().getScore());
+			}
+			// gravité
+			BlockType prevTopType
+			if
 		}
 	}
 
