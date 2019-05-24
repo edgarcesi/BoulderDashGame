@@ -17,16 +17,15 @@ import javax.swing.text.View;
  * @author Jean-Aymeric Diet
  */
 public final class Model extends Observable implements IModel {
+
 	private final int OFFSET = 16;
-
-
 
 	/** The helloWorld. */
 	private HelloWorld helloWorld;
+	private Player player;
 
 	private Map map;
 	private int mapID = 2;
-	private Player player;
 
 	/**
 	 * Instantiates a new model.
