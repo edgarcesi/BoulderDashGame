@@ -37,7 +37,6 @@ class DAOMap extends DAOEntity<Map> {
 
     @Override
     public Map find(int id) {
-        Map map = new Map();
         try {
             String sql = "{call getSchemaByMap(?)}";
             CallableStatement call = this.getConnection().prepareCall(sql);
@@ -45,15 +44,15 @@ class DAOMap extends DAOEntity<Map> {
             call.execute();
             ResultSet resultSet = call.getResultSet();
 
-            int nline = 0;
-            ArrayList<String> line = new ArrayList<>();
-
+            int nline = 0; // Map height
+            ArrayList<String> line = new ArrayList<>(); // Map length
             while (resultSet.next()){
-                line.add(resultSet.getString("schema"));
+                line.add(resultSet.getString("schema")); // Actual line
                 System.out.println(line.get(nline));
                 nline++;
             }
-                map = new Map(id, nline,line.get(0).length());
+
+            Map map = new Map(id, nline,line.get(0).length());
 
             // Create map blocks
             for(int y = 0;y<nline;y++){
