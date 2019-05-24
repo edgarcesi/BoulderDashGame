@@ -95,17 +95,16 @@ class DAOMap extends DAOEntity<Map> {
 
     @Override
     public ResultSet mapInfo(int id) {
-        ResultSet resultSet = null;
         try {
-            String sql = "{call getStartPosByMap(?)}";
+            String sql = "{call getMapInfo(?)}";
             CallableStatement call = this.getConnection().prepareCall(sql);
             call.setInt(1, id);
             call.execute();
-            resultSet = call.getResultSet();
-            System.out.println(resultSet.getString(1));
+            ResultSet resultSet = call.getResultSet();
+            return resultSet;
         } catch (Exception e) {
-
+            System.out.println(e);
+            return null;
         }
-        return resultSet;
     }
 }

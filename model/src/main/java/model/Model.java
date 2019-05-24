@@ -20,7 +20,7 @@ public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16;
 
 	private Map map;
-	private int mapID = 2;
+	private int mapID = 3;
 	private Player player;
 	private int startX = RealPos(2);
 	private int startY = RealPos(2);
