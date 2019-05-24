@@ -5,5 +5,6 @@ public enum BlockType {
     DIRT,
     EMPTY,
     ROCK,
-    DIAMOND
+    DIAMOND,
+    END
 }

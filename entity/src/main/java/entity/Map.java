@@ -42,6 +42,8 @@ public class Map extends Entity {
             sprites[3] = spriteSheet.getSubimage(3*16, 0 * 16, 16, 16);
             // DIAMOND
             sprites[4] = spriteSheet.getSubimage(5*16, 0 * 16, 16, 16);
+            //END
+            sprites[5] = spriteSheet.getSubimage(7*16, 0 * 16, 16, 16);
         } catch (IOException e) {
             e.printStackTrace();
         }
