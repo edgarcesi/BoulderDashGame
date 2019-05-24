@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Observable;
 
@@ -70,6 +71,18 @@ public final class Model extends Observable implements IModel {
 		try {
 			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
 			this.setMap(daoMap.find(id));
+			ResultSet mapInfo = daoMap.mapInfo(id);
+			// Fill map info
+			this.map.setStartX(mapInfo.getInt("StartX"));
+			this.map.setStartY(mapInfo.getInt("StartY"));
+			this.map.setEndX(mapInfo.getInt("EndX"));
+			this.map.setEndY(mapInfo.getInt("EndY"));
+			this.map.setDiamond(mapInfo.getInt("Diamond"));
+
+			System.out.println("MAP INFO:");
+			System.out.println("Start : "+map.getStartX()+","+map.getStartY());
+			System.out.println("End : "+map.getEndX()+","+map.getEndY());
+			System.out.println("Diamond : "+map.getDiamond());
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}

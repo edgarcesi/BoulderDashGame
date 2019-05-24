@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Map extends Entity {
 
-    private int	id, height, length,startX,startY;
+    private int	id, height, length,startX,startY, endX, endY, diamond;
     private String[] schema;
     private BufferedImage spriteSheet;
     private Image[] sprites;
@@ -158,6 +158,30 @@ public class Map extends Entity {
 
     public void setStartY(int startY) {
         this.startY = startY;
+    }
+
+    public int getEndX() {
+        return endX;
+    }
+
+    public void setEndX(int endX) {
+        this.endX = endX;
+    }
+
+    public int getEndY() {
+        return endY;
+    }
+
+    public void setEndY(int endY) {
+        this.endY = endY;
+    }
+
+    public int getDiamond() {
+        return diamond;
+    }
+
+    public void setDiamond(int diamond) {
+        this.diamond = diamond;
     }
 
     public int CoordoneeYNextBlock(Player player, String orientation){

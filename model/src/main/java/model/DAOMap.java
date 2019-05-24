@@ -101,8 +101,9 @@ class DAOMap extends DAOEntity<Map> {
             call.setInt(1, id);
             call.execute();
             ResultSet resultSet = call.getResultSet();
-
-            return resultSet;
+            if(resultSet.next()) {
+                return resultSet;
+            } else  return null;
         } catch (Exception e) {
             System.out.println(e);
             return null;
