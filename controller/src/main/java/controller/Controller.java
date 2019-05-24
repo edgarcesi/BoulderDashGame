@@ -151,6 +151,13 @@ public final class Controller implements IController {
 				model.getPlayer().IncrementScore(500);
 				System.out.println(model.getPlayer().getScore());
 			}
+
+
+			// Lorsque le joueur atteint le score cible le bloc de fin apparait.
+			if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
+				model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
+			}
+
 		}
 	}
 
