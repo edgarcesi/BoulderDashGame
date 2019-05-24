@@ -6,5 +6,4 @@ public enum BlockType {
     EMPTY,
     ROCK,
     DIAMOND,
-
 }
