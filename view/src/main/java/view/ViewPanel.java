@@ -70,11 +70,11 @@ class ViewPanel extends JPanel implements Observer {
 		Graphics2D g2 = (Graphics2D)graphics;
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		//graphics.drawString(this.getViewFrame().getModel().getMap().getSchema(), 10, 20);
-		System.out.println("ntm");
+		//System.out.println("run");
 		//for each blocks in the map
 		Map map = viewFrame.getModel().getMap();
 		Block[][] blocks = map.getBlocks();
-		System.out.println(map.getLenght()+","+map.getHeight());
+		//System.out.println(map.getLenght()+","+map.getHeight());
 		for(int y = 0; y<map.getHeight(); y++){
 			for(int x = 0;x<map.getLenght();x++){
 				switch (blocks[y][x].getType()){
