@@ -101,7 +101,7 @@ class ViewPanel extends JPanel implements Observer {
 		// Draw Player
         graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
 		// Draw score
-        graphics.drawString(String.valueOf(viewFrame.getModel().getPlayer().getScore()), 20,300);
+        graphics.drawString("Score : " + String.valueOf(viewFrame.getModel().getPlayer().getScore()), 20,300);
 
 		repaint();
 	}

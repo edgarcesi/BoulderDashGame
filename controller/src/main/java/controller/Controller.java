@@ -80,7 +80,7 @@ public final class Controller implements IController {
 		BlockType nextBlockType = BlockType.WALL;
 		int nowX = nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "NOW");
 		int nowY = nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "NOW");
-		BlockType nowBlockType = model.getMap().getBlockType(nowX/16, nowY/16);
+		BlockType nowBlockType = model.getMap().getBlockType(model.IndexPos(nowX), model.IndexPos(nowY));
 
 		switch (controllerOrder) {
 			case UP:
@@ -109,7 +109,7 @@ public final class Controller implements IController {
 
 		if (nextBlockType != BlockType.WALL && nextBlockType != BlockType.ROCK){
 			if (nowBlockType == BlockType.DIRT){
-				model.getMap().TransformToDirt(nowX/16, nowY/16);
+				model.getMap().TransformToDirt(model.IndexPos(nowX), model.IndexPos(nowY));
 			}
 
 
@@ -131,15 +131,15 @@ public final class Controller implements IController {
 				//prevBotX -= i * 16;
 				prevBotY += 16;
 
-				prevTopType =  model.getMap().getBlockType(prevTopX/16, prevTopY/16);
-				prevBotType =  model.getMap().getBlockType(prevBotX/16, prevBotY/16);
+				prevTopType =  model.getMap().getBlockType(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
+				prevBotType =  model.getMap().getBlockType(model.IndexPos(prevBotX), model.IndexPos(prevBotY));
 				System.out.println(prevTopType);
 				System.out.println(prevBotType);
 				System.out.println(i);
 
 				if (prevBotType.equals(BlockType.EMPTY) && prevTopType.equals(BlockType.ROCK)){
-					model.getMap().TransformToDirt(prevTopX/16, prevTopY/16);
-					model.getMap().TransformToRock(prevBotX/16, prevBotY/16);
+					model.getMap().TransformToDirt(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
+					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY));
 					System.out.println("done");
 
 				}else{
@@ -154,7 +154,7 @@ public final class Controller implements IController {
 			model.getPlayer().setPosX(nextX);
 			model.getPlayer().setPosY(nextY);
 			nowBlockType = nextBlockType;
-			// Score dimamant
+			// Score diamant
 			if (nowBlockType.equals(BlockType.DIAMOND)){
 				model.getMap().TransformToDirt(nextX/16, nextY/16);
 				model.getPlayer().IncrementScore(500);
@@ -165,6 +165,15 @@ public final class Controller implements IController {
 			// Lorsque le joueur atteint le score cible le bloc de fin apparait.
 			if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
 				model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
+
+				System.out.println(model.IndexPos(model.getPlayer().getPosX()) +","+model.getMap().getEndX());
+
+				if( (model.IndexPos(model.getPlayer().getPosX()) == model.getMap().getEndX() ) &&
+					(model.IndexPos(model.getPlayer().getPosY()) == model.getMap().getEndY() ) &&
+					 !model.getWin() ) {
+					view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());
+					model.setWin(true);
+				}
 			}
 
 		}

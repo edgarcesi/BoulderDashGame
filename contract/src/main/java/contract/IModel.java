@@ -37,6 +37,8 @@ public interface IModel {
 	public void setPlayer(final Player player);
 	public Player getPlayer();
 
+	public boolean getWin();
+	public void setWin(boolean win);
 	/**
 	 * Gets the observable.
 	 *

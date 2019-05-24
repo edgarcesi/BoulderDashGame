@@ -20,7 +20,7 @@ import javax.swing.text.View;
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
 	private int mapID = 3; // Map to load
-
+	private boolean win = false;
     private Map map;
 	private Player player;
 
@@ -29,7 +29,7 @@ public final class Model extends Observable implements IModel {
 	 */
 	public Model() {
 		this.loadMap(mapID);
-		this.player = new Player(map.getStartX(),map.getStartY());
+		this.player = new Player(RealPos(map.getStartX()),RealPos(map.getStartY()));
 	}
 
 
@@ -113,4 +113,12 @@ public final class Model extends Observable implements IModel {
 	 *            the new player
 	 */
 	public void setPlayer(Player player){this.player = player;}
+
+	public boolean getWin() {
+		return win;
+	}
+
+	public void setWin(boolean win) {
+		this.win = win;
+	}
 }
