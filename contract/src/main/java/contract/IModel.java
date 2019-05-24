@@ -30,21 +30,6 @@ public interface IModel {
 	 */
 	void loadMap(int id);
 
-	/**
-	 * Gets the hello world.
-	 *
-	 * @return the helloworld entity
-	 */
-	HelloWorld getHelloWorld();
-
-	/**
-	 * Load the message.
-	 *
-	 * @param code
-	 *          the code
-	 */
-	void loadHelloWorld(String code);
-
 
 	int RealPos(int index);
 	public int IndexPos(int realPos);

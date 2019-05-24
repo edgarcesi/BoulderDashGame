@@ -39,11 +39,11 @@ class DAOMap extends DAOEntity<Map> {
     public Map find(int id) {
         Map map = new Map();
         try {
-            final String sql = "{call getSchemaByMap(?)}";
-            final CallableStatement call = this.getConnection().prepareCall(sql);
+            String sql = "{call getSchemaByMap(?)}";
+            CallableStatement call = this.getConnection().prepareCall(sql);
             call.setInt(1, id);
             call.execute();
-            final ResultSet resultSet = call.getResultSet();
+            ResultSet resultSet = call.getResultSet();
 
             int nline = 0;
             ArrayList<String> line = new ArrayList<>();
@@ -94,7 +94,18 @@ class DAOMap extends DAOEntity<Map> {
     }
 
     @Override
-    public Map find(String code) {
-        return null;
+    public ResultSet mapInfo(int id) {
+        ResultSet resultSet = null;
+        try {
+            String sql = "{call getStartPosByMap(?)}";
+            CallableStatement call = this.getConnection().prepareCall(sql);
+            call.setInt(1, id);
+            call.execute();
+            resultSet = call.getResultSet();
+            System.out.println(resultSet.getString(1));
+        } catch (Exception e) {
+
+        }
+        return resultSet;
     }
 }

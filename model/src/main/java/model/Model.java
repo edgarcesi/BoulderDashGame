@@ -19,11 +19,6 @@ import javax.swing.text.View;
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16;
 
-
-
-	/** The helloWorld. */
-	private HelloWorld helloWorld;
-
 	private Map map;
 	private int mapID = 2;
 	private Player player;
@@ -34,55 +29,8 @@ public final class Model extends Observable implements IModel {
 	 * Instantiates a new model.
 	 */
 	public Model() {
-		this.helloWorld = new HelloWorld();
 		this.loadMap(mapID);
 		this.player = new Player(startX,startY);
-	}
-
-	/**
-     * Gets the hello world.
-     *
-     * @return the hello world
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
-	}
-
-	/**
-     * Sets the hello world.
-     *
-     * @param helloWorld
-     *            the new hello world
-     */
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
-		this.setChanged();
-		this.notifyObservers();
-	}
-
-	/**
-	 * Load hello world.
-	 *
-	 * @param code
-	 *            the code
-	 */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
-	public void loadHelloWorld(final String code) {
-		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 
