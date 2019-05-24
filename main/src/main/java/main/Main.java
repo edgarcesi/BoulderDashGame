@@ -29,10 +29,5 @@ public abstract class Main {
         final View view = new View(model);
         final Controller controller = new Controller(view, model);
         view.setController(controller);
-// gg
-
-        controller.orderPerform(ControllerOrder.English);
-        // TEST :
-        System.out.println(model.getMap().getBlocks(5,5).getType());
     }
 }

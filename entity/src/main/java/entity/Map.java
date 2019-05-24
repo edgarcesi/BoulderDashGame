@@ -160,7 +160,18 @@ public class Map extends Entity {
         this.startY = startY;
     }
 
-    public BlockType TypeNextBlock(int x, int y){
-        return this.blocks[y][x].getType();
+    public BlockType TypeNextBlock(Player player, String orientation){
+        switch (orientation){
+            case "UP":
+                return this.blocks[(player.getPosY()/16) - 1][(player.getPosX()/16)].getType();
+            case "DOWN":
+                return this.blocks[(player.getPosY()/16) + 1][(player.getPosX()/16)].getType();
+            case "LEFT":
+                return this.blocks[(player.getPosY()/16)][(player.getPosX()/16) - 1].getType();
+            case "RIGHT":
+                return this.blocks[(player.getPosY()/16)][(player.getPosX()/16) + 1].getType();
+            default:
+                return this.blocks[0][0].getType();
+        }
     }
 }

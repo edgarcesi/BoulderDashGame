@@ -83,7 +83,7 @@ public final class Controller implements IController {
 
 				}else{
 
-                    if (model.getMap().TypeNextBlock(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())) == BlockType.DIRT){
+                    if (model.getMap().TypeNextBlock(model.getPlayer(), "UP") == BlockType.DIRT){
                         model.getMap().getBlocks(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).setType(BlockType.EMPTY);
                     }
 					if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.DIAMOND){
