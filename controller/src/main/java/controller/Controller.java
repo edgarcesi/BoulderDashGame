@@ -82,10 +82,18 @@ public final class Controller implements IController {
 				if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY() - model.RealPos(1))).getType() == BlockType.WALL || model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY() - model.RealPos(1))).getType() == BlockType.ROCK){
 
 				}else{
-                    if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.DIRT){
+
+                    if (model.getMap().TypeNextBlock(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())) == BlockType.DIRT){
                         model.getMap().getBlocks(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).setType(BlockType.EMPTY);
                     }
+					if (model.getMap().getBlocks(model.IndexPos((int) model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).getType() == BlockType.DIAMOND){
+						model.getMap().getBlocks(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY())).setType(BlockType.EMPTY);
+						model.getPlayer().IncrementScore(500);
+						System.out.println(model.getPlayer().getScore());
+					}
 					model.getPlayer().setPosY(model.getPlayer().getPosY() - model.RealPos(1));
+
+
 				}
 
 				break;

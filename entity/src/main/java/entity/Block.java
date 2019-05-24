@@ -33,4 +33,6 @@ public class Block extends Map{
     public void setType(BlockType type) {
         this.type = type;
     }
+
+
 }

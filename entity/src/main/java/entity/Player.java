@@ -11,10 +11,12 @@ public class Player extends Entity {
     private BufferedImage spriteSheet;
     private Image[] sprites;
     private int activeSprite;
+    private int score;
 
     public Player(final int x, final int y) {
         setPosX(x);
         setPosY(y);
+        setScore(0);
         /** ? Entity or Model ? **/
         try {
             spriteSheet = ImageIO.read(new File("src/player.png"));
@@ -63,6 +65,17 @@ public class Player extends Entity {
         this.posY = posY;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void IncrementScore(int amount){
+        setScore(getScore() + amount);
+    }
 
     /**
      * Sets the message.

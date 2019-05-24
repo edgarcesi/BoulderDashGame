@@ -145,4 +145,8 @@ public class Map extends Entity {
     public void setBlocksSize(int lenght, int height) {
         this.blocks = new Block[height][lenght];
     }
+
+    public BlockType TypeNextBlock(int x, int y){
+        return this.blocks[y][x].getType();
+    }
 }
