@@ -224,6 +224,9 @@ public class Map extends Entity {
     public void TransformToDirt(int x, int y){
         getBlocks(x, y).setType(BlockType.EMPTY);
     }
+    public void TransformToRock(int x, int y){
+        getBlocks(x, y).setType(BlockType.ROCK);
+    }
     public BlockType TypeCurrentBlock(Player player){
         return this.blocks[(player.getPosY()/16) - 1][(player.getPosX()/16)].getType();
     }

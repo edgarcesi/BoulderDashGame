@@ -112,17 +112,45 @@ public final class Controller implements IController {
 				model.getMap().TransformToDirt(nowX/16, nowY/16);
 			}
 
+
+			// gravité
+			int run = 0;
+			int prevTopX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP");
+			int prevTopY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP");
+			int prevBotX = nowX;
+			int prevBotY = nowY;
+			int i = 0;
+			while (run == 0){
+				prevTopX -= i * 16;
+				prevTopY -= i * 16;
+				prevBotX -= i * 16;
+				prevBotY -= i * 16;
+
+				BlockType prevTopType =  model.getMap().getBlockType(prevTopX/16, prevTopY/16);
+				BlockType prevBotType =  model.getMap().getBlockType(prevBotX/16, prevBotY/16);
+				System.out.println(prevTopType);
+				System.out.println(prevBotType);
+                System.out.println("---------");
+				if (prevBotType.equals(BlockType.EMPTY) && prevTopType.equals(BlockType.ROCK)){
+					model.getMap().TransformToDirt(prevTopX/16, prevTopY/16);
+					model.getMap().TransformToRock(prevBotX/16, prevBotY/16);
+				}else{
+					run = 1;
+				}
+
+				i++;
+			}
+
+			//changement de position du player
 			model.getPlayer().setPosX(nextX);
 			model.getPlayer().setPosY(nextY);
 			nowBlockType = nextBlockType;
+			// Score dimamant
 			if (nowBlockType.equals(BlockType.DIAMOND)){
 				model.getMap().TransformToDirt(nextX/16, nextY/16);
 				model.getPlayer().IncrementScore(500);
 				System.out.println(model.getPlayer().getScore());
-			}/*
-			// gravité
-			BlockType prevTopType
-			if*/
+			}
 		}
 	}
 
