@@ -194,6 +194,7 @@ public final class Controller implements IController {
 					 !model.getWin() ) {
 					view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());
 					model.setWin(true);
+					System.exit(0);
 				}
 			}
 
