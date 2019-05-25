@@ -13,6 +13,7 @@ public class Map extends Entity {
     private BufferedImage spriteSheet;
     private Image[] sprites;
 
+
     private Block[][] blocks;
 
     /**
@@ -31,19 +32,21 @@ public class Map extends Entity {
         // fill sprites array
         try {
             spriteSheet = ImageIO.read(new File("src/level.png"));
-            sprites = new Image[6];
+            sprites = new Image[7];
             // Wall
-            sprites[0] = spriteSheet.getSubimage(0*16, 0 * 16, 16, 16);
+            sprites[0] = spriteSheet.getSubimage(0*16, id*64 + 0 * 16, 16, 16);
             // Dirt
-            sprites[1] = spriteSheet.getSubimage(1*16, 0 * 16, 32, 16);
+            sprites[1] = spriteSheet.getSubimage(1*16, id*64 + 0 * 16, 32, 16);
             // Empty
-            sprites[2] = spriteSheet.getSubimage(2*16, 0 * 16, 16, 16);
+            sprites[2] = spriteSheet.getSubimage(2*16, id*64 + 0 * 16, 16, 16);
             // Rock
-            sprites[3] = spriteSheet.getSubimage(3*16, 0 * 16, 16, 16);
+            sprites[3] = spriteSheet.getSubimage(3*16, id*64 + 0 * 16, 16, 16);
             // DIAMOND
-            sprites[4] = spriteSheet.getSubimage(5*16, 0 * 16, 16, 16);
+            sprites[4] = spriteSheet.getSubimage(5*16, id*64 + 0 * 16, 16, 16);
             //END
-            sprites[5] = spriteSheet.getSubimage(7*16, 0 * 16, 16, 16);
+            sprites[5] = spriteSheet.getSubimage(7*16, id*64 + 0 * 16, 16, 16);
+            //STAR
+            sprites[6] = spriteSheet.getSubimage(11*16, id*64 + 0 * 16, 16, 16);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -228,6 +231,9 @@ public class Map extends Entity {
     }
     public void TransformToRock(int x, int y){
         getBlocks(x, y).setType(BlockType.ROCK);
+    }
+    public void TransformToStar(int x, int y){
+        getBlocks(x, y).setType(BlockType.STAR);
     }
     public BlockType TypeCurrentBlock(Player player){
         return this.blocks[(player.getPosY()/16) - 1][(player.getPosX()/16)].getType();

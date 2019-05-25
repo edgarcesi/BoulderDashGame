@@ -108,12 +108,9 @@ public final class Controller implements IController {
 		}
 
 		if (nextBlockType != BlockType.WALL && nextBlockType != BlockType.ROCK){
-			if (nowBlockType == BlockType.DIRT){
-				model.getMap().TransformToDirt(model.IndexPos(nowX), model.IndexPos(nowY));
-			}
 
 
-			// gravité
+			// gravité des Rochers
 			int run = 0;
 			int prevTopX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP");
 			int prevTopY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP") - 16;
@@ -122,10 +119,17 @@ public final class Controller implements IController {
 			int i = 0;
 			BlockType prevTopType, prevBotType;
 			while (run == 0){
+				/*
 				System.out.println(prevTopX);
-				System.out.println(prevTopY);
+				System.out.println(prevTopY);*/
 				System.out.println(prevBotX);
 				System.out.println(prevBotY);
+				System.out.println("PLAYER:");
+				System.out.println(nextY);
+				System.out.println(nextX);
+				System.out.println("BLOCK");
+				//System.out.println(model.getMap().getBlocks().getPosY());
+
 				//prevTopX -= i * 16;
 				prevTopY += 16;
 				//prevBotX -= i * 16;
@@ -133,13 +137,26 @@ public final class Controller implements IController {
 
 				prevTopType =  model.getMap().getBlockType(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
 				prevBotType =  model.getMap().getBlockType(model.IndexPos(prevBotX), model.IndexPos(prevBotY));
-				System.out.println(prevTopType);
-				System.out.println(prevBotType);
-				System.out.println(i);
+				//System.out.println(prevTopType);
+				//System.out.println(prevBotType);
+				//System.out.println(i);
 
 				if (prevBotType.equals(BlockType.EMPTY) && prevTopType.equals(BlockType.ROCK)){
 					model.getMap().TransformToDirt(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
+					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY-12));
+					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY-8));
+					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY-4));
+					model.getMap().TransformToDirt(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
 					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY));
+					if (prevBotX == nextX && prevBotY == nextY){
+						model.getPlayer().setPosX(nextX);
+						model.getPlayer().setPosY(nextY);
+
+						model.PlayerDeathAnnimation(prevTopX, prevBotY);
+						model.getMap().TransformToDirt(model.IndexPos(prevTopX), model.IndexPos(prevBotY));
+						view.printMessage("Vous avez perdu ... Votre score est de  : "+model.getPlayer().getScore());
+						System.exit(0);
+					}
 					System.out.println("done");
 
 				}else{
@@ -154,6 +171,10 @@ public final class Controller implements IController {
 			model.getPlayer().setPosX(nextX);
 			model.getPlayer().setPosY(nextY);
 			nowBlockType = nextBlockType;
+			//creuse quand dle joueur passe sur de la terre
+			if (nowBlockType == BlockType.DIRT){
+				model.getMap().TransformToDirt(model.IndexPos(nextX), model.IndexPos(nextY));
+			}
 			// Score diamant
 			if (nowBlockType.equals(BlockType.DIAMOND)){
 				model.getMap().TransformToDirt(nextX/16, nextY/16);

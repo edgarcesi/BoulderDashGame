@@ -94,12 +94,23 @@ class ViewPanel extends JPanel implements Observer {
 					case END:
 						graphics.drawImage(viewFrame.getModel().getMap().getSprites(5),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
 						break;
+					case STAR:
+						graphics.drawImage(viewFrame.getModel().getMap().getSprites(6),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+						break;
 				}
 			}
 		}
 
 		// Draw Player
-        graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
+		switch (viewFrame.getModel().getPlayer().getFrame()){
+			case NORMAL:
+				graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
+				break;
+			case MORT:
+				graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(1),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
+				break;
+		}
+        //graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
 		// Draw score
         graphics.drawString("Score : " + String.valueOf(viewFrame.getModel().getPlayer().getScore()), 20,300);
 

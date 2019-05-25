@@ -8,6 +8,7 @@ import contract.IModel;
 import entity.HelloWorld;
 import entity.Map;
 import entity.Player;
+import entity.PlayerSprite;
 
 import javax.swing.*;
 import javax.swing.text.View;
@@ -120,5 +121,18 @@ public final class Model extends Observable implements IModel {
 
 	public void setWin(boolean win) {
 		this.win = win;
+	}
+
+	public void PlayerDeathAnnimation(int prevTopX, int prevBotY){
+		getPlayer().setFrame(PlayerSprite.MORT);
+		getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevBotY));
+		getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevBotY-16));
+		getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevBotY+16));
+		getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevBotY+16));
+		getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevBotY-16));
+		getMap().TransformToStar(IndexPos(prevTopX + 16), IndexPos(prevBotY-16));
+		getMap().TransformToStar(IndexPos(prevTopX + 16), IndexPos(prevBotY+16));
+		getMap().TransformToStar(IndexPos(prevTopX+16), IndexPos(prevBotY));
+
 	}
 }

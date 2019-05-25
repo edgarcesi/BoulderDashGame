@@ -12,23 +12,21 @@ public class Player extends Entity {
     private Image[] sprites;
     private int activeSprite;
     private int score;
+    private PlayerSprite frame;
 
     public Player(final int x, final int y) {
         setPosX(x);
         setPosY(y);
         setScore(0);
+        setFrame(PlayerSprite.NORMAL);
         /** ? Entity or Model ? **/
         try {
             spriteSheet = ImageIO.read(new File("src/player.png"));
             sprites = new Image[4];
             // Perso à l'arrêt
             sprites[0] = spriteSheet.getSubimage(0*16, 0 * 16, 16, 16);
-            // Dirt
-            sprites[1] = spriteSheet.getSubimage(1*16, 0 * 16, 32, 16);
-            // Empty
-            sprites[2] = spriteSheet.getSubimage(2*16, 0 * 16, 16, 16);
-            // Rock
-            sprites[3] = spriteSheet.getSubimage(3*16, 0 * 16, 16, 16);
+            //mort
+            sprites[1] = spriteSheet.getSubimage(5*16, 5 * 16, 16, 16);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,6 +47,15 @@ public class Player extends Entity {
     public Image getPlayerSprites(int index) {
         return sprites[index];
     }
+
+    public PlayerSprite getFrame() {
+        return frame;
+    }
+
+    public void setFrame(PlayerSprite frame) {
+        this.frame = frame;
+    }
+
     public int getPosX() {
         return posX;
     }
@@ -99,7 +106,6 @@ public class Player extends Entity {
     public Image getSprites(int index) {
         return sprites[index];
     }
-
 
 
 
