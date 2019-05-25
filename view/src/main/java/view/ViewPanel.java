@@ -5,6 +5,7 @@ import entity.Map;
 import entity.Player;
 
 import java.awt.*;
+import java.awt.geom.Dimension2D;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -69,7 +70,7 @@ class ViewPanel extends JPanel implements Observer {
 	@Override
 	protected void paintComponent(final Graphics graphics) {
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-
+		// Draw blocks
 		Map map = viewFrame.getModel().getMap();
 		Block[][] blocks = map.getBlocks();
         //for each blocks in the map
@@ -112,7 +113,7 @@ class ViewPanel extends JPanel implements Observer {
 		}
         //graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
 		// Draw score
-        graphics.drawString("Score : " + String.valueOf(viewFrame.getModel().getPlayer().getScore()), 20,300);
+        graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2)-50,viewFrame.getHeight()-45);
 
 		repaint();
 	}
