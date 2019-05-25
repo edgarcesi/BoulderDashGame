@@ -25,3 +25,10 @@ Data Base : _projet_uml_
 Admin : _admini_
 
 Password : _Kru0!2g7_
+
+---
+Choses a faire :
+
+- Amelierer gravité afin que si il y a plusieurs caillous ils tombent tous.
+- timer pour la chute caillou ?
+- annimation sprites
