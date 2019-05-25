@@ -122,29 +122,29 @@ public final class Model extends Observable implements IModel {
 
 	public void PlayerDeathAnnimation(int prevTopX, int prevTotY){
 		getPlayer().setFrame(PlayerSprite.MORT);
-		if (!getMap().getBlockType(IndexPos(prevTopX - 16), IndexPos(prevTotY)).equals(BlockType.WALL)){
-			getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevTotY));
+		if (!getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX - 16), IndexPos(prevTotY-16)).equals(BlockType.WALL)){
-			getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevTotY-16));
+		if (!getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY-OFFSET)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY-OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX - 16), IndexPos(prevTotY+16)).equals(BlockType.WALL)){
-			getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevTotY+16));
+		if (!getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY+OFFSET)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY+OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY+16)).equals(BlockType.WALL)){
-			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY+16));
+		if (!getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY+OFFSET)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY+OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY-16)).equals(BlockType.WALL)){
-			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY-16));
+		if (!getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY-OFFSET)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY-OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX + 16), IndexPos(prevTotY-16)).equals(BlockType.WALL)){
-			getMap().TransformToStar(IndexPos(prevTopX + 16), IndexPos(prevTotY-16));
+		if (!getMap().getBlockType(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY-OFFSET)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY-OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX + 16), IndexPos(prevTotY+16)).equals(BlockType.WALL)){
-			getMap().TransformToStar(IndexPos(prevTopX + 16), IndexPos(prevTotY+16));
+		if (!getMap().getBlockType(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY+OFFSET)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY+OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX+16), IndexPos(prevTotY)).equals(BlockType.WALL)){
-			getMap().TransformToStar(IndexPos(prevTopX+16), IndexPos(prevTotY));
+		if (!getMap().getBlockType(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY));
 		}
 	}
 }

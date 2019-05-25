@@ -6,7 +6,6 @@ import entity.Map;
 import entity.Player;
 
 import java.awt.*;
-import java.awt.geom.Dimension2D;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.TimeUnit;
