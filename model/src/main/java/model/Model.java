@@ -5,10 +5,7 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 import contract.IModel;
-import entity.HelloWorld;
-import entity.Map;
-import entity.Player;
-import entity.PlayerSprite;
+import entity.*;
 
 import javax.swing.*;
 import javax.swing.text.View;
@@ -20,7 +17,7 @@ import javax.swing.text.View;
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 3; // Map to load
+	private int mapID = 2; // Map to load
 	private boolean win = false;
     private Map map;
 	private Player player;
@@ -123,16 +120,31 @@ public final class Model extends Observable implements IModel {
 		this.win = win;
 	}
 
-	public void PlayerDeathAnnimation(int prevTopX, int prevBotY){
+	public void PlayerDeathAnnimation(int prevTopX, int prevTotY){
 		getPlayer().setFrame(PlayerSprite.MORT);
-		getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevBotY));
-		getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevBotY-16));
-		getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevBotY+16));
-		getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevBotY+16));
-		getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevBotY-16));
-		getMap().TransformToStar(IndexPos(prevTopX + 16), IndexPos(prevBotY-16));
-		getMap().TransformToStar(IndexPos(prevTopX + 16), IndexPos(prevBotY+16));
-		getMap().TransformToStar(IndexPos(prevTopX+16), IndexPos(prevBotY));
-
+		if (!getMap().getBlockType(IndexPos(prevTopX - 16), IndexPos(prevTotY)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevTotY));
+		}
+		if (!getMap().getBlockType(IndexPos(prevTopX - 16), IndexPos(prevTotY-16)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevTotY-16));
+		}
+		if (!getMap().getBlockType(IndexPos(prevTopX - 16), IndexPos(prevTotY+16)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX - 16), IndexPos(prevTotY+16));
+		}
+		if (!getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY+16)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY+16));
+		}
+		if (!getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY-16)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY-16));
+		}
+		if (!getMap().getBlockType(IndexPos(prevTopX + 16), IndexPos(prevTotY-16)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX + 16), IndexPos(prevTotY-16));
+		}
+		if (!getMap().getBlockType(IndexPos(prevTopX + 16), IndexPos(prevTotY+16)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX + 16), IndexPos(prevTotY+16));
+		}
+		if (!getMap().getBlockType(IndexPos(prevTopX+16), IndexPos(prevTotY)).equals(BlockType.WALL)){
+			getMap().TransformToStar(IndexPos(prevTopX+16), IndexPos(prevTotY));
+		}
 	}
 }

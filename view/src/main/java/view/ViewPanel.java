@@ -1,6 +1,7 @@
 package view;
 
 import entity.Block;
+import entity.BlockType;
 import entity.Map;
 import entity.Player;
 
@@ -8,6 +9,7 @@ import java.awt.*;
 import java.awt.geom.Dimension2D;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -87,7 +89,21 @@ class ViewPanel extends JPanel implements Observer {
 						graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
 						break;
 					case ROCK:
-						graphics.drawImage(viewFrame.getModel().getMap().getSprites(3),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+						if (blocks[y+1][x].getType().equals(BlockType.EMPTY) && !blocks[y+1][x].getType().equals(BlockType.ROCK) && viewFrame.getModel().getPlayer().getPosX()/16 != x && viewFrame.getModel().getPlayer().getPosY()/16 != y+1){
+							graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+							viewFrame.getModel().getMap().TransformToDirt(x, y);
+							viewFrame.getModel().getMap().TransformToRock(x, y+1);
+							//delay 50 millisecondes
+							try {
+								TimeUnit.MILLISECONDS.sleep(150);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							repaint();
+						}else{
+							graphics.drawImage(viewFrame.getModel().getMap().getSprites(3),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
+						}
+
 					break;
 					case DIAMOND:
 						graphics.drawImage(viewFrame.getModel().getMap().getSprites(4),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
@@ -114,7 +130,12 @@ class ViewPanel extends JPanel implements Observer {
         //graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
 		// Draw score
         graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2)-50,viewFrame.getHeight()-45);
-
+        //delay 50 millisecondes
+		try {
+			TimeUnit.MILLISECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		repaint();
 	}
 
