@@ -6,6 +6,7 @@ import entity.Map;
 import entity.Player;
 
 import java.awt.*;
+import java.awt.geom.Dimension2D;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +34,18 @@ class ViewPanel extends JPanel implements Observer {
 	public ViewPanel(final ViewFrame viewFrame) {
 		this.setViewFrame(viewFrame);
 		viewFrame.getModel().getObservable().addObserver(this);
+		Thread loop = new Thread(() -> {
+			while (true){
+				this.repaint();
+				try {
+					Thread.sleep(33l);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		loop.setDaemon(true);
+		loop.start();
 	}
 
 	/**
@@ -135,7 +148,6 @@ class ViewPanel extends JPanel implements Observer {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		repaint();
 	}
 
 }
