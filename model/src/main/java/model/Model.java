@@ -17,7 +17,7 @@ import javax.swing.text.View;
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 2; // Map to load
+	private int mapID = 3; // Map to load
 	private boolean win = false;
     private Map map;
 	private Player player;

@@ -7,19 +7,18 @@ import java.io.File;
 import java.io.IOException;
 
 public class Player extends Entity {
-    private int posX, posY;
+    private int posX, posY, score;
+
+    private PlayerSprite frame;
     private BufferedImage spriteSheet;
     private Image[] sprites;
-    private int activeSprite;
-    private int score;
-    private PlayerSprite frame;
+
 
     public Player(final int x, final int y) {
         setPosX(x);
         setPosY(y);
         setScore(0);
-        setFrame(PlayerSprite.NORMAL);
-        /** ? Entity or Model ? **/
+
         try {
             spriteSheet = ImageIO.read(new File("src/player.png"));
             sprites = new Image[4];
@@ -30,8 +29,9 @@ public class Player extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /** ?------------------? **/
+        setFrame(PlayerSprite.NORMAL);
     }
+
 
     /**
      * Instantiates a new map.
@@ -39,6 +39,7 @@ public class Player extends Entity {
     public Player() {
         this(0,0);
     }
+
     /**
      * Getters.
      *
@@ -84,13 +85,6 @@ public class Player extends Entity {
         setScore(getScore() + amount);
     }
 
-    /**
-     * Sets the message.
-     *
-     * @param content
-     *          the new message
-     */
-
     public void setSprites(Image[] sprites) {
         this.sprites = sprites;
     }
@@ -106,7 +100,5 @@ public class Player extends Entity {
     public Image getSprites(int index) {
         return sprites[index];
     }
-
-
 
 }

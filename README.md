@@ -32,7 +32,11 @@ Choses a faire :
 - Amelierer gravité afin que si il y a plusieurs caillous ils tombent tous.
 - timer pour la chute caillou ?
 - annimation sprites
+- placer le score dans model à la place de player
 
 - Modelisation UML
 - Tests JUnit
 - Javadoc
+
+
+
