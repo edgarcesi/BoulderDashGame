@@ -38,7 +38,7 @@ class ViewPanel extends JPanel implements Observer {
 			while (true){
 				this.repaint();
 				try {
-					Thread.sleep(33l);
+					Thread.sleep(200l);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -115,7 +115,6 @@ class ViewPanel extends JPanel implements Observer {
 						}else{
 							graphics.drawImage(viewFrame.getModel().getMap().getSprites(3),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
 						}
-
 					break;
 					case DIAMOND:
 						graphics.drawImage(viewFrame.getModel().getMap().getSprites(4),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
@@ -130,16 +129,9 @@ class ViewPanel extends JPanel implements Observer {
 			}
 		}
 
-		// Draw Player
-		switch (viewFrame.getModel().getPlayer().getFrame()){
-			case NORMAL:
-				graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
-				break;
-			case MORT:
-				graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(1),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
-				break;
-		}
-        //graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
+        // Draw player
+        graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(), viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
+
 		// Draw score
         graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2)-50,viewFrame.getHeight()-45);
         //delay 50 millisecondes
