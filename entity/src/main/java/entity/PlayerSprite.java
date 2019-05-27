@@ -6,6 +6,5 @@ public enum PlayerSprite {
     RIGHT,
     UP,
     DOWN,
-    NORMAL,
-    MORT,
+    DEAD
 }

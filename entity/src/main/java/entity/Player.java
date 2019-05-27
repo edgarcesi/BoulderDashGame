@@ -17,6 +17,7 @@ public class Player extends Entity {
     private Image[] rightSprites;
     private Image[] upSprites;
     private Image[] downSprites;
+    private Image[] deadSprites;
 
 
     public Player(final int x, final int y) {
@@ -44,6 +45,10 @@ public class Player extends Entity {
             downSprites[1] = spriteSheet.getSubimage(1*16, 4*16, 16, 16);
             downSprites[2] = spriteSheet.getSubimage(2*16, 4*16, 16, 16);
             downSprites[3] = spriteSheet.getSubimage(3*16, 4*16, 16, 16);
+            deadSprites = new Image[2];
+            deadSprites[0] = spriteSheet.getSubimage(4*16, 5*16, 16, 16);
+            deadSprites[1] = spriteSheet.getSubimage(5*16, 5*16, 16, 16);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -117,6 +122,9 @@ public class Player extends Entity {
             case DOWN:
                 if(frameIndex>downSprites.length-1) frameIndex = 0;
                 return downSprites[frameIndex];
+            case DEAD:
+                if(frameIndex>deadSprites.length-1) frameIndex = 0;
+                return deadSprites[frameIndex];
              default:
                 return idleSprites[0];
         }

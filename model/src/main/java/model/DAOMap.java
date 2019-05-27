@@ -38,11 +38,11 @@ class DAOMap extends DAOEntity<Map> {
     @Override
     public Map find(int id) {
         try {
-            String sql = "{call getSchemaByMap(?)}";
-            CallableStatement call = this.getConnection().prepareCall(sql);
-            call.setInt(1, id);
-            call.execute();
-            ResultSet resultSet = call.getResultSet();
+            String sqlMap = "{call getSchemaByMap(?)}";
+            CallableStatement callMap = this.getConnection().prepareCall(sqlMap);
+            callMap.setInt(1, id);
+            callMap.execute();
+            ResultSet resultSet = callMap.getResultSet();
 
             int nline = 0; // Map height
             ArrayList<String> line = new ArrayList<>(); // Map length
@@ -51,9 +51,7 @@ class DAOMap extends DAOEntity<Map> {
                 System.out.println(line.get(nline));
                 nline++;
             }
-
             Map map = new Map(id, nline,line.get(0).length());
-
             // Create map blocks
             for(int y = 0;y<nline;y++){
                 for(int x = 0;x<line.get(y).length();x++){
@@ -83,6 +81,22 @@ class DAOMap extends DAOEntity<Map> {
                 }
                 // txt char line
                 map.setSchema(y,line.get(y));
+            }
+
+            // Get the map info
+
+            String sqlMapInfo = "{call getMapInfo(?)}";
+            CallableStatement callMapInfo = this.getConnection().prepareCall(sqlMapInfo);
+            callMapInfo.setInt(1, id);
+            callMapInfo.execute();
+            ResultSet resultMapInfo = callMapInfo.getResultSet();
+            if(resultMapInfo.next()){
+                map.setStartX(resultMapInfo.getInt("StartX"));
+                map.setStartY(resultMapInfo.getInt("StartY"));
+                map.setEndX(resultMapInfo.getInt("EndX"));
+                map.setEndY(resultMapInfo.getInt("EndY"));
+                map.setDiamond(resultMapInfo.getInt("Diamond"));
+                map.setTime(resultMapInfo.getLong("Time"));
             }
 
             return map;

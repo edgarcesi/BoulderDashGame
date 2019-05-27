@@ -67,19 +67,11 @@ public final class Model extends Observable implements IModel {
 	 *            the map id
 	 */
 	public void loadMap(final int id){
-
 	    try {
 			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
 			// Get the map
 			this.setMap(daoMap.find(id));
-            // Fill map info
-			ResultSet mapInfo = daoMap.mapInfo(id);
-			this.map.setStartX(mapInfo.getInt("StartX"));
-			this.map.setStartY(mapInfo.getInt("StartY"));
-			this.map.setEndX(mapInfo.getInt("EndX"));
-			this.map.setEndY(mapInfo.getInt("EndY"));
-			this.map.setDiamond(mapInfo.getInt("Diamond"));
-
+			// Start timer thread
 			time = getMap().getTime();
 			Thread timer = new Thread(() -> {
 				while (time>0){
@@ -91,7 +83,6 @@ public final class Model extends Observable implements IModel {
 					}
 				}
 			});
-
 			timer.start();
 
             // [DEBUG]-Write map info
@@ -99,6 +90,7 @@ public final class Model extends Observable implements IModel {
 			System.out.println("Start : "+map.getStartX()+","+map.getStartY());
 			System.out.println("End : "+map.getEndX()+","+map.getEndY());
 			System.out.println("Diamond : "+map.getDiamond());
+			System.out.println("Time : "+map.getTime());
 		}
 		catch (final SQLException e) {
 			e.printStackTrace();
@@ -142,7 +134,7 @@ public final class Model extends Observable implements IModel {
 	}
 
 	public void PlayerDeathAnnimation(int prevTopX, int prevTotY){
-		getPlayer().setFrame(PlayerSprite.MORT);
+		getPlayer().setFrame(PlayerSprite.DEAD);
 		if (!getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY)).equals(BlockType.WALL)){
 			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY));
 		}

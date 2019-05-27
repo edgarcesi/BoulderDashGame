@@ -193,7 +193,7 @@ public class Map extends Entity {
     }
 
     public long getTime(){ return time;}
-    public void setTime(int time){ this.time = time;}
+    public void setTime(long time){ this.time = time;}
 
     public int CoordoneeYNextBlock(Player player, String orientation){
         switch (orientation){
