@@ -187,23 +187,23 @@ public final class Controller implements IController {
 				model.getPlayer().IncrementScore(500);
 				System.out.println(model.getPlayer().getScore());
 			}
+		}
 
-
-			// Lorsque le joueur atteint le score cible le bloc de fin apparait.
-			if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
-				model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
-
-				System.out.println(model.IndexPos(model.getPlayer().getPosX()) +","+model.getMap().getEndX());
-
-				if( (model.IndexPos(model.getPlayer().getPosX()) == model.getMap().getEndX() ) &&
+		// Lorsque le joueur atteint le score cible le bloc de fin apparait.
+		if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
+			model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
+			if( (model.IndexPos(model.getPlayer().getPosX()) == model.getMap().getEndX() ) &&
 					(model.IndexPos(model.getPlayer().getPosY()) == model.getMap().getEndY() ) &&
-					 !model.getWin() ) {
-					view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());
-					model.setWin(true);
-					System.exit(0);
-				}
+					!model.getWin() ) {
+				view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());
+				model.setWin(true);
+				System.exit(0);
 			}
-
+		}
+		if(model.getTime()<=0 && !model.isDead()){
+			view.printMessage(" PERDU !!!!!vous avez dépassé le temps ");
+			model.setDead(true);
+			System.exit(0);
 		}
 	}
 

@@ -27,7 +27,7 @@ public class Map extends Entity {
         this.setId(id);
         this.length = length; // x
         this.height = height; // y
-        this.time = 100;
+        this.time = 10;
 
         schema = new String[height];
         blocks = new Block[height][length];
