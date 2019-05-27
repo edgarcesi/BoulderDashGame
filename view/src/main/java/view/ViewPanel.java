@@ -137,16 +137,16 @@ class ViewPanel extends JPanel implements Observer {
         graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(), viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
 
 		// Draw score
-        Font font1=new Font("",Font.BOLD, 16);
+        Font font1=new Font("",Font.BOLD, 14);
         graphics.setFont(font1);
         graphics.setColor(Color.blue);
-        graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2)-0,viewFrame.getHeight()-45);
+        graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2),viewFrame.getHeight()-45);
         //delay 50 millisecondes
 
-        Font font2=new Font("",Font.BOLD, 16);
+        Font font2=new Font("",Font.BOLD, 14);
         graphics.setFont(font2);
         graphics.setColor(Color.red);
-        graphics.drawString("Temps : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-112,viewFrame.getHeight()-45);
+        graphics.drawString("Temps : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-100,viewFrame.getHeight()-45);
 
 
 	}

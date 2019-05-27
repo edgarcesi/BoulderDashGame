@@ -117,37 +117,22 @@ public final class Controller implements IController {
 
 
 			// gravité des Rochers
-			int run = 0;
+			boolean run = false;
 			int prevTopX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP");
 			int prevTopY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP") - 16;
 			int prevBotX = nowX;
 			int prevBotY = nowY - 16;
 			int i = 0;
 			BlockType prevTopType, prevBotType;
-			while (run == 0){
-				/*
-				System.out.println(prevTopX);
-				System.out.println(prevTopY);*/
-				System.out.println(prevBotX);
-				System.out.println(prevBotY);
-				System.out.println("PLAYER:");
-				System.out.println(nextY);
-				System.out.println(nextX);
-				System.out.println("BLOCK");
-				//System.out.println(model.getMap().getBlocks().getPosY());
-
-				//prevTopX -= i * 16;
+			while (!run){
 				prevTopY += 16;
-				//prevBotX -= i * 16;
 				prevBotY += 16;
 
 				prevTopType =  model.getMap().getBlockType(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
 				prevBotType =  model.getMap().getBlockType(model.IndexPos(prevBotX), model.IndexPos(prevBotY));
-				//System.out.println(prevTopType);
-				//System.out.println(prevBotType);
-				//System.out.println(i);
 
 				if (prevBotType.equals(BlockType.EMPTY) && prevTopType.equals(BlockType.ROCK)){
+
 					model.getMap().TransformToDirt(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
 					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY-12));
 					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY-8));
@@ -163,13 +148,9 @@ public final class Controller implements IController {
 						view.printMessage("Vous avez perdu ... Votre score est de  : "+model.getPlayer().getScore());
 						System.exit(0);
 					}
-					System.out.println("done");
-
 				}else{
-					run = 1;
-					System.out.println("err");
+					run = true;
 				}
-				System.out.println("---------");
 				i += 1;
 			}
 

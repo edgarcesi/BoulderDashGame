@@ -18,7 +18,7 @@ import javax.swing.text.View;
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 3; // Map to load
+	private int mapID = 2; // Map to load
 	private boolean win,dead = false;
 	private long time;
 
@@ -76,7 +76,7 @@ public final class Model extends Observable implements IModel {
 			Thread timer = new Thread(() -> {
 				while (time > 0) {
 					try {
-						Thread.sleep(100);
+						Thread.sleep(1000);
 						time--;
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -88,7 +88,6 @@ public final class Model extends Observable implements IModel {
 		catch (final SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 
