@@ -130,16 +130,8 @@ class ViewPanel extends JPanel implements Observer {
 			}
 		}
 
-		// Draw Player
-		switch (viewFrame.getModel().getPlayer().getFrame()){
-			case NORMAL:
-				graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
-				break;
-			case MORT:
-				graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(1),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
-				break;
-		}
-        //graphics.drawImage(viewFrame.getModel().getPlayer().getPlayerSprites(0),viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
+        graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(), viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
+
 		// Draw score
         graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2)-50,viewFrame.getHeight()-45);
         //delay 50 millisecondes

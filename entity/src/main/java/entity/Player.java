@@ -7,29 +7,40 @@ import java.io.File;
 import java.io.IOException;
 
 public class Player extends Entity {
-    private int posX, posY, score;
+    private int posX, posY, score, frameIndex;
 
     private PlayerSprite frame;
     private BufferedImage spriteSheet;
-    private Image[] sprites;
+
+    private Image[] idleSprites;
+    private Image[] leftSprites;
+    private Image[] rightSprites;
+    private Image[] upSprites;
+    private Image[] downSprites;
 
 
     public Player(final int x, final int y) {
-        setPosX(x);
-        setPosY(y);
-        setScore(0);
-
         try {
             spriteSheet = ImageIO.read(new File("src/player.png"));
-            sprites = new Image[4];
-            // Perso à l'arrêt
-            sprites[0] = spriteSheet.getSubimage(0*16, 0 * 16, 16, 16);
-            //mort
-            sprites[1] = spriteSheet.getSubimage(5*16, 5 * 16, 16, 16);
+
+            idleSprites = new Image[4];
+            idleSprites[0] = spriteSheet.getSubimage(0*16, 0 * 16, 16, 16);
+            leftSprites = new Image[1];
+            leftSprites[0] = spriteSheet.getSubimage(1*16, 0*16, 16,16);
+            rightSprites = new Image[1];
+            rightSprites[0] = spriteSheet.getSubimage(3*16, 0*16, 16,16);
+            upSprites = new Image[1];
+            upSprites[0] = spriteSheet.getSubimage(5*16,2*16,16,16);
+            downSprites = new Image[1];
+            downSprites[0] = spriteSheet.getSubimage(4*16, 1*16, 16, 16);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setFrame(PlayerSprite.NORMAL);
+        setFrame(PlayerSprite.IDLE);
+
+        setPosX(x);
+        setPosY(y);
+        setScore(0);
     }
 
 
@@ -40,14 +51,6 @@ public class Player extends Entity {
         this(0,0);
     }
 
-    /**
-     * Getters.
-     *
-     * @return the id
-     */
-    public Image getPlayerSprites(int index) {
-        return sprites[index];
-    }
 
     public PlayerSprite getFrame() {
         return frame;
@@ -85,20 +88,26 @@ public class Player extends Entity {
         setScore(getScore() + amount);
     }
 
-    public void setSprites(Image[] sprites) {
-        this.sprites = sprites;
+    public Image getSprites() {
+        switch (frame){
+            case IDLE:
+                if(idleSprites.length<=frameIndex) frameIndex = 0;
+                return idleSprites[frameIndex];
+            case LEFT:
+                if(leftSprites.length<=frameIndex) frameIndex = 0;
+                return leftSprites[frameIndex];
+            case RIGHT:
+                if(rightSprites.length<=frameIndex) frameIndex = 0;
+                return rightSprites[frameIndex];
+            case UP:
+                if(upSprites.length<=frameIndex) frameIndex = 0;
+                return upSprites[frameIndex];
+            case DOWN:
+                if(downSprites.length<=frameIndex) frameIndex = 0;
+                return downSprites[frameIndex];
+        }
+        return idleSprites[0];
     }
 
-    public void setSprites(int index, Image spritesImg) {
-        this.sprites[index] =  spritesImg;
-    }
-
-    public void setSpriteSize(int size){
-        this.sprites = new Image[size];
-    }
-
-    public Image getSprites(int index) {
-        return sprites[index];
-    }
 
 }

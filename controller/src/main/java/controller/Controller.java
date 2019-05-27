@@ -5,6 +5,7 @@ import contract.IController;
 import contract.IModel;
 import contract.IView;
 import entity.BlockType;
+import entity.PlayerSprite;
 
 /**
  * The Class Controller.
@@ -84,26 +85,31 @@ public final class Controller implements IController {
 
 		switch (controllerOrder) {
 			case UP:
+				model.getPlayer().setFrame(PlayerSprite.UP);
 				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP");
 				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP");
 				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
 				break;
 			case DOWN:
+				model.getPlayer().setFrame(PlayerSprite.DOWN);
 				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "DOWN");
 				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "DOWN");
 				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
 				break;
 			case LEFT:
+				model.getPlayer().setFrame(PlayerSprite.LEFT);
 				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "LEFT");
 				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "LEFT");
 				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
 				break;
 			case RIGHT:
+				model.getPlayer().setFrame(PlayerSprite.RIGHT);
 				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "RIGHT");
 				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "RIGHT");
 				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
 				break;
 			case NOTHING:
+				model.getPlayer().setFrame(PlayerSprite.IDLE);
 				break;
 		}
 
