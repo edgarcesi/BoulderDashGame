@@ -83,6 +83,7 @@ public final class Model extends Observable implements IModel {
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 
