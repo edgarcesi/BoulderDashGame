@@ -37,9 +37,10 @@ public interface IModel {
 	public void setPlayer(final Player player);
 	public Player getPlayer();
 
-	public boolean getWin();
-	public void setWin(boolean win);
-
+	boolean getWin();
+	void setWin(boolean win);
+	void setDead(boolean dead);
+	boolean isDead();
 	long getTime();
 	public void PlayerDeathAnnimation(int prevTopX, int prevBotY);
 	/**
