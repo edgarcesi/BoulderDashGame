@@ -21,18 +21,29 @@ public class Player extends Entity {
 
     public Player(final int x, final int y) {
         try {
+            frameIndex = 0;
             spriteSheet = ImageIO.read(new File("src/player.png"));
-
-            idleSprites = new Image[4];
+            idleSprites = new Image[2];
             idleSprites[0] = spriteSheet.getSubimage(0*16, 0 * 16, 16, 16);
-            leftSprites = new Image[1];
-            leftSprites[0] = spriteSheet.getSubimage(1*16, 0*16, 16,16);
-            rightSprites = new Image[1];
-            rightSprites[0] = spriteSheet.getSubimage(3*16, 0*16, 16,16);
-            upSprites = new Image[1];
-            upSprites[0] = spriteSheet.getSubimage(5*16,2*16,16,16);
-            downSprites = new Image[1];
-            downSprites[0] = spriteSheet.getSubimage(4*16, 1*16, 16, 16);
+            idleSprites[1] = spriteSheet.getSubimage(3*16, 0 * 16, 16, 16);
+            leftSprites = new Image[3];
+            leftSprites[0] = spriteSheet.getSubimage(0*16, 1*16, 16,16);
+            leftSprites[1] = spriteSheet.getSubimage(1*16, 1*16, 16,16);
+            leftSprites[2] = spriteSheet.getSubimage(2*16, 1*16, 16,16);
+            rightSprites = new Image[3];
+            rightSprites[0] = spriteSheet.getSubimage(0*16, 3*16, 16,16);
+            rightSprites[1] = spriteSheet.getSubimage(1*16, 3*16, 16,16);
+            rightSprites[2] = spriteSheet.getSubimage(2*16, 3*16, 16,16);
+            upSprites = new Image[4];
+            upSprites[0] = spriteSheet.getSubimage(0*16,2*16,16,16);
+            upSprites[1] = spriteSheet.getSubimage(1*16,2*16,16,16);
+            upSprites[2] = spriteSheet.getSubimage(2*16,2*16,16,16);
+            upSprites[3] = spriteSheet.getSubimage(3*16,2*16,16,16);
+            downSprites = new Image[4];
+            downSprites[0] = spriteSheet.getSubimage(0*16, 4*16, 16, 16);
+            downSprites[1] = spriteSheet.getSubimage(1*16, 4*16, 16, 16);
+            downSprites[2] = spriteSheet.getSubimage(2*16, 4*16, 16, 16);
+            downSprites[3] = spriteSheet.getSubimage(3*16, 4*16, 16, 16);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,24 +100,26 @@ public class Player extends Entity {
     }
 
     public Image getSprites() {
+        frameIndex++;
         switch (frame){
             case IDLE:
-                if(idleSprites.length<=frameIndex) frameIndex = 0;
+                if(frameIndex>idleSprites.length-1) frameIndex = 0;
                 return idleSprites[frameIndex];
             case LEFT:
-                if(leftSprites.length<=frameIndex) frameIndex = 0;
+                if(frameIndex>leftSprites.length-1) frameIndex = 0;
                 return leftSprites[frameIndex];
             case RIGHT:
-                if(rightSprites.length<=frameIndex) frameIndex = 0;
+                if(frameIndex>rightSprites.length-1) frameIndex = 0;
                 return rightSprites[frameIndex];
             case UP:
-                if(upSprites.length<=frameIndex) frameIndex = 0;
+                if(frameIndex>rightSprites.length-1) frameIndex = 0;
                 return upSprites[frameIndex];
             case DOWN:
-                if(downSprites.length<=frameIndex) frameIndex = 0;
+                if(frameIndex>downSprites.length-1) frameIndex = 0;
                 return downSprites[frameIndex];
+             default:
+                return idleSprites[0];
         }
-        return idleSprites[0];
     }
 
 
