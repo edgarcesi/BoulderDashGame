@@ -18,8 +18,8 @@ import javax.swing.text.View;
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 3; // Map to load
-	private boolean win = false;
+	private int mapID = 2; // Map to load
+	private boolean win,dead = false;
 	private long time;
 
 	private Map map;
@@ -74,23 +74,16 @@ public final class Model extends Observable implements IModel {
 			// Start timer thread
 			time = getMap().getTime();
 			Thread timer = new Thread(() -> {
-				while (time>0){
-					try{
+				while (time > 0) {
+					try {
 						Thread.sleep(1000);
 						time--;
-					} catch (InterruptedException e){
+					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
 			});
 			timer.start();
-
-            // [DEBUG]-Write map info
-			System.out.println("MAP INFO:");
-			System.out.println("Start : "+map.getStartX()+","+map.getStartY());
-			System.out.println("End : "+map.getEndX()+","+map.getEndY());
-			System.out.println("Diamond : "+map.getDiamond());
-			System.out.println("Time : "+map.getTime());
 		}
 		catch (final SQLException e) {
 			e.printStackTrace();
@@ -131,6 +124,14 @@ public final class Model extends Observable implements IModel {
 
 	public void setWin(boolean win) {
 		this.win = win;
+	}
+
+	public boolean isDead() {
+		return dead;
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 
 	public void PlayerDeathAnnimation(int prevTopX, int prevTotY){
