@@ -2,6 +2,7 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.Observable;
 
 import contract.IModel;
@@ -19,7 +20,9 @@ public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
 	private int mapID = 3; // Map to load
 	private boolean win = false;
-    private Map map;
+	private long time;
+
+	private Map map;
 	private Player player;
 
 	/**
@@ -64,7 +67,8 @@ public final class Model extends Observable implements IModel {
 	 *            the map id
 	 */
 	public void loadMap(final int id){
-		try {
+
+	    try {
 			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
 			// Get the map
 			this.setMap(daoMap.find(id));
@@ -75,12 +79,28 @@ public final class Model extends Observable implements IModel {
 			this.map.setEndX(mapInfo.getInt("EndX"));
 			this.map.setEndY(mapInfo.getInt("EndY"));
 			this.map.setDiamond(mapInfo.getInt("Diamond"));
+
+			time = getMap().getTime();
+			Thread timer = new Thread(() -> {
+				while (time>0){
+					try{
+						Thread.sleep(1000);
+						time--;
+					} catch (InterruptedException e){
+						e.printStackTrace();
+					}
+				}
+			});
+
+			timer.start();
+
             // [DEBUG]-Write map info
 			System.out.println("MAP INFO:");
 			System.out.println("Start : "+map.getStartX()+","+map.getStartY());
 			System.out.println("End : "+map.getEndX()+","+map.getEndY());
 			System.out.println("Diamond : "+map.getDiamond());
-		} catch (final SQLException e) {
+		}
+		catch (final SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -147,5 +167,10 @@ public final class Model extends Observable implements IModel {
 		if (!getMap().getBlockType(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY)).equals(BlockType.WALL)){
 			getMap().TransformToStar(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY));
 		}
+	}
+
+	@Override
+	public long getTime() {
+		return time;
 	}
 }

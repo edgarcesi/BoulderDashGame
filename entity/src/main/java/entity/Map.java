@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Map extends Entity {
 
     private int	id, height, length,startX,startY, endX, endY, diamond;
+    private long time;
     private String[] schema;
     private BufferedImage spriteSheet;
     private Image[] sprites;
@@ -26,6 +27,8 @@ public class Map extends Entity {
         this.setId(id);
         this.length = length; // x
         this.height = height; // y
+        this.time = 100;
+
         schema = new String[height];
         blocks = new Block[height][length];
 
@@ -188,6 +191,9 @@ public class Map extends Entity {
     public void setDiamond(int diamond) {
         this.diamond = diamond;
     }
+
+    public long getTime(){ return time;}
+    public void setTime(int time){ this.time = time;}
 
     public int CoordoneeYNextBlock(Player player, String orientation){
         switch (orientation){

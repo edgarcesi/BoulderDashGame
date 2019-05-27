@@ -29,16 +29,8 @@ public abstract class Main {
         final Controller controller = new Controller(view, model);
         view.setController(controller);
 
-        int temp = 1000;
 
-        for (int t = 60; t > 0; t--) {
-            try {
-                Thread.sleep(temp);
-            } catch (InterruptedException e) {
-                System.out.print("Erreur");
-            }
-            System.out.println(t);
 
-        }
+
     }
 }

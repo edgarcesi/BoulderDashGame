@@ -40,6 +40,7 @@ public interface IModel {
 	public boolean getWin();
 	public void setWin(boolean win);
 
+	long getTime();
 	public void PlayerDeathAnnimation(int prevTopX, int prevBotY);
 	/**
 	 * Gets the observable.

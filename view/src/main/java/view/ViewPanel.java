@@ -143,11 +143,9 @@ class ViewPanel extends JPanel implements Observer {
 		// Draw score
         graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2)-50,viewFrame.getHeight()-45);
         //delay 50 millisecondes
-		try {
-			TimeUnit.MILLISECONDS.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
+        graphics.drawString("Temps : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-200,viewFrame.getHeight()-45);
+
 	}
 
 }
