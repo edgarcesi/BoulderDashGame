@@ -7,13 +7,9 @@ import java.awt.Graphics;
 import entity.Block;
 import entity.BlockType;
 import entity.Map;
-import entity.Player;
 
-import java.awt.*;
-import java.awt.geom.Dimension2D;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -96,6 +92,8 @@ class ViewPanel extends JPanel implements Observer {
 
         for(int y = 0; y<map.getHeight(); y++){
 				for(int x = 0;x<map.getLenght();x++){
+					//graphics.drawImage(blocks[y][x].getSprites(), blocks[y][x].getPosX(), blocks[y][x].getPosY(), this);
+
 					switch (blocks[y][x].getType()){
 						case WALL:
 							graphics.drawImage(viewFrame.getModel().getMap().getSprites(0),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
@@ -157,10 +155,10 @@ class ViewPanel extends JPanel implements Observer {
         graphics.setFont(font2);
         graphics.setColor(Color.red);
         graphics.drawString("Temps : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-100,viewFrame.getHeight()-45);
-        k++;
+        /*k++;
         if (k % 10 == 0){
             repaint();
-        }
+        }*/
 
 	}
 
