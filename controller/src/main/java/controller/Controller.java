@@ -113,52 +113,45 @@ public final class Controller implements IController {
 				break;
 		}
 
-		if (nextBlockType != BlockType.WALL && nextBlockType != BlockType.ROCK){
+		if (nextBlockType != BlockType.WALL && nextBlockType != BlockType.ROCK){ // on teste si le player peut bouger
+			int topX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP"); // upper X
+			int topY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP"); // upper Y
+			BlockType prevTopType =  model.getMap().getBlockType(model.IndexPos(topX), model.IndexPos(topY));
+			BlockType prevTopLeftType =  model.getMap().getBlockType(model.IndexPos(topX)-1, model.IndexPos(topY));
+			BlockType prevTopRightType =  model.getMap().getBlockType(model.IndexPos(topX)+1, model.IndexPos(topY));
 
+			//on teste si le player va descendre sous un rocher, si oui il meurt
+			if ((prevTopType.equals(BlockType.ROCK)) && controllerOrder.equals(ControllerOrder.DOWN)){ // test du cailloux juste au dessus de lui
+				model.getPlayer().setPosX(nextX);
+				model.getPlayer().setPosY(nextY);
 
-			// gravité des Rochers
-			boolean run = false;
-			int prevTopX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP");
-			int prevTopY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP") - 16;
-			int prevBotX = nowX;
-			int prevBotY = nowY - 16;
-			int i = 0;
-			BlockType prevTopType, prevBotType;
-			while (!run){
-				prevTopY += 16;
-				prevBotY += 16;
-
-				prevTopType =  model.getMap().getBlockType(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
-				prevBotType =  model.getMap().getBlockType(model.IndexPos(prevBotX), model.IndexPos(prevBotY));
-
-				if (prevBotType.equals(BlockType.EMPTY) && prevTopType.equals(BlockType.ROCK)){
-
-					model.getMap().TransformToDirt(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
-					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY-12));
-					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY-8));
-					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY-4));
-					model.getMap().TransformToDirt(model.IndexPos(prevTopX), model.IndexPos(prevTopY));
-					model.getMap().TransformToRock(model.IndexPos(prevBotX), model.IndexPos(prevBotY));
-					if (prevBotX == nextX && prevBotY == nextY){
-						model.getPlayer().setPosX(nextX);
-						model.getPlayer().setPosY(nextY);
-
-						model.PlayerDeathAnnimation(prevTopX, prevBotY);
-						model.getMap().TransformToDirt(model.IndexPos(prevTopX), model.IndexPos(prevBotY));
-						view.printMessage("Vous avez perdu ... Votre score est de  : "+model.getPlayer().getScore());
-						System.exit(0);
-					}
-				}else{
-					run = true;
-				}
-				i += 1;
+				model.PlayerDeathAnnimation(nextX, nextY);
+				model.getMap().TransformToDirt(model.IndexPos(topX), model.IndexPos(topY));
+				view.printMessage("Vous avez per du ... Votre score est de  : "+model.getPlayer().getScore());
+				System.exit(0);
+			}
+			if (prevTopLeftType.equals(BlockType.ROCK) && controllerOrder.equals(ControllerOrder.DOWN)){// Test cailloux haut gauche
+				model.getPlayer().setPosX(nextX);
+				model.getPlayer().setPosY(nextY);
+				model.PlayerDeathAnnimation(nextX, nextY);
+				model.getMap().TransformToDirt(model.IndexPos(topX)-1, model.IndexPos(topY));
+				view.printMessage("Vous avez perdu ... Votre score est de  : "+model.getPlayer().getScore());
+				System.exit(0);
+			}
+			if (prevTopRightType.equals(BlockType.ROCK) && controllerOrder.equals(ControllerOrder.DOWN)){ // Test cailloux haut droit
+				model.getPlayer().setPosY(nextY);
+				model.getPlayer().setPosX(nextX);
+				model.PlayerDeathAnnimation(nextX, nextY);
+				model.getMap().TransformToDirt(model.IndexPos(topX)+1, model.IndexPos(topY));
+				view.printMessage("Vous avez perdu ... Votre score : "+model.getPlayer().getScore());
+				System.exit(0);
 			}
 
 			//changement de position du player
 			model.getPlayer().setPosX(nextX);
 			model.getPlayer().setPosY(nextY);
 			nowBlockType = nextBlockType;
-			//creuse quand dle joueur passe sur de la terre
+			//creuse quand le joueur passe sur de la terre
 			if (nowBlockType == BlockType.DIRT){
 				model.getMap().TransformToDirt(model.IndexPos(nextX), model.IndexPos(nextY));
 			}
