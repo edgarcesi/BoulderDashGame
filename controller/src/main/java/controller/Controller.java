@@ -124,13 +124,13 @@ public final class Controller implements IController {
 
 		// Game over event
 		if(model.isDead() && !msgSet){
-			view.printMessage("Vous avez perdu.");
+			view.printMessage("Perdu, attention aux cailloux..");
 			msgSet = true;
 			System.exit(0);
 		}
 		// Time over event
 		if(model.getTime()<=0 && !msgSet){
-			view.printMessage(" PERDU !!!!!vous avez dépassé le temps ");
+			view.printMessage("Perdu, temps écoulé.");
 			msgSet = true;
 			System.exit(0);
 		}

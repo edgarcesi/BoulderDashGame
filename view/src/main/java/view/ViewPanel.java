@@ -24,6 +24,8 @@ class ViewPanel extends JPanel implements Observer {
 	/** The Constant serialVersionUID. */
 	private static final long	serialVersionUID	= -998294702363713521L;
 
+	private final Font font;
+
 	/**
 	 * Instantiates a new view panel.
 	 *
@@ -33,6 +35,7 @@ class ViewPanel extends JPanel implements Observer {
 	public ViewPanel(final ViewFrame viewFrame) {
 		this.setViewFrame(viewFrame);
 		viewFrame.getModel().getObservable().addObserver(this);
+		font = new Font("Monaco",Font.BOLD, 14);
 		Thread loop = new Thread(() -> {
 			while (true){
 				this.repaint();
@@ -83,12 +86,11 @@ class ViewPanel extends JPanel implements Observer {
 	@Override
 	protected void paintComponent(final Graphics graphics) {
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
+
 		// Draw blocks
 		Map map = viewFrame.getModel().getMap();
 		Block[][] block = map.getBlocks();
         //for each blocks in the map
-		int nb = 0;
-
         for(int y = 0; y<map.getHeight(); y++){
 				for(int x = 0;x<map.getLenght();x++){
 					graphics.drawImage(block[y][x].getSprites(), block[y][x].getPosX(), block[y][x].getPosY(), this);
@@ -139,18 +141,14 @@ class ViewPanel extends JPanel implements Observer {
 				}
 			}
 
-
         // Draw player
         graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(), viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
 
-		// Draw score
-        Font font1=new Font("",Font.BOLD, 14);
-        graphics.setFont(font1);
+		graphics.setFont(font);
+		// Write score
         graphics.setColor(Color.blue);
         graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2),viewFrame.getHeight()-45);
-		// Draw time
-        Font font2=new Font("",Font.BOLD, 14);
-        graphics.setFont(font2);
+		// Write time
         graphics.setColor(Color.red);
         graphics.drawString("Temps : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-100,viewFrame.getHeight()-45);
 	}

@@ -14,7 +14,6 @@ public class Map extends Entity {
     private BufferedImage spriteSheet;
     private Image[] sprites;
 
-
     private Block[][] blocks;
 
     /**

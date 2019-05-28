@@ -18,7 +18,7 @@ import javax.swing.text.View;
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 1; // Map to load
+	private int mapID = 3; // Map to load
 	private boolean win,dead = false;
 	private long time;
 
@@ -113,13 +113,14 @@ public final class Model extends Observable implements IModel {
 			for (int x = 0; x <map.getLenght(); x++) {
 				// If ROCK
 				if ( (blocks[y][x].getType().equals(BlockType.ROCK) )
-						&& // And block under is empty or diamond block
-					 (blocks[y+1][x].getType().equals(BlockType.EMPTY)
-						|| blocks[y+1][x].getType().equals(BlockType.DIAMOND)) ){
+						&& // And block under is empty
+					 (blocks[y+1][x].getType().equals(BlockType.EMPTY)) ) {
 
-					if( ((player.getPosX()/16) == x) && ((player.getPosY()/16) == y) ){
-						setDead(true);
+						 // If player is under do nothing
+					if( (IndexPos(player.getPosX())==x) && (IndexPos(player.getPosY()-1)==y) ){
+						System.out.println("Joueur sous le bloc");
 					} else {
+						System.out.println("GRAVITY");
 						//Apply gravity
 						blocks[y][x].setType(BlockType.EMPTY);
 						blocks[y + 1][x].setType(BlockType.ROCK);
