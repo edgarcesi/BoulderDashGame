@@ -69,8 +69,10 @@ public final class Model extends Observable implements IModel {
 	public void loadMap(final int id){
 	    try {
 			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
+
 			// Get the map
 			this.setMap(daoMap.find(id));
+
 			// Start timer thread
 			time = getMap().getTime();
 			Thread timer = new Thread(() -> {

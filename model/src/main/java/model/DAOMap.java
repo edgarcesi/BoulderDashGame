@@ -56,7 +56,7 @@ class DAOMap extends DAOEntity<Map> {
             for(int y = 0;y<nline;y++){
                 for(int x = 0;x<line.get(y).length();x++){
                     BlockType type;
-                    switch(line.get(y).charAt(x)){
+                    switch(line.get(y).toUpperCase().charAt(x)){
                         case 'V':
                             type = BlockType.EMPTY;
                             break;

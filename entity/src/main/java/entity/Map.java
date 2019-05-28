@@ -229,6 +229,9 @@ public class Map extends Entity {
         }
     }
 
+    public void setBlockType(int x, int y, BlockType type){
+
+    }
     public BlockType getBlockType(int x, int y){
         return this.blocks[y][x].getType();
     }
