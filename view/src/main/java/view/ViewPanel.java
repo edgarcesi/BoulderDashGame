@@ -92,8 +92,8 @@ class ViewPanel extends JPanel implements Observer {
 
         for(int y = 0; y<map.getHeight(); y++){
 				for(int x = 0;x<map.getLenght();x++){
-					//*graphics.drawImage(blocks[y][x].getSprites(), blocks[y][x].getPosX(), blocks[y][x].getPosY(), this);
-
+					graphics.drawImage(blocks[y][x].getSprites(), blocks[y][x].getPosX(), blocks[y][x].getPosY(), this);
+					/*
 					switch (blocks[y][x].getType()){
 						case WALL:
 							graphics.drawImage(viewFrame.getModel().getMap().getSprites(0),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
@@ -136,6 +136,7 @@ class ViewPanel extends JPanel implements Observer {
 							graphics.drawImage(viewFrame.getModel().getMap().getSprites(6),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
 							break;
 					}
+					*/
 				}
 			}
 
@@ -155,10 +156,10 @@ class ViewPanel extends JPanel implements Observer {
         graphics.setFont(font2);
         graphics.setColor(Color.red);
         graphics.drawString("Temps : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-100,viewFrame.getHeight()-45);
-        k++;
+        /*k++;
         if (k % 10 == 0){
             repaint();
-        }
+        }*/
 
 	}
 

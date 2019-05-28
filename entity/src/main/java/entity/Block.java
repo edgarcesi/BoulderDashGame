@@ -14,12 +14,12 @@ public class Block extends Map{
 
 
     private Image[] diamondSprites;
-    private Image[] rockSprites = new Image[4];
+    private Image[] rockSprites;
     private Image[] endSprites;
-    private Image[] emptySprites;
-    private Image[] starSprites;
-    private Image[] wallSprites;
-    private Image[] dirtSprites;
+    private Image emptySprite;
+    private Image starSprite;
+    private Image wallSprite;
+    private Image dirtSprite;
 
 
     public Block(int x, int y, BlockType t){
@@ -27,8 +27,8 @@ public class Block extends Map{
         this.posY = y;
         this.type = t;
 
-
         frameIndex = 0;
+
         rockSprites = new Image[4];
         rockSprites[0] = getSpriteSheet().getSubimage(3 * 16,0 * 16, 16, 16);
         rockSprites[1] = getSpriteSheet().getSubimage(3 * 16,1 * 16, 16, 16);
@@ -47,16 +47,13 @@ public class Block extends Map{
         endSprites[2] = getSpriteSheet().getSubimage(7 * 16,2 * 16, 16, 16);
         endSprites[3] = getSpriteSheet().getSubimage(7 * 16,3 * 16, 16, 16);
 
-        wallSprites = new Image[0];
+        wallSprite = getSpriteSheet().getSubimage(0 * 16, 0*16, 16, 16);
 
-        starSprites = new Image[0];
+        starSprite = getSpriteSheet().getSubimage(11 * 16, 0*16, 16, 16);
 
-        emptySprites = new Image[0];
+        emptySprite = getSpriteSheet().getSubimage(2 * 16, 0*16, 16, 16);
 
-        dirtSprites = new Image[0];
-
-        setPosX(x);
-        setPosY(y);
+        dirtSprite = getSpriteSheet().getSubimage(1 * 16, 0*16, 16, 16);
     }
 
     public int getPosX() {
@@ -87,11 +84,11 @@ public class Block extends Map{
         frameIndex++;
         switch (this.type){
             case WALL:
-                return wallSprites[0];
+                return wallSprite;
             case DIRT:
-                return dirtSprites[0];
+                return dirtSprite;
             case EMPTY:
-                return emptySprites[0];
+                return emptySprite;
             case ROCK:
                 if(frameIndex>rockSprites.length-1) frameIndex = 0;
                 return rockSprites[frameIndex];
@@ -102,10 +99,9 @@ public class Block extends Map{
                 if(frameIndex>rockSprites.length-1) frameIndex = 0;
                 return endSprites[frameIndex];
             case STAR:
-                return starSprites[0];
+                return starSprite;
             default:
-                return rockSprites[0];
+                return wallSprite;
         }
     }
-
 }
