@@ -62,26 +62,6 @@ public class Map extends Entity {
         this(0,0,0);
     }
 
-    public void gravity(final Player player){
-        for(int y = 0; y<height; y++) {
-            for (int x = 0; x < length; x++) {
-                // If ROCK
-                if ( (blocks[y][x].getType().equals(BlockType.ROCK))
-                && // And block under is empty or diamond block
-                   ( blocks[y+1][x].getType().equals(BlockType.EMPTY)
-                  || blocks[y+1][x].getType().equals(BlockType.DIAMOND)) ){
-
-                    if( ((player.getPosX()/16) == x) && ((player.getPosY()/16) == y) ){
-                        System.out.println("MORT");
-                    } else {
-                        //Apply gravity
-                        blocks[y][x].setType(BlockType.EMPTY);
-                        blocks[y + 1][x].setType(BlockType.ROCK);
-                    }
-                }
-            }
-        }
-    }
 
     public boolean isSolid(int x, int y){
         switch (blocks[y][x].getType()){

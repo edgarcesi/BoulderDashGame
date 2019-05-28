@@ -31,6 +31,20 @@ public final class Model extends Observable implements IModel {
 	public Model() {
 		this.loadMap(mapID);
 		this.player = new Player(RealPos(map.getStartX()),RealPos(map.getStartY()));
+
+		// Start gravity thread
+		time = getMap().getTime();
+		Thread gravity = new Thread(() -> {
+			while (time > 0) {
+				try {
+					mapGravity();
+					Thread.sleep(250);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		gravity.start();
 	}
 
 
@@ -69,7 +83,6 @@ public final class Model extends Observable implements IModel {
 	public void loadMap(final int id){
 	    try {
 			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
-
 			// Get the map
 			this.setMap(daoMap.find(id));
 
@@ -94,6 +107,27 @@ public final class Model extends Observable implements IModel {
 	}
 
 
+	public void mapGravity(){
+		Block[][] blocks = map.getBlocks();
+		for(int y = 0; y<map.getHeight(); y++) {
+			for (int x = 0; x <map.getLenght(); x++) {
+				// If ROCK
+				if ( (blocks[y][x].getType().equals(BlockType.ROCK) )
+						&& // And block under is empty or diamond block
+					 (blocks[y+1][x].getType().equals(BlockType.EMPTY)
+						|| blocks[y+1][x].getType().equals(BlockType.DIAMOND)) ){
+
+					if( ((player.getPosX()/16) == x) && ((player.getPosY()/16) == y) ){
+						setDead(true);
+					} else {
+						//Apply gravity
+						blocks[y][x].setType(BlockType.EMPTY);
+						blocks[y + 1][x].setType(BlockType.ROCK);
+					}
+				}
+			}
+		}
+	}
 	/**
      * Gets the observable.
      *

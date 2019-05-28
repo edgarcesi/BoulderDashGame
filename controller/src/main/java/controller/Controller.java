@@ -20,6 +20,8 @@ public final class Controller implements IController {
 	/** The model. */
 	private IModel	model;
 
+	private boolean msgSet = false;
+
 	/**
 	 * Instantiates a new controller.
 	 *
@@ -79,9 +81,6 @@ public final class Controller implements IController {
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
-	    // Rock gravity
-	    model.getMap().gravity(model.getPlayer());
-
 		// Player move
         Dimension2D movement;
         switch (controllerOrder) {
@@ -122,10 +121,17 @@ public final class Controller implements IController {
 		if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
 			model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
 		}
-		// Timer
-		if(model.getTime()<=0 && !model.isDead()){
+
+		// Game over event
+		if(model.isDead() && !msgSet){
+			view.printMessage("Vous avez perdu.");
+			msgSet = true;
+			System.exit(0);
+		}
+		// Time over event
+		if(model.getTime()<=0 && !msgSet){
 			view.printMessage(" PERDU !!!!!vous avez dépassé le temps ");
-			model.setDead(true);
+			msgSet = true;
 			System.exit(0);
 		}
 	}
