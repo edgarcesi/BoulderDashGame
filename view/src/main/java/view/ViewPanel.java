@@ -108,16 +108,16 @@ class ViewPanel extends JPanel implements Observer {
 
 								if (blocks[y+1][x].getType().equals(BlockType.EMPTY) && blocks[y+1][x].getType().equals(BlockType.EMPTY) && (viewFrame.getModel().getPlayer().getPosX()/16 != x || viewFrame.getModel().getPlayer().getPosY()/16 != y+1)){
 									graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-									viewFrame.getModel().getMap().TransformToDirt(x, y);
-									viewFrame.getModel().getMap().TransformToRock(x, y+1);
+									viewFrame.getModel().getMap().TransformBlock(x, y, BlockType.DIRT);
+									viewFrame.getModel().getMap().TransformBlock(x, y+1, BlockType.ROCK);
 								}else if (blocks[y+1][x-1].getType().equals(BlockType.EMPTY) && blocks[y][x-1].getType().equals(BlockType.EMPTY) && (viewFrame.getModel().getPlayer().getPosX()/16 != x || viewFrame.getModel().getPlayer().getPosY()/16 != y+1) && (viewFrame.getModel().getPlayer().getPosX()/16 != x-1 || viewFrame.getModel().getPlayer().getPosY()/16 != y+1) && (viewFrame.getModel().getPlayer().getPosX()/16 != x-1 || viewFrame.getModel().getPlayer().getPosY()/16 != y)){
 									graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-									viewFrame.getModel().getMap().TransformToDirt(x, y);
-									viewFrame.getModel().getMap().TransformToRock(x-1, y+1);
+									viewFrame.getModel().getMap().TransformBlock(x, y, BlockType.DIRT);
+									viewFrame.getModel().getMap().TransformBlock(x-1, y+1, BlockType.ROCK);
 								}else if (blocks[y+1][x+1].getType().equals(BlockType.EMPTY) && blocks[y][x+1].getType().equals(BlockType.EMPTY) && (viewFrame.getModel().getPlayer().getPosX()/16 != x || viewFrame.getModel().getPlayer().getPosY()/16 != y+1) && (viewFrame.getModel().getPlayer().getPosX()/16 != x+1 || viewFrame.getModel().getPlayer().getPosY()/16 != y+1) && (viewFrame.getModel().getPlayer().getPosX()/16 != x+1 || viewFrame.getModel().getPlayer().getPosY()/16 != y)){
 									graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-									viewFrame.getModel().getMap().TransformToDirt(x, y);
-									viewFrame.getModel().getMap().TransformToRock(x+1, y+1);
+									viewFrame.getModel().getMap().TransformBlock(x, y, BlockType.DIRT);
+									viewFrame.getModel().getMap().TransformBlock(x+1, y+1, BlockType.ROCK);
 								}
 
 								graphics.drawImage(viewFrame.getModel().getMap().getSprites(3),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
@@ -155,10 +155,10 @@ class ViewPanel extends JPanel implements Observer {
         graphics.setFont(font2);
         graphics.setColor(Color.red);
         graphics.drawString("Temps : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-100,viewFrame.getHeight()-45);
-        /*k++;
+        k++;
         if (k % 10 == 0){
             repaint();
-        }*/
+        }
 
 	}
 
