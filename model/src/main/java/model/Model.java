@@ -36,8 +36,8 @@ public final class Model extends Observable implements IModel {
 		time = getMap().getTime();
 		Thread gravity = new Thread(() -> {
 			while (time > 0) {
+				mapGravity();
 				try {
-					mapGravity();
 					Thread.sleep(250);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -118,15 +118,19 @@ public final class Model extends Observable implements IModel {
 
 						 // If player is under do nothing
 					if( (IndexPos(player.getPosX())==x) && (IndexPos(player.getPosY()-1)==y) ){
-						System.out.println("Joueur sous le bloc");
+
 					} else {
-						System.out.println("GRAVITY");
 						//Apply gravity
 						blocks[y][x].setType(BlockType.EMPTY);
-						blocks[y + 1][x].setType(BlockType.ROCK);
+						blocks[y+1][x].setType(BlockType.ROCK);
 					}
 				}
 			}
+		}
+		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 	/**

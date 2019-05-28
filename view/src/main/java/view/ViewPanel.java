@@ -40,7 +40,7 @@ class ViewPanel extends JPanel implements Observer {
 			while (true){
 				this.repaint();
 				try {
-					Thread.sleep(160l);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -94,50 +94,6 @@ class ViewPanel extends JPanel implements Observer {
         for(int y = 0; y<map.getHeight(); y++){
 				for(int x = 0;x<map.getLenght();x++){
 					graphics.drawImage(block[y][x].getSprites(), block[y][x].getPosX(), block[y][x].getPosY(), this);
-					/*
-					switch (blocks[y][x].getType()){
-						case WALL:
-							graphics.drawImage(viewFrame.getModel().getMap().getSprites(0),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-							break;
-						case DIRT:
-							graphics.drawImage(viewFrame.getModel().getMap().getSprites(1),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-							break;
-						case EMPTY:
-							graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-							break;
-						case ROCK:
-
-								if (blocks[y+1][x].getType().equals(BlockType.EMPTY) && blocks[y+1][x].getType().equals(BlockType.EMPTY) && (viewFrame.getModel().getPlayer().getPosX()/16 != x || viewFrame.getModel().getPlayer().getPosY()/16 != y+1)){
-									graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-									viewFrame.getModel().getMap().TransformBlock(x, y, BlockType.DIRT);
-									viewFrame.getModel().getMap().TransformBlock(x, y+1, BlockType.ROCK);
-								}else if (blocks[y+1][x-1].getType().equals(BlockType.EMPTY) && blocks[y][x-1].getType().equals(BlockType.EMPTY) && (viewFrame.getModel().getPlayer().getPosX()/16 != x || viewFrame.getModel().getPlayer().getPosY()/16 != y+1) && (viewFrame.getModel().getPlayer().getPosX()/16 != x-1 || viewFrame.getModel().getPlayer().getPosY()/16 != y+1) && (viewFrame.getModel().getPlayer().getPosX()/16 != x-1 || viewFrame.getModel().getPlayer().getPosY()/16 != y)){
-									graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-									viewFrame.getModel().getMap().TransformBlock(x, y, BlockType.DIRT);
-									viewFrame.getModel().getMap().TransformBlock(x-1, y+1, BlockType.ROCK);
-								}else if (blocks[y+1][x+1].getType().equals(BlockType.EMPTY) && blocks[y][x+1].getType().equals(BlockType.EMPTY) && (viewFrame.getModel().getPlayer().getPosX()/16 != x || viewFrame.getModel().getPlayer().getPosY()/16 != y+1) && (viewFrame.getModel().getPlayer().getPosX()/16 != x+1 || viewFrame.getModel().getPlayer().getPosY()/16 != y+1) && (viewFrame.getModel().getPlayer().getPosX()/16 != x+1 || viewFrame.getModel().getPlayer().getPosY()/16 != y)){
-									graphics.drawImage(viewFrame.getModel().getMap().getSprites(2),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-									viewFrame.getModel().getMap().TransformBlock(x, y, BlockType.DIRT);
-									viewFrame.getModel().getMap().TransformBlock(x+1, y+1, BlockType.ROCK);
-								}
-
-								graphics.drawImage(viewFrame.getModel().getMap().getSprites(3),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-
-
-
-
-							break;
-						case DIAMOND:
-							graphics.drawImage(viewFrame.getModel().getMap().getSprites(4),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-							break;
-						case END:
-							graphics.drawImage(viewFrame.getModel().getMap().getSprites(5),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-							break;
-						case STAR:
-							graphics.drawImage(viewFrame.getModel().getMap().getSprites(6),blocks[y][x].getPosX(),blocks[y][x].getPosY(), this);
-							break;
-					}
-					*/
 				}
 			}
 
