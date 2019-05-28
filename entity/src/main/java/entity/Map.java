@@ -244,6 +244,9 @@ public class Map extends Entity {
     public void TransformToStar(int x, int y){
         getBlocks(x, y).setType(BlockType.STAR);
     }
+
+    public void TransformBlock(int x, int y, BlockType t){ getBlocks(x, y).setType(t);}
+
     public BlockType TypeCurrentBlock(Player player){
         return this.blocks[(player.getPosY()/16) - 1][(player.getPosX()/16)].getType();
     }
