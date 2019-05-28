@@ -92,7 +92,7 @@ class ViewPanel extends JPanel implements Observer {
 
         for(int y = 0; y<map.getHeight(); y++){
 				for(int x = 0;x<map.getLenght();x++){
-					//graphics.drawImage(blocks[y][x].getSprites(), blocks[y][x].getPosX(), blocks[y][x].getPosY(), this);
+					//*graphics.drawImage(blocks[y][x].getSprites(), blocks[y][x].getPosX(), blocks[y][x].getPosY(), this);
 
 					switch (blocks[y][x].getType()){
 						case WALL:
