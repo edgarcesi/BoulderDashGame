@@ -4,8 +4,10 @@ import contract.ControllerOrder;
 import contract.IController;
 import contract.IModel;
 import contract.IView;
-import entity.BlockType;
-import entity.PlayerSprite;
+import entity.*;
+
+import java.awt.*;
+import java.awt.geom.Dimension2D;
 
 /**
  * The Class Controller.
@@ -77,103 +79,50 @@ public final class Controller implements IController {
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
-		int nextX, nextY;
-		BlockType nextBlockType = BlockType.WALL;
-		int nowX = nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "NOW");
-		int nowY = nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "NOW");
-		BlockType nowBlockType = model.getMap().getBlockType(model.IndexPos(nowX), model.IndexPos(nowY));
+	    // Rock gravity
+	    model.getMap().gravity(model.getPlayer());
 
-		switch (controllerOrder) {
+		// Player move
+        Dimension2D movement;
+        switch (controllerOrder) {
 			case UP:
-				model.getPlayer().setFrame(PlayerSprite.UP);
-				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP");
-				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP");
-				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
+			    movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY()-1));
+                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+                    preMove(model.getPlayer(), model.getMap(), movement);
+                    model.getPlayer().moveUp();
+                }
 				break;
 			case DOWN:
-				model.getPlayer().setFrame(PlayerSprite.DOWN);
-				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "DOWN");
-				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "DOWN");
-				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
+			    movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()),model.IndexPos(model.getPlayer().getPosY())+1);
+                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+                    preMove(model.getPlayer(), model.getMap(), movement);
+                    model.getPlayer().moveDown();
+                }
 				break;
 			case LEFT:
-				model.getPlayer().setFrame(PlayerSprite.LEFT);
-				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "LEFT");
-				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "LEFT");
-				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
+                movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())-1,model.IndexPos(model.getPlayer().getPosY()));
+                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+                    preMove(model.getPlayer(), model.getMap(), movement);
+                    model.getPlayer().moveLeft();
+                }
 				break;
 			case RIGHT:
-				model.getPlayer().setFrame(PlayerSprite.RIGHT);
-				nextX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "RIGHT");
-				nextY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "RIGHT");
-				nextBlockType = model.getMap().getBlockType(nextX/16, nextY/16);
+                movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())+1,model.IndexPos(model.getPlayer().getPosY()));
+                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+                    preMove(model.getPlayer(), model.getMap(), movement);
+                    model.getPlayer().moveRight();
+                }
 				break;
 			case NOTHING:
 				model.getPlayer().setFrame(PlayerSprite.IDLE);
 				break;
 		}
 
-		if (nextBlockType != BlockType.WALL && nextBlockType != BlockType.ROCK){ // on teste si le player peut bouger
-			int topX = model.getMap().CoordoneeXNextBlock(model.getPlayer(), "UP"); // upper X
-			int topY = model.getMap().CoordoneeYNextBlock(model.getPlayer(), "UP"); // upper Y
-			BlockType prevTopType =  model.getMap().getBlockType(model.IndexPos(topX), model.IndexPos(topY));
-			BlockType prevTopLeftType =  model.getMap().getBlockType(model.IndexPos(topX)-1, model.IndexPos(topY));
-			BlockType prevTopRightType =  model.getMap().getBlockType(model.IndexPos(topX)+1, model.IndexPos(topY));
-
-			//on teste si le player va descendre sous un rocher, si oui il meurt
-			if ((prevTopType.equals(BlockType.ROCK)) && controllerOrder.equals(ControllerOrder.DOWN)){ // test du cailloux juste au dessus de lui
-				model.getPlayer().setPosX(nextX);
-				model.getPlayer().setPosY(nextY);
-
-				model.PlayerDeathAnnimation(nextX, nextY);
-				model.getMap().TransformToDirt(model.IndexPos(topX), model.IndexPos(topY));
-				view.printMessage("Vous avez per du ... Votre score est de  : "+model.getPlayer().getScore());
-				System.exit(0);
-			}
-			if (prevTopLeftType.equals(BlockType.ROCK) && controllerOrder.equals(ControllerOrder.DOWN)){// Test cailloux haut gauche
-				model.getPlayer().setPosX(nextX);
-				model.getPlayer().setPosY(nextY);
-				model.PlayerDeathAnnimation(nextX, nextY);
-				model.getMap().TransformToDirt(model.IndexPos(topX)-1, model.IndexPos(topY));
-				view.printMessage("Vous avez perdu ... Votre score est de  : "+model.getPlayer().getScore());
-				System.exit(0);
-			}
-			if (prevTopRightType.equals(BlockType.ROCK) && controllerOrder.equals(ControllerOrder.DOWN)){ // Test cailloux haut droit
-				model.getPlayer().setPosY(nextY);
-				model.getPlayer().setPosX(nextX);
-				model.PlayerDeathAnnimation(nextX, nextY);
-				model.getMap().TransformToDirt(model.IndexPos(topX)+1, model.IndexPos(topY));
-				view.printMessage("Vous avez perdu ... Votre score : "+model.getPlayer().getScore());
-				System.exit(0);
-			}
-
-			//changement de position du player
-			model.getPlayer().setPosX(nextX);
-			model.getPlayer().setPosY(nextY);
-			nowBlockType = nextBlockType;
-			//creuse quand le joueur passe sur de la terre
-			if (nowBlockType == BlockType.DIRT){
-				model.getMap().TransformToDirt(model.IndexPos(nextX), model.IndexPos(nextY));
-			}
-			// Score diamant
-			if (nowBlockType.equals(BlockType.DIAMOND)){
-				model.getMap().TransformToDirt(nextX/16, nextY/16);
-				model.getPlayer().IncrementScore(500);
-				System.out.println(model.getPlayer().getScore());
-			}
-		}
-
-		// Lorsque le joueur atteint le score cible le bloc de fin apparait.
+        // Spawn end block
 		if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
 			model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
-			if( (model.IndexPos(model.getPlayer().getPosX()) == model.getMap().getEndX() ) &&
-					(model.IndexPos(model.getPlayer().getPosY()) == model.getMap().getEndY() ) &&
-					!model.getWin() ) {
-				view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());
-				model.setWin(true);
-				System.exit(0);
-			}
 		}
+		// Timer
 		if(model.getTime()<=0 && !model.isDead()){
 			view.printMessage(" PERDU !!!!!vous avez dépassé le temps ");
 			model.setDead(true);
@@ -181,4 +130,22 @@ public final class Controller implements IController {
 		}
 	}
 
+	public void preMove(Player player, Map map, Dimension2D movement){
+	    Block block = map.getBlocks((int)movement.getWidth(), (int)movement.getHeight());
+	    switch (block.getType()){
+            case DIRT:
+                block.setType(BlockType.EMPTY);
+                break;
+            case DIAMOND:
+                int score = player.getScore();
+                block.setType(BlockType.EMPTY);
+                player.setScore(score+=500);
+                break;
+            case END:
+                view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());
+                model.setWin(true);
+                System.exit(0);
+                break;
+        }
+    }
 }

@@ -19,7 +19,6 @@ import javax.swing.*;
  * @author Jean-Aymeric Diet
  */
 class ViewPanel extends JPanel implements Observer {
-	int k = 0;
 	/** The view frame. */
 	private ViewFrame					viewFrame;
 	/** The Constant serialVersionUID. */
@@ -38,7 +37,7 @@ class ViewPanel extends JPanel implements Observer {
 			while (true){
 				this.repaint();
 				try {
-					Thread.sleep(200l);
+					Thread.sleep(160l);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -86,13 +85,13 @@ class ViewPanel extends JPanel implements Observer {
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		// Draw blocks
 		Map map = viewFrame.getModel().getMap();
-		Block[][] blocks = map.getBlocks();
+		Block[][] block = map.getBlocks();
         //for each blocks in the map
 		int nb = 0;
 
         for(int y = 0; y<map.getHeight(); y++){
 				for(int x = 0;x<map.getLenght();x++){
-					graphics.drawImage(blocks[y][x].getSprites(), blocks[y][x].getPosX(), blocks[y][x].getPosY(), this);
+					graphics.drawImage(block[y][x].getSprites(), block[y][x].getPosX(), block[y][x].getPosY(), this);
 					/*
 					switch (blocks[y][x].getType()){
 						case WALL:
@@ -145,22 +144,15 @@ class ViewPanel extends JPanel implements Observer {
         graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(), viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
 
 		// Draw score
-
         Font font1=new Font("",Font.BOLD, 14);
         graphics.setFont(font1);
         graphics.setColor(Color.blue);
         graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2),viewFrame.getHeight()-45);
-        //delay 50 millisecondes
-
+		// Draw time
         Font font2=new Font("",Font.BOLD, 14);
         graphics.setFont(font2);
         graphics.setColor(Color.red);
         graphics.drawString("Temps : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-100,viewFrame.getHeight()-45);
-        /*k++;
-        if (k % 10 == 0){
-            repaint();
-        }*/
-
 	}
 
 }

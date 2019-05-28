@@ -52,11 +52,10 @@ public class Player extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setFrame(PlayerSprite.IDLE);
-
-        setPosX(x);
-        setPosY(y);
-        setScore(0);
+        this.frame = PlayerSprite.DEAD;
+        this.posX = x;
+        this.posY = y;
+        this.score = 0;
     }
 
 
@@ -67,6 +66,25 @@ public class Player extends Entity {
         this(0,0);
     }
 
+    public void moveUp(){
+        this.frame = PlayerSprite.UP;
+        this.posY-=16;
+    }
+
+    public void moveDown(){
+        this.frame = PlayerSprite.DOWN;
+        this.posY+=16;
+    }
+
+    public void moveLeft(){
+        this.frame = PlayerSprite.LEFT;
+        this.posX-=16;
+    }
+
+    public void moveRight(){
+        this.frame = PlayerSprite.RIGHT;
+        this.posX+=16;
+    }
 
     public PlayerSprite getFrame() {
         return frame;
