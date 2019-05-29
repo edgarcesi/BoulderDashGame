@@ -38,7 +38,7 @@ public class Map extends Entity {
             // Wall
             sprites[0] = spriteSheet.getSubimage(0*16, id*64 + 0 * 16, 16, 16);
             // Dirt
-            sprites[1] = spriteSheet.getSubimage(1*16, id*64 + 0 * 16, 32, 16);
+            sprites[1] = spriteSheet.getSubimage(1*16, id*64 + 0 * 16, 16, 16);
             // Empty
             sprites[2] = spriteSheet.getSubimage(2*16, id*64 + 0 * 16, 16, 16);
             // Rock

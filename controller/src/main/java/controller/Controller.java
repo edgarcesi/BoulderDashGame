@@ -118,7 +118,7 @@ public final class Controller implements IController {
 		}
 
         // Spawn end block
-		if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
+		if(model.getPlayer().getScore()/1>=model.getMap().getDiamond()){
 			model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
 		}
 
@@ -145,10 +145,10 @@ public final class Controller implements IController {
             case DIAMOND:
                 int score = player.getScore();
                 block.setType(BlockType.EMPTY);
-                player.setScore(score+=500);
+                player.setScore(score+=1);
                 break;
             case END:
-                view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());
+                view.printMessage("Félicitation vous avez gagné ! vous avez récupéré  "+model.getPlayer().getScore()+" diamants ");
                 model.setWin(true);
                 System.exit(0);
                 break;

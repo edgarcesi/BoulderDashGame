@@ -18,7 +18,7 @@ import javax.swing.text.View;
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 3; // Map to load
+	private int mapID = 2; // Map to load
 	private boolean win,dead = false;
 	private long time;
 
@@ -31,20 +31,6 @@ public final class Model extends Observable implements IModel {
 	public Model() {
 		this.loadMap(mapID);
 		this.player = new Player(RealPos(map.getStartX()),RealPos(map.getStartY()));
-
-		// Start gravity thread
-		time = getMap().getTime();
-		Thread gravity = new Thread(() -> {
-			while (time > 0) {
-				mapGravity();
-				try {
-					Thread.sleep(250);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		gravity.start();
 	}
 
 
@@ -83,6 +69,7 @@ public final class Model extends Observable implements IModel {
 	public void loadMap(final int id){
 	    try {
 			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
+
 			// Get the map
 			this.setMap(daoMap.find(id));
 
@@ -107,32 +94,6 @@ public final class Model extends Observable implements IModel {
 	}
 
 
-	public void mapGravity(){
-		Block[][] blocks = map.getBlocks();
-		for(int y = 0; y<map.getHeight(); y++) {
-			for (int x = 0; x <map.getLenght(); x++) {
-				// If ROCK
-				if ( (blocks[y][x].getType().equals(BlockType.ROCK) )
-						&& // And block under is empty
-					 (blocks[y+1][x].getType().equals(BlockType.EMPTY)) ) {
-
-						 // If player is under do nothing
-					if( (IndexPos(player.getPosX())==x) && (IndexPos(player.getPosY()-1)==y) ){
-
-					} else {
-						//Apply gravity
-						blocks[y][x].setType(BlockType.EMPTY);
-						blocks[y+1][x].setType(BlockType.ROCK);
-					}
-				}
-			}
-		}
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 	/**
      * Gets the observable.
      *

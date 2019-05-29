@@ -40,7 +40,7 @@ class ViewPanel extends JPanel implements Observer {
 			while (true){
 				this.repaint();
 				try {
-					Thread.sleep(200);
+					Thread.sleep(160l);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -91,11 +91,13 @@ class ViewPanel extends JPanel implements Observer {
 		Map map = viewFrame.getModel().getMap();
 		Block[][] block = map.getBlocks();
         //for each blocks in the map
+
         for(int y = 0; y<map.getHeight(); y++){
 				for(int x = 0;x<map.getLenght();x++){
 					graphics.drawImage(block[y][x].getSprites(), block[y][x].getPosX(), block[y][x].getPosY(), this);
 				}
 			}
+
 
         // Draw player
         graphics.drawImage(viewFrame.getModel().getPlayer().getSprites(), viewFrame.getModel().getPlayer().getPosX(),viewFrame.getModel().getPlayer().getPosY(), this);
