@@ -36,7 +36,7 @@ public final class Model extends Observable implements IModel {
 		time = getMap().getTime();
 		Thread gravity = new Thread(() -> {
 			while (time > 0) {
-				mapGravity();
+				//mapGravity();
 			}
 		});
 		gravity.start();
