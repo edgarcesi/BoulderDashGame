@@ -11,6 +11,7 @@ import static entity.BlockType.ROCK;
 public class Block extends Map{
     private int posX, posY, frameIndex;
     private BlockType type;
+    private boolean falling;
 
 
     private Image[] diamondSprites;
@@ -78,6 +79,14 @@ public class Block extends Map{
 
     public void setType(BlockType type) {
         this.type = type;
+    }
+
+    public boolean isFalling() {
+        return falling;
+    }
+
+    public void setFalling(boolean falling) {
+        this.falling = falling;
     }
 
     public Image getSprites() {

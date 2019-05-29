@@ -218,54 +218,13 @@ public class Map extends Entity {
     public long getTime(){ return time;}
     public void setTime(long time){ this.time = time;}
 
-    public int CoordoneeYNextBlock(Player player, String orientation){
-        switch (orientation){
-            case "UP":
-                return (player.getPosY()) - 16;
-            case "DOWN":
-                return (player.getPosY()) + 16;
-            case "LEFT":
-                return (player.getPosY());
-            case "RIGHT":
-                return (player.getPosY());
-            case "NOW":
-                return (player.getPosY());
-            default:
-                return 0;
-        }
-    }
-
-    public int CoordoneeXNextBlock(Player player, String orientation){
-        switch (orientation){
-            case "UP":
-                return (player.getPosX());
-            case "DOWN":
-                return (player.getPosX());
-            case "LEFT":
-                return (player.getPosX() - 16);
-            case "RIGHT":
-                return (player.getPosX()) + 16;
-            case "NOW":
-                return (player.getPosX());
-            default:
-                return 0;
-        }
-    }
 
     public BlockType getBlockType(int x, int y){
         return this.blocks[y][x].getType();
     }
-    public void TransformToDirt(int x, int y){
-        getBlocks(x, y).setType(BlockType.EMPTY);
-    }
-    public void TransformToRock(int x, int y){
-        getBlocks(x, y).setType(BlockType.ROCK);
-    }
     public void TransformToStar(int x, int y){
         getBlocks(x, y).setType(BlockType.STAR);
     }
-
-    public void TransformBlock(int x, int y, BlockType t){ getBlocks(x, y).setType(t);}
 
     public BlockType TypeCurrentBlock(Player player){
         return this.blocks[(player.getPosY()/16) - 1][(player.getPosX()/16)].getType();

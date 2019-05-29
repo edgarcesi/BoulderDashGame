@@ -35,6 +35,30 @@ public final class Controller implements IController {
 		this.setModel(model);
 
 		control();
+
+		// Start game event thread
+		new Thread(() -> {
+			while (true) {
+				// Game over event
+				if(model.isDead() && !msgSet){
+					view.printMessage("Perdu, attention aux cailloux..");
+					msgSet = true;
+					System.exit(0);
+				}
+				// Time over event
+				if(model.getTime()<=0 && !msgSet){
+					view.printMessage("Perdu, temps écoulé.");
+					msgSet = true;
+					System.exit(0);
+				}
+
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
 	/**
@@ -81,35 +105,51 @@ public final class Controller implements IController {
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
+
 		// Player move
         Dimension2D movement;
         switch (controllerOrder) {
 			case UP:
+				// Get next move
 			    movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY()-1));
-                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-                    preMove(model.getPlayer(), model.getMap(), movement);
+                // If next block is not solid
+			    if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+                    // move player
                     model.getPlayer().moveUp();
+					// Process block action
+					preMove(model.getPlayer(), model.getMap(), movement);
                 }
 				break;
 			case DOWN:
-			    movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()),model.IndexPos(model.getPlayer().getPosY())+1);
+				// Get next move
+				movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()),model.IndexPos(model.getPlayer().getPosY())+1);
                 if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-                    preMove(model.getPlayer(), model.getMap(), movement);
+					// move player
                     model.getPlayer().moveDown();
+					// Process block action
+					preMove(model.getPlayer(), model.getMap(), movement);
                 }
 				break;
 			case LEFT:
-                movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())-1,model.IndexPos(model.getPlayer().getPosY()));
-                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-                    preMove(model.getPlayer(), model.getMap(), movement);
-                    model.getPlayer().moveLeft();
+				// Get next move
+				movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())-1,model.IndexPos(model.getPlayer().getPosY()));
+				// If next block is not solid
+				if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+					// move player
+					model.getPlayer().moveLeft();
+					// Process block action
+					preMove(model.getPlayer(), model.getMap(), movement);
                 }
 				break;
 			case RIGHT:
-                movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())+1,model.IndexPos(model.getPlayer().getPosY()));
-                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-                    preMove(model.getPlayer(), model.getMap(), movement);
+				// Get next move
+				movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())+1,model.IndexPos(model.getPlayer().getPosY()));
+				// If next block is not solid
+				if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+					// move player
                     model.getPlayer().moveRight();
+					// Process block action
+					preMove(model.getPlayer(), model.getMap(), movement);
                 }
 				break;
 			case NOTHING:
@@ -117,22 +157,9 @@ public final class Controller implements IController {
 				break;
 		}
 
-        // Spawn end block
-		if(model.getPlayer().getScore()/1>=model.getMap().getDiamond()){
+		// Spawn end block
+		if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
 			model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
-		}
-
-		// Game over event
-		if(model.isDead() && !msgSet){
-			view.printMessage("Perdu, attention aux cailloux..");
-			msgSet = true;
-			System.exit(0);
-		}
-		// Time over event
-		if(model.getTime()<=0 && !msgSet){
-			view.printMessage("Perdu, temps écoulé.");
-			msgSet = true;
-			System.exit(0);
 		}
 	}
 
@@ -143,12 +170,12 @@ public final class Controller implements IController {
                 block.setType(BlockType.EMPTY);
                 break;
             case DIAMOND:
-                int score = player.getScore();
                 block.setType(BlockType.EMPTY);
-                player.setScore(score+=1);
+				int score = player.getScore();
+				player.setScore(score+=500);
                 break;
             case END:
-                view.printMessage("Félicitation vous avez gagné ! vous avez récupéré  "+model.getPlayer().getScore()+" diamants ");
+                view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());
                 model.setWin(true);
                 System.exit(0);
                 break;

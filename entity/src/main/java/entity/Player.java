@@ -48,11 +48,10 @@ public class Player extends Entity {
             deadSprites = new Image[2];
             deadSprites[0] = spriteSheet.getSubimage(4*16, 5*16, 16, 16);
             deadSprites[1] = spriteSheet.getSubimage(5*16, 5*16, 16, 16);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.frame = PlayerSprite.DEAD;
+        this.frame = PlayerSprite.IDLE;
         this.posX = x;
         this.posY = y;
         this.score = 0;
