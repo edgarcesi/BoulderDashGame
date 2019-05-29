@@ -19,7 +19,7 @@ import javax.swing.text.View;
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
 	private int mapID = 2; // Map to load
-	private boolean win,dead = false;
+	private boolean win, dead = false;
 	private long time;
 
 	private Map map;
@@ -30,13 +30,18 @@ public final class Model extends Observable implements IModel {
 	 */
 	public Model() {
 		this.loadMap(mapID);
-		this.player = new Player(RealPos(map.getStartX()),RealPos(map.getStartY()));
+		this.player = new Player(RealPos(map.getStartX()), RealPos(map.getStartY()));
 
 		// Start gravity thread
 		time = getMap().getTime();
 		Thread gravity = new Thread(() -> {
 			while (time > 0) {
-				//mapGravity();
+				mapGravity();
+			}
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		});
 		gravity.start();
@@ -60,8 +65,7 @@ public final class Model extends Observable implements IModel {
 	/**
 	 * Sets the map.
 	 *
-	 * @param map
-	 *            the new map
+	 * @param map the new map
 	 */
 	private void setMap(final Map map) {
 		this.map = map;
@@ -72,11 +76,10 @@ public final class Model extends Observable implements IModel {
 	/**
 	 * Load the map.
 	 *
-	 *@param id
-	 *            the map id
+	 * @param id the map id
 	 */
-	public void loadMap(final int id){
-	    try {
+	public void loadMap(final int id) {
+		try {
 			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
 			// Get the map
 			this.setMap(daoMap.find(id));
@@ -94,41 +97,58 @@ public final class Model extends Observable implements IModel {
 				}
 			});
 			timer.start();
-		}
-		catch (final SQLException e) {
+		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
 
 
-	public void mapGravity(){
+	public void mapGravity() {
 		Block[][] blocks = map.getBlocks();
-		for(int y = 0; y<map.getHeight(); y++) {
-			for (int x = 0; x <map.getLenght(); x++) {
+		for (int y = 0; y < map.getHeight(); y++) {
+			for (int x = 0; x < map.getLenght(); x++) {
+
+				Block actualBlock = blocks[y][x];
+
 				// If ROCK
-				if ( (blocks[y][x].getType().equals(BlockType.ROCK) )
-						&& // And block under is empty
-					 (blocks[y+1][x].getType().equals(BlockType.EMPTY)) ) {
-						 // If player is under do nothing
-					if( (IndexPos(player.getPosX())==x) && (IndexPos(player.getPosY()-1)==y) && blocks[y][x].isFalling()){
-						System.out.println("Player is dead");
-					} else {
-						//Apply gravity
-						blocks[y][x].setType(BlockType.EMPTY);
-						blocks[y+1][x].setFalling(false);
-						blocks[y+1][x].setType(BlockType.ROCK);
-						blocks[y+1][x].setFalling(true);
+				if (actualBlock.getType().equals(BlockType.ROCK)) {
+
+					// If player is under, game over
+					if(actualBlock.isFalling() && ((IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y))){
+						actualBlock.setFalling(false);
+						setDead(true);
 					}
-				} else if ((blocks[y][x].getType().equals(BlockType.ROCK) )
-						&& // And block under is solid
-						( map.isSolid(x,y+1) ) ){
-					blocks[y][x].setFalling(false);
+
+					// If block under is not empty stop gravity
+					if( !(blocks[y+1][x].getType().equals(BlockType.EMPTY)) ){
+						blocks[y][x].setFalling(false);
+					}
+
+					// if block is falling apply gravity
+					if (actualBlock.isFalling()) {
+						actualBlock.setType(BlockType.EMPTY);
+						blocks[y + 1][x].setType(BlockType.ROCK);
+						blocks[y + 1][x].setFalling(true);
+						actualBlock.setFalling(false);
+					}
+
+					// If block under is empty
+					if (blocks[y+1][x].getType().equals(BlockType.EMPTY)) {
+						// If block is falling and player under, game over
+						if(actualBlock.isFalling() && (IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y)){
+							System.out.println("Player dead");
+						}
+						// Start falling once player is no longer under
+						if(!actualBlock.isFalling() && !((IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y))){
+							actualBlock.setFalling(true);
+						}
+					}
 				}
 			}
 		}
-
 	}
+
 	/**
      * Gets the observable.
      *

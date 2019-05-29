@@ -35,6 +35,30 @@ public final class Controller implements IController {
 		this.setModel(model);
 
 		control();
+
+		// Start game event thread
+		new Thread(() -> {
+			while (true) {
+				// Game over event
+				if(model.isDead() && !msgSet){
+					view.printMessage("Perdu, attention aux cailloux..");
+					msgSet = true;
+					System.exit(0);
+				}
+				// Time over event
+				if(model.getTime()<=0 && !msgSet){
+					view.printMessage("Perdu, temps écoulé.");
+					msgSet = true;
+					System.exit(0);
+				}
+
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
 	/**
@@ -81,6 +105,7 @@ public final class Controller implements IController {
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
+
 		// Player move
         Dimension2D movement;
         switch (controllerOrder) {
@@ -132,24 +157,9 @@ public final class Controller implements IController {
 				break;
 		}
 
-		model.mapGravity();
-
 		// Spawn end block
 		if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
 			model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
-		}
-
-		// Game over event
-		if(model.isDead() && !msgSet){
-			view.printMessage("Perdu, attention aux cailloux..");
-			msgSet = true;
-			System.exit(0);
-		}
-		// Time over event
-		if(model.getTime()<=0 && !msgSet){
-			view.printMessage("Perdu, temps écoulé.");
-			msgSet = true;
-			System.exit(0);
 		}
 	}
 
