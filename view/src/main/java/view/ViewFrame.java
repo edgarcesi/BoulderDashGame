@@ -4,7 +4,11 @@ import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -133,6 +137,21 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.setContentPane(new ViewPanel(this));
 		this.setSize(model.RealPos(model.getMap().getLenght())+16,model.RealPos(model.getMap().getHeight())+16);
 		this.setLocationRelativeTo(null);
+
+		playMusic("src/music.wav");
+	}
+
+	private void playMusic(String filepath){
+		try{
+			File music = new File(filepath);
+			AudioInputStream audio = AudioSystem.getAudioInputStream(music.getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			clip.open(audio);
+			clip.start();
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 	/**

@@ -13,7 +13,6 @@ public class Block extends Map{
     private BlockType type;
     private boolean falling;
 
-
     private Image[] diamondSprites;
     private Image[] rockSprites;
     private Image[] endSprites;
