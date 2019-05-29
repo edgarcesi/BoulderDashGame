@@ -39,15 +39,27 @@ public final class Controller implements IController {
 		// Start game event thread
 		new Thread(() -> {
 			while (true) {
+
+                // Spawn end block
+                if(model.getPlayer().getScore()>=model.getMap().getDiamond()){
+                    model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
+                }
+
+                // Win event
+                if(model.getWin() && !msgSet) {
+                    view.printMessage("You have win ! "+model.getPlayer().getScore()+" diamonds collected.");
+                    msgSet = true;
+                    System.exit(0);
+                }
 				// Game over event
 				if(model.isDead() && !msgSet){
-					view.printMessage("Perdu, attention aux cailloux..");
+					view.printMessage("Gameover ! Be careful to rocks...");
 					msgSet = true;
 					System.exit(0);
 				}
 				// Time over event
 				if(model.getTime()<=0 && !msgSet){
-					view.printMessage("Perdu, temps écoulé.");
+					view.printMessage("Gameover ! Be faster.");
 					msgSet = true;
 					System.exit(0);
 				}
@@ -105,7 +117,6 @@ public final class Controller implements IController {
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
-
 		// Player move
         Dimension2D movement;
         switch (controllerOrder) {
@@ -156,11 +167,6 @@ public final class Controller implements IController {
 				model.getPlayer().setFrame(PlayerSprite.IDLE);
 				break;
 		}
-
-		// Spawn end block
-		if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
-			model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
-		}
 	}
 
 	public void preMove(Player player, Map map, Dimension2D movement){
@@ -171,13 +177,10 @@ public final class Controller implements IController {
                 break;
             case DIAMOND:
                 block.setType(BlockType.EMPTY);
-				int score = player.getScore();
-				player.setScore(score+=500);
+				model.pickDiamond();
                 break;
             case END:
-                view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());
                 model.setWin(true);
-                System.exit(0);
                 break;
         }
     }

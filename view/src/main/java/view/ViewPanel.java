@@ -1,17 +1,12 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-
 import entity.Block;
-import entity.BlockType;
 import entity.Map;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.*;
 
 /**
  * The Class ViewPanel.
@@ -36,7 +31,7 @@ class ViewPanel extends JPanel implements Observer {
 		this.setViewFrame(viewFrame);
 		viewFrame.getModel().getObservable().addObserver(this);
 		font = new Font("Monaco",Font.BOLD, 14);
-		Thread loop = new Thread(() -> {
+        Thread loop = new Thread(() -> {
 			while (true){
 				this.repaint();
 				try {
@@ -103,10 +98,11 @@ class ViewPanel extends JPanel implements Observer {
 		graphics.setFont(font);
 		// Write score
         graphics.setColor(Color.blue);
-        graphics.drawString("Score : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2),viewFrame.getHeight()-45);
+        graphics.drawString("Diamond : " + viewFrame.getModel().getPlayer().getScore(), (viewFrame.getWidth()/2),viewFrame.getHeight()-45);
 		// Write time
-        graphics.setColor(Color.red);
-        graphics.drawString("Temps : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-100,viewFrame.getHeight()-45);
+        Color timeColor = new Color((int)(viewFrame.getModel().timePercent()*255)/100,(int)(viewFrame.getModel().timePercent()*125)/100,(int)(viewFrame.getModel().timePercent()*125)/100);
+        graphics.setColor(timeColor);
+        graphics.drawString("Time : " + viewFrame.getModel().getTime(),(viewFrame.getWidth()/2)-100,viewFrame.getHeight()-45);
 	}
 
 }

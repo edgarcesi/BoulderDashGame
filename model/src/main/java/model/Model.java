@@ -149,6 +149,17 @@ public final class Model extends Observable implements IModel {
 		}
 	}
 
+	public void pickDiamond(){
+        player.setScore(player.getScore()+1);
+        if(player.getScore()>=map.getDiamond()){
+           map.getBlocks(map.getEndX(),map.getEndY()).setType(BlockType.END);
+        }
+    }
+
+    public float timePercent(){
+	    return (time*100)/map.getTime();
+
+    }
 	/**
      * Gets the observable.
      *
