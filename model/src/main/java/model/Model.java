@@ -18,7 +18,7 @@ import javax.swing.text.View;
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 3; // Map to load
+	private int mapID = 2; // Map to load
 	private boolean win,dead = false;
 	private long time;
 
@@ -37,11 +37,6 @@ public final class Model extends Observable implements IModel {
 		Thread gravity = new Thread(() -> {
 			while (time > 0) {
 				mapGravity();
-				try {
-					Thread.sleep(250);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 			}
 		});
 		gravity.start();
@@ -115,23 +110,24 @@ public final class Model extends Observable implements IModel {
 				if ( (blocks[y][x].getType().equals(BlockType.ROCK) )
 						&& // And block under is empty
 					 (blocks[y+1][x].getType().equals(BlockType.EMPTY)) ) {
-
 						 // If player is under do nothing
-					if( (IndexPos(player.getPosX())==x) && (IndexPos(player.getPosY()-1)==y) ){
-
+					if( (IndexPos(player.getPosX())==x) && (IndexPos(player.getPosY()-1)==y) && blocks[y][x].isFalling()){
+						System.out.println("Player is dead");
 					} else {
 						//Apply gravity
 						blocks[y][x].setType(BlockType.EMPTY);
+						blocks[y+1][x].setFalling(false);
 						blocks[y+1][x].setType(BlockType.ROCK);
+						blocks[y+1][x].setFalling(true);
 					}
+				} else if ((blocks[y][x].getType().equals(BlockType.ROCK) )
+						&& // And block under is solid
+						( map.isSolid(x,y+1) ) ){
+					blocks[y][x].setFalling(false);
 				}
 			}
 		}
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
 	}
 	/**
      * Gets the observable.

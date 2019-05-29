@@ -85,31 +85,46 @@ public final class Controller implements IController {
         Dimension2D movement;
         switch (controllerOrder) {
 			case UP:
+				// Get next move
 			    movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY()-1));
-                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-                    preMove(model.getPlayer(), model.getMap(), movement);
+                // If next block is not solid
+			    if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+                    // move player
                     model.getPlayer().moveUp();
+					// Process block action
+					preMove(model.getPlayer(), model.getMap(), movement);
                 }
 				break;
 			case DOWN:
-			    movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()),model.IndexPos(model.getPlayer().getPosY())+1);
+				// Get next move
+				movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()),model.IndexPos(model.getPlayer().getPosY())+1);
                 if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-                    preMove(model.getPlayer(), model.getMap(), movement);
+					// move player
                     model.getPlayer().moveDown();
+					// Process block action
+					preMove(model.getPlayer(), model.getMap(), movement);
                 }
 				break;
 			case LEFT:
-                movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())-1,model.IndexPos(model.getPlayer().getPosY()));
-                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-                    preMove(model.getPlayer(), model.getMap(), movement);
-                    model.getPlayer().moveLeft();
+				// Get next move
+				movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())-1,model.IndexPos(model.getPlayer().getPosY()));
+				// If next block is not solid
+				if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+					// move player
+					model.getPlayer().moveLeft();
+					// Process block action
+					preMove(model.getPlayer(), model.getMap(), movement);
                 }
 				break;
 			case RIGHT:
-                movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())+1,model.IndexPos(model.getPlayer().getPosY()));
-                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-                    preMove(model.getPlayer(), model.getMap(), movement);
+				// Get next move
+				movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())+1,model.IndexPos(model.getPlayer().getPosY()));
+				// If next block is not solid
+				if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
+					// move player
                     model.getPlayer().moveRight();
+					// Process block action
+					preMove(model.getPlayer(), model.getMap(), movement);
                 }
 				break;
 			case NOTHING:
@@ -117,7 +132,9 @@ public final class Controller implements IController {
 				break;
 		}
 
-        // Spawn end block
+		model.mapGravity();
+
+		// Spawn end block
 		if(model.getPlayer().getScore()/500>=model.getMap().getDiamond()){
 			model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
 		}
@@ -143,9 +160,9 @@ public final class Controller implements IController {
                 block.setType(BlockType.EMPTY);
                 break;
             case DIAMOND:
-                int score = player.getScore();
                 block.setType(BlockType.EMPTY);
-                player.setScore(score+=500);
+				int score = player.getScore();
+				player.setScore(score+=500);
                 break;
             case END:
                 view.printMessage("Félicitation vous avez gagné ! Votre score : "+model.getPlayer().getScore());

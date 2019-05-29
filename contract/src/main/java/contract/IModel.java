@@ -42,6 +42,9 @@ public interface IModel {
 	void setDead(boolean dead);
 	boolean isDead();
 	long getTime();
+
+	void mapGravity();
+
 	public void PlayerDeathAnnimation(int prevTopX, int prevBotY);
 	/**
 	 * Gets the observable.
