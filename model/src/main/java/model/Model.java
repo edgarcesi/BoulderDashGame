@@ -190,7 +190,7 @@ public final class Model extends Observable implements IModel {
 	public void setDead(boolean dead) {
 		this.dead = dead;
 	}
-
+/*
 	public void PlayerDeathAnnimation(int prevTopX, int prevTotY){
 		getPlayer().setFrame(PlayerSprite.DEAD);
 		if (!getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY)).equals(BlockType.WALL)){
@@ -218,7 +218,7 @@ public final class Model extends Observable implements IModel {
 			getMap().TransformToStar(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY));
 		}
 	}
-
+*/
 	@Override
 	public long getTime() {
 		return time;

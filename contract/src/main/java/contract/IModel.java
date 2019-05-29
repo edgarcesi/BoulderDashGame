@@ -32,10 +32,10 @@ public interface IModel {
 
 
 	int RealPos(int index);
-	public int IndexPos(int realPos);
+	 int IndexPos(int realPos);
 
-	public void setPlayer(final Player player);
-	public Player getPlayer();
+	 void setPlayer(final Player player);
+	 Player getPlayer();
 
 	boolean getWin();
 	void setWin(boolean win);
@@ -45,7 +45,7 @@ public interface IModel {
 
 	void mapGravity();
 
-	public void PlayerDeathAnnimation(int prevTopX, int prevBotY);
+	//void PlayerDeathAnnimation(int prevTopX, int prevBotY);
 	/**
 	 * Gets the observable.
 	 *
