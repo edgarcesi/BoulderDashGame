@@ -154,6 +154,18 @@ class ViewFrame extends JFrame implements KeyListener {
 		}
 	}
 
+	public void playEffect(String filepath){
+		try{
+			File music = new File(filepath);
+			AudioInputStream audio = AudioSystem.getAudioInputStream(music.getAbsoluteFile());
+			Clip clip = AudioSystem.getClip();
+			clip.open(audio);
+			clip.start();
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+
 	/**
 	 * Prints the message.
 	 *

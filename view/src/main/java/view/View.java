@@ -81,4 +81,12 @@ public final class View implements IView, Runnable {
 	public void setController(final IController controller) {
 		this.viewFrame.setController(controller);
 	}
+
+	public void playWinMusic(){
+		viewFrame.playEffect("src/win.wav");
+	}
+
+	public void playGameoverMusic(){
+		viewFrame.playEffect("src/timeout.wav");
+	}
 }
