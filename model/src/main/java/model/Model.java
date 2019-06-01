@@ -114,34 +114,35 @@ public final class Model extends Observable implements IModel {
 				// If ROCK
 				if (actualBlock.getType().equals(BlockType.ROCK)) {
 
-					// If player is under, game over
+					Block nextBlock = blocks[y+1][x];
+
+					// If player is under a falling block, game over
 					if(actualBlock.isFalling() && ((IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y))){
 						actualBlock.setFalling(false);
 						setDead(true);
 					}
 
 					// If block under is not empty stop gravity
-					if( !(blocks[y+1][x].getType().equals(BlockType.EMPTY)) ){
-						blocks[y][x].setFalling(false);
+					if( !(nextBlock.getType().equals(BlockType.EMPTY)) ){
+						actualBlock.setFalling(false);
+					}
+					// Else if block under is empty, start falling once player is no longer under current block
+					else {
+						if(!actualBlock.isFalling() && !((IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y))){
+							actualBlock.setFalling(true);
+						}
 					}
 
 					// if block is falling apply gravity
 					if (actualBlock.isFalling()) {
 						actualBlock.setType(BlockType.EMPTY);
-						blocks[y + 1][x].setType(BlockType.ROCK);
-						blocks[y + 1][x].setFalling(true);
+						nextBlock.setType(BlockType.ROCK);
+						nextBlock.setFalling(true);
 						actualBlock.setFalling(false);
-					}
-
-					// If block under is empty
-					if (blocks[y+1][x].getType().equals(BlockType.EMPTY)) {
-						// If block is falling and player under, game over
-						if(actualBlock.isFalling() && (IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y)){
-							System.out.println("Player dead");
-						}
-						// Start falling once player is no longer under
-						if(!actualBlock.isFalling() && !((IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y))){
-							actualBlock.setFalling(true);
+						try {
+							Thread.sleep(250);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
 						}
 					}
 				}
@@ -158,8 +159,8 @@ public final class Model extends Observable implements IModel {
 
     public float timePercent(){
 	    return (time*100)/map.getTime();
-
     }
+
 	/**
      * Gets the observable.
      *

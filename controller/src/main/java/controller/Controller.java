@@ -39,13 +39,7 @@ public final class Controller implements IController {
 		// Start game event thread
 		new Thread(() -> {
 			while (!msgSet) {
-
-                // Spawn end block
-                if(model.getPlayer().getScore()>=model.getMap().getDiamond()){
-                    model.getMap().getBlocks(model.getMap().getEndY(),model.getMap().getEndX()).setType(BlockType.END);
-                }
-
-                // Win event
+				// Win event
                 if(model.getWin() && !msgSet) {
 					view.playWinMusic();
 					view.printMessage("You have win ! "+model.getPlayer().getScore()+" diamonds collected.");
@@ -68,7 +62,7 @@ public final class Controller implements IController {
 				}
 
 				try {
-					Thread.sleep(50);
+					Thread.sleep(250);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -131,7 +125,7 @@ public final class Controller implements IController {
                     // move player
                     model.getPlayer().moveUp();
 					// Process block action
-					preMove(model.getPlayer(), model.getMap(), movement);
+					preMove(model.getMap(), movement);
                 }
 				break;
 			case DOWN:
@@ -141,7 +135,7 @@ public final class Controller implements IController {
 					// move player
                     model.getPlayer().moveDown();
 					// Process block action
-					preMove(model.getPlayer(), model.getMap(), movement);
+					preMove(model.getMap(), movement);
                 }
 				break;
 			case LEFT:
@@ -152,7 +146,7 @@ public final class Controller implements IController {
 					// move player
 					model.getPlayer().moveLeft();
 					// Process block action
-					preMove(model.getPlayer(), model.getMap(), movement);
+					preMove(model.getMap(), movement);
                 }
 				break;
 			case RIGHT:
@@ -163,7 +157,7 @@ public final class Controller implements IController {
 					// move player
                     model.getPlayer().moveRight();
 					// Process block action
-					preMove(model.getPlayer(), model.getMap(), movement);
+					preMove(model.getMap(), movement);
                 }
 				break;
 			case NOTHING:
@@ -172,7 +166,7 @@ public final class Controller implements IController {
 		}
 	}
 
-	public void preMove(Player player, Map map, Dimension2D movement){
+	public void preMove(Map map, Dimension2D movement){
 	    Block block = map.getBlocks((int)movement.getWidth(), (int)movement.getHeight());
 	    switch (block.getType()){
             case DIRT:
