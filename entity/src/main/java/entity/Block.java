@@ -8,6 +8,12 @@ import java.io.IOException;
 
 import static entity.BlockType.ROCK;
 
+/**
+ * <p>Block class.</p>
+ *
+ * @author tamed
+ * @version $Id: $Id
+ */
 public class Block extends Map{
     private int posX, posY, frameIndex;
     private BlockType type;
@@ -22,6 +28,13 @@ public class Block extends Map{
     private Image dirtSprite;
 
 
+    /**
+     * <p>Constructor for Block.</p>
+     *
+     * @param x a int.
+     * @param y a int.
+     * @param t a {@link entity.BlockType} object.
+     */
     public Block(int x, int y, BlockType t){
         this.posX = x;
         this.posY = y;
@@ -56,38 +69,83 @@ public class Block extends Map{
         dirtSprite = getSpriteSheet().getSubimage(1 * 16, 0*16, 16, 16);
     }
 
+    /**
+     * <p>Getter for the field <code>posX</code>.</p>
+     *
+     * @return a int.
+     */
     public int getPosX() {
         return posX;
     }
 
+    /**
+     * <p>Setter for the field <code>posX</code>.</p>
+     *
+     * @param posX a int.
+     */
     public void setPosX(int posX) {
         this.posX = posX;
     }
 
+    /**
+     * <p>Getter for the field <code>posY</code>.</p>
+     *
+     * @return a int.
+     */
     public int getPosY() {
         return posY;
     }
 
+    /**
+     * <p>Setter for the field <code>posY</code>.</p>
+     *
+     * @param posY a int.
+     */
     public void setPosY(int posY) {
         this.posY = posY;
     }
 
+    /**
+     * <p>Getter for the field <code>type</code>.</p>
+     *
+     * @return a {@link entity.BlockType} object.
+     */
     public BlockType getType() {
         return type;
     }
 
+    /**
+     * <p>Setter for the field <code>type</code>.</p>
+     *
+     * @param type a {@link entity.BlockType} object.
+     */
     public void setType(BlockType type) {
         this.type = type;
     }
 
+    /**
+     * <p>isFalling.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isFalling() {
         return falling;
     }
 
+    /**
+     * <p>Setter for the field <code>falling</code>.</p>
+     *
+     * @param falling a boolean.
+     */
     public void setFalling(boolean falling) {
         this.falling = falling;
     }
 
+    /**
+     * <p>getSprites.</p>
+     *
+     * @return a {@link java.awt.Image} object.
+     */
     public Image getSprites() {
         frameIndex++;
         switch (this.type){

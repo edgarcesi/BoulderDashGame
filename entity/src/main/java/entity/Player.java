@@ -6,6 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * <p>Player class.</p>
+ *
+ * @author tamed
+ * @version $Id: $Id
+ */
 public class Player extends Entity {
     private int posX, posY, score, frameIndex;
 
@@ -20,6 +26,13 @@ public class Player extends Entity {
     private Image[] deadSprites;
 
 
+
+    /**
+     * <p>Constructor for Player.</p>
+     *
+     * @param x a int.
+     * @param y a int.
+     */
     public Player(final int x, final int y) {
         try {
             frameIndex = 0;
@@ -65,62 +78,124 @@ public class Player extends Entity {
         this(0,0);
     }
 
+    /**
+     * <p>moveUp.</p>
+     */
     public void moveUp(){
         this.frame = PlayerSprite.UP;
         this.posY-=16;
     }
 
+    /**
+     * <p>moveDown.</p>
+     */
     public void moveDown(){
         this.frame = PlayerSprite.DOWN;
         this.posY+=16;
     }
 
+    /**
+     * <p>moveLeft.</p>
+     */
     public void moveLeft(){
         this.frame = PlayerSprite.LEFT;
         this.posX-=16;
     }
 
+    /**
+     * <p>moveRight.</p>
+     */
     public void moveRight(){
         this.frame = PlayerSprite.RIGHT;
         this.posX+=16;
     }
 
+    /**
+     * <p>Getter for the field <code>frame</code>.</p>
+     *
+     * @return a {@link entity.PlayerSprite} object.
+     */
     public PlayerSprite getFrame() {
         return frame;
     }
 
+    /**
+     * <p>Setter for the field <code>frame</code>.</p>
+     *
+     * @param frame a {@link entity.PlayerSprite} object.
+     */
     public void setFrame(PlayerSprite frame) {
         this.frame = frame;
     }
 
+    /**
+     * <p>Getter for the field <code>posX</code>.</p>
+     *
+     * @return a int.
+     */
     public int getPosX() {
         return posX;
     }
 
+    /**
+     * <p>Setter for the field <code>posX</code>.</p>
+     *
+     * @param posX a int.
+     */
     public void setPosX(int posX) {
         this.posX = posX;
     }
 
+    /**
+     * <p>Getter for the field <code>posY</code>.</p>
+     *
+     * @return a int.
+     */
     public int getPosY() {
         return posY;
     }
 
+    /**
+     * <p>Setter for the field <code>posY</code>.</p>
+     *
+     * @param posY a int.
+     */
     public void setPosY(int posY) {
         this.posY = posY;
     }
 
+    /**
+     * <p>Getter for the field <code>score</code>.</p>
+     *
+     * @return a int.
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * <p>Setter for the field <code>score</code>.</p>
+     *
+     * @param score a int.
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * <p>IncrementScore.</p>
+     *
+     * @param amount a int.
+     */
     public void IncrementScore(int amount){
         setScore(getScore() + amount);
     }
 
+    /**
+     * <p>getSprites.</p>
+     *
+     * @return a {@link java.awt.Image} object.
+     */
     public Image getSprites() {
         frameIndex++;
         switch (frame){

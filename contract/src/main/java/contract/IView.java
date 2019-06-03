@@ -4,6 +4,7 @@ package contract;
  * The Interface IView.
  *
  * @author Jean-Aymeric Diet
+ * @version $Id: $Id
  */
 public interface IView {
 
@@ -15,6 +16,12 @@ public interface IView {
 	 */
 	void printMessage(final String message);
 
+	/**
+	 * <p>playWinMusic.</p>
+	 */
 	void playWinMusic();
+	/**
+	 * <p>playGameoverMusic.</p>
+	 */
 	void playGameoverMusic();
 }

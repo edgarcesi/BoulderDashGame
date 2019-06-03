@@ -15,10 +15,11 @@ import javax.swing.text.View;
  * The Class Model.
  *
  * @author Jean-Aymeric Diet
+ * @version $Id: $Id
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 2; // Map to load
+	private int mapID = 1; // Map to load
 	private boolean win, dead = false;
 	private long time;
 
@@ -74,9 +75,9 @@ public final class Model extends Observable implements IModel {
 	}
 
 	/**
-	 * Load the map.
+	 * {@inheritDoc}
 	 *
-	 * @param id the map id
+	 * Load the map.
 	 */
 	public void loadMap(final int id) {
 		try {
@@ -104,6 +105,9 @@ public final class Model extends Observable implements IModel {
 	}
 
 
+	/**
+	 * <p>mapGravity.</p>
+	 */
 	public void mapGravity() {
 		Block[][] blocks = map.getBlocks();
 		for (int y = 0; y < map.getHeight(); y++) {
@@ -150,6 +154,9 @@ public final class Model extends Observable implements IModel {
 		}
 	}
 
+	/**
+	 * <p>pickDiamond.</p>
+	 */
 	public void pickDiamond(){
         player.setScore(player.getScore()+1);
         if(player.getScore()>=map.getDiamond()){
@@ -157,15 +164,20 @@ public final class Model extends Observable implements IModel {
         }
     }
 
+    /**
+     * <p>timePercent.</p>
+     *
+     * @return a float.
+     */
     public float timePercent(){
 	    return (time*100)/map.getTime();
     }
 
 	/**
-     * Gets the observable.
-     *
-     * @return the observable
-     */
+	 * Gets the observable.
+	 *
+	 * @return the observable
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -175,30 +187,48 @@ public final class Model extends Observable implements IModel {
 		return this;
 	}
 
+	/** {@inheritDoc} */
 	public int RealPos(int index){ return index*OFFSET;}
+	/** {@inheritDoc} */
 	public int IndexPos(int realPos){ return realPos/OFFSET;}
 
+	/**
+	 * <p>Getter for the field <code>player</code>.</p>
+	 *
+	 * @return a {@link entity.Player} object.
+	 */
 	public Player getPlayer(){return this.player;}
 	/**
-	 * Sets the player.
+	 * {@inheritDoc}
 	 *
-	 * @param player
-	 *            the new player
+	 * Sets the player.
 	 */
 	public void setPlayer(Player player){this.player = player;}
 
+	/**
+	 * <p>Getter for the field <code>win</code>.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean getWin() {
 		return win;
 	}
 
+	/** {@inheritDoc} */
 	public void setWin(boolean win) {
 		this.win = win;
 	}
 
+	/**
+	 * <p>isDead.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isDead() {
 		return dead;
 	}
 
+	/** {@inheritDoc} */
 	public void setDead(boolean dead) {
 		this.dead = dead;
 	}
@@ -231,6 +261,7 @@ public final class Model extends Observable implements IModel {
 		}
 	}
 */
+	/** {@inheritDoc} */
 	@Override
 	public long getTime() {
 		return time;

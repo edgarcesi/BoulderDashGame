@@ -13,6 +13,7 @@ import contract.IView;
  * The Class View.
  *
  * @author Jean-Aymeric Diet
+ * @version $Id: $Id
  */
 public final class View implements IView, Runnable {
 
@@ -59,6 +60,7 @@ public final class View implements IView, Runnable {
 	 *
 	 * @see contract.IView#printMessage(java.lang.String)
 	 */
+	/** {@inheritDoc} */
 	public void printMessage(final String message) {
 		this.viewFrame.printMessage(message);
 	}
@@ -67,6 +69,9 @@ public final class View implements IView, Runnable {
 	 * (non-Javadoc)
 	 *
 	 * @see java.lang.Runnable#run()
+	 */
+	/**
+	 * <p>run.</p>
 	 */
 	public void run() {
 		this.viewFrame.setVisible(true);
@@ -82,10 +87,16 @@ public final class View implements IView, Runnable {
 		this.viewFrame.setController(controller);
 	}
 
+	/**
+	 * <p>playWinMusic.</p>
+	 */
 	public void playWinMusic(){
 		viewFrame.playEffect("src/win.wav");
 	}
 
+	/**
+	 * <p>playGameoverMusic.</p>
+	 */
 	public void playGameoverMusic(){
 		viewFrame.playEffect("src/timeout.wav");
 	}
