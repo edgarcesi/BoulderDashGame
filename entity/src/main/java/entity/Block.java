@@ -22,10 +22,10 @@ public class Block extends Map{
     private Image[] diamondSprites;
     private Image[] rockSprites;
     private Image[] endSprites;
-    private Image emptySprite;
+    private Image[] emptySprite;
     private Image[] starSprite;
     private Image wallSprite;
-    private Image dirtSprite;
+    private Image[] dirtSprite;
 
 
     /**
@@ -69,9 +69,17 @@ public class Block extends Map{
         starSprite[2] = getSpriteSheet().getSubimage(11 * 16, MapID*64 + 2*16, 16, 16);
         starSprite[3] = getSpriteSheet().getSubimage(11 * 16, MapID*64 + 3*16, 16, 16);
 
-        emptySprite = getSpriteSheet().getSubimage(2 * 16, MapID*64 + 0*16, 16, 16);
+        emptySprite = new Image[4];
+        emptySprite[0] = getSpriteSheet().getSubimage(2 * 16, MapID*64 + 0*16, 16, 16);
+        emptySprite[1] = getSpriteSheet().getSubimage(2 * 16, MapID*64 + 1*16, 16, 16);
+        emptySprite[2] = getSpriteSheet().getSubimage(2 * 16, MapID*64 + 2*16, 16, 16);
+        emptySprite[3] = getSpriteSheet().getSubimage(2 * 16, MapID*64 + 3*16, 16, 16);
 
-        dirtSprite = getSpriteSheet().getSubimage(1 * 16, MapID*64 + 0*16, 16, 16);
+        dirtSprite = new Image[4];
+        dirtSprite[0] = getSpriteSheet().getSubimage(1 * 16, MapID*64 + 0*16, 16, 16);
+        dirtSprite[1] = getSpriteSheet().getSubimage(1 * 16, MapID*64 + 1*16, 16, 16);
+        dirtSprite[2] = getSpriteSheet().getSubimage(1 * 16, MapID*64 + 2*16, 16, 16);
+        dirtSprite[3] = getSpriteSheet().getSubimage(1 * 16, MapID*64 + 3*16, 16, 16);
     }
 
     /**
@@ -157,9 +165,11 @@ public class Block extends Map{
             case WALL:
                 return wallSprite;
             case DIRT:
-                return dirtSprite;
+                if(frameIndex>rockSprites.length-1) frameIndex = 0;
+                return dirtSprite[frameIndex];
             case EMPTY:
-                return emptySprite;
+                if(frameIndex>rockSprites.length-1) frameIndex = 0;
+                return emptySprite[frameIndex];
             case ROCK:
                 if(frameIndex>rockSprites.length-1) frameIndex = 0;
                 return rockSprites[frameIndex];
