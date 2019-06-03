@@ -35,7 +35,8 @@ public class Block extends Map{
      * @param y a int.
      * @param t a {@link entity.BlockType} object.
      */
-    public Block(int x, int y, BlockType t){
+    public Block(int x, int y, BlockType t, int MapID){
+        MapID--;
         this.posX = x;
         this.posY = y;
         this.type = t;
@@ -43,34 +44,34 @@ public class Block extends Map{
         frameIndex = 0;
 
         rockSprites = new Image[4];
-        rockSprites[0] = getSpriteSheet().getSubimage(3 * 16,0 * 16, 16, 16);
-        rockSprites[1] = getSpriteSheet().getSubimage(3 * 16,1 * 16, 16, 16);
-        rockSprites[2] = getSpriteSheet().getSubimage(3 * 16,2 * 16, 16, 16);
-        rockSprites[3] = getSpriteSheet().getSubimage(3 * 16,3 * 16, 16, 16);
+        rockSprites[0] = getSpriteSheet().getSubimage(3 * 16,MapID*64 + 0 * 16, 16, 16);
+        rockSprites[1] = getSpriteSheet().getSubimage(3 * 16,MapID*64 + 1 * 16, 16, 16);
+        rockSprites[2] = getSpriteSheet().getSubimage(3 * 16,MapID*64 + 2 * 16, 16, 16);
+        rockSprites[3] = getSpriteSheet().getSubimage(3 * 16,MapID*64 + 3 * 16, 16, 16);
 
         diamondSprites = new Image[4];
-        diamondSprites[0] = getSpriteSheet().getSubimage(4 * 16,0 * 16, 16, 16);
-        diamondSprites[1] = getSpriteSheet().getSubimage(4 * 16,1 * 16, 16, 16);
-        diamondSprites[2] = getSpriteSheet().getSubimage(4 * 16,2 * 16, 16, 16);
-        diamondSprites[3] = getSpriteSheet().getSubimage(4 * 16,3 * 16, 16, 16);
+        diamondSprites[0] = getSpriteSheet().getSubimage(4 * 16,MapID*64 + 0 * 16, 16, 16);
+        diamondSprites[1] = getSpriteSheet().getSubimage(4 * 16,MapID*64 + 1 * 16, 16, 16);
+        diamondSprites[2] = getSpriteSheet().getSubimage(4 * 16,MapID*64 + 2 * 16, 16, 16);
+        diamondSprites[3] = getSpriteSheet().getSubimage(4 * 16,MapID*64 + 3 * 16, 16, 16);
 
         endSprites = new Image[4];
-        endSprites[0] = getSpriteSheet().getSubimage(7 * 16,0 * 16, 16, 16);
-        endSprites[1] = getSpriteSheet().getSubimage(7 * 16,1 * 16, 16, 16);
-        endSprites[2] = getSpriteSheet().getSubimage(7 * 16,2 * 16, 16, 16);
-        endSprites[3] = getSpriteSheet().getSubimage(7 * 16,3 * 16, 16, 16);
+        endSprites[0] = getSpriteSheet().getSubimage(7 * 16,MapID*64 + 0 * 16, 16, 16);
+        endSprites[1] = getSpriteSheet().getSubimage(7 * 16,MapID*64 + 1 * 16, 16, 16);
+        endSprites[2] = getSpriteSheet().getSubimage(7 * 16,MapID*64 + 2 * 16, 16, 16);
+        endSprites[3] = getSpriteSheet().getSubimage(7 * 16,MapID*64 + 3 * 16, 16, 16);
 
-        wallSprite = getSpriteSheet().getSubimage(0 * 16, 0*16, 16, 16);
+        wallSprite = getSpriteSheet().getSubimage(0 * 16, MapID*64 + 0*16, 16, 16);
 
         starSprite = new Image[4];
-        starSprite[0] = getSpriteSheet().getSubimage(11 * 16, 0*16, 16, 16);
-        starSprite[1] = getSpriteSheet().getSubimage(11 * 16, 1*16, 16, 16);
-        starSprite[2] = getSpriteSheet().getSubimage(11 * 16, 2*16, 16, 16);
-        starSprite[3] = getSpriteSheet().getSubimage(11 * 16, 3*16, 16, 16);
+        starSprite[0] = getSpriteSheet().getSubimage(11 * 16, MapID*64 + 0*16, 16, 16);
+        starSprite[1] = getSpriteSheet().getSubimage(11 * 16, MapID*64 + 1*16, 16, 16);
+        starSprite[2] = getSpriteSheet().getSubimage(11 * 16, MapID*64 + 2*16, 16, 16);
+        starSprite[3] = getSpriteSheet().getSubimage(11 * 16, MapID*64 + 3*16, 16, 16);
 
-        emptySprite = getSpriteSheet().getSubimage(2 * 16, 0*16, 16, 16);
+        emptySprite = getSpriteSheet().getSubimage(2 * 16, MapID*64 + 0*16, 16, 16);
 
-        dirtSprite = getSpriteSheet().getSubimage(1 * 16, 0*16, 16, 16);
+        dirtSprite = getSpriteSheet().getSubimage(1 * 16, MapID*64 + 0*16, 16, 16);
     }
 
     /**

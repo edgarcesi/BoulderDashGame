@@ -20,7 +20,7 @@ import javax.swing.text.View;
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 1; // Map to load
+	private int mapID = 5; // Map to load
 	private boolean win, dead = false;
 	private long time;
 
@@ -124,7 +124,7 @@ public final class Model extends Observable implements IModel {
 					// If player is under a falling block, game over
 					if(actualBlock.isFalling() && ((IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y))){
 						actualBlock.setFalling(false);
-						PlayerDeathAnnimation(player.getPosX(), player.getPosY());
+						PlayerDeathAnnimation(IndexPos(player.getPosX()), IndexPos(player.getPosY()));
 						setDead(true);
 					}
 
@@ -235,35 +235,35 @@ public final class Model extends Observable implements IModel {
 		this.dead = dead;
 	}
 
-	public void PlayerDeathAnnimation(int prevTopX, int prevTotY){
+	public void PlayerDeathAnnimation(int x, int y){
 		ArrayList<BlockType> forbiddenBlocks = new ArrayList<>();
 		forbiddenBlocks.add(BlockType.ROCK);
 		forbiddenBlocks.add(BlockType.WALL);
 		forbiddenBlocks.add(BlockType.DIAMOND);
 
-		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY)))){
-			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY));
+		if (!forbiddenBlocks.contains(getMap().getBlockType(x-1, y))){
+			getMap().TransformToStar(x-1, y);
 		}
-		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY-OFFSET)))){
-			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY-OFFSET));
+		if (!forbiddenBlocks.contains(getMap().getBlockType(x-1, y-1))){
+			getMap().TransformToStar(x-1, y-1);
 		}
-		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY+OFFSET)))){
-			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY+OFFSET));
+		if (!forbiddenBlocks.contains(getMap().getBlockType(x-1, y+1))){
+			getMap().TransformToStar(x-1, y+1);
 		}
-		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY+OFFSET)))){
-			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY+OFFSET));
+		if (!forbiddenBlocks.contains(getMap().getBlockType(x, y+1))){
+			getMap().TransformToStar(x, y+1);
 		}
-		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY-OFFSET)))){
-			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY-OFFSET));
+		if (!forbiddenBlocks.contains(getMap().getBlockType(x, y-1))){
+			getMap().TransformToStar(x, y-1);
 		}
-		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY-OFFSET)))){
-			getMap().TransformToStar(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY-OFFSET));
+		if (!forbiddenBlocks.contains(getMap().getBlockType(x+1, y-1))){
+			getMap().TransformToStar(x+1, y-1);
 		}
-		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY+OFFSET)))){
-			getMap().TransformToStar(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY+OFFSET));
+		if (!forbiddenBlocks.contains(getMap().getBlockType(x+1, y+1))){
+			getMap().TransformToStar(x+1, y+1);
 		}
-		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY)))){
-			getMap().TransformToStar(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY));
+		if (!forbiddenBlocks.contains(getMap().getBlockType(x+1, y))){
+			getMap().TransformToStar(x+1, y);
 		}
 	}
 
