@@ -48,7 +48,6 @@ class DAOMap extends DAOEntity<Map> {
             ArrayList<String> line = new ArrayList<>(); // Map length
             while (resultSet.next()){
                 line.add(resultSet.getString("schema")); // Actual line
-                System.out.println(line.get(nline));
                 nline++;
             }
             Map map = new Map(id, nline,line.get(0).length());
