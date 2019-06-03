@@ -236,7 +236,7 @@ public final class Model extends Observable implements IModel {
 	}
 
 	public void PlayerDeathAnnimation(int prevTopX, int prevTotY){
-		ArrayList forbiddenBlocks = new ArrayList();
+		ArrayList<BlockType> forbiddenBlocks = new ArrayList<>();
 		forbiddenBlocks.add(BlockType.ROCK);
 		forbiddenBlocks.add(BlockType.WALL);
 		forbiddenBlocks.add(BlockType.DIAMOND);
