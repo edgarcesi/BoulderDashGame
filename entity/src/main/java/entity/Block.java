@@ -42,7 +42,7 @@ public class Block extends Map{
         this.type = t;
 
         frameIndex = 0;
-
+        // MapID*64 permet de sauter au groupe de texture suivant
         rockSprites = new Image[4];
         rockSprites[0] = getSpriteSheet().getSubimage(3 * 16,MapID*64 + 0 * 16, 16, 16);
         rockSprites[1] = getSpriteSheet().getSubimage(3 * 16,MapID*64 + 1 * 16, 16, 16);
