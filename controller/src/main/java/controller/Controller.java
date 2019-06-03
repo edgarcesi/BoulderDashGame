@@ -34,7 +34,7 @@ public final class Controller implements IController {
 		this.setView(view);
 		this.setModel(model);
 
-		control();
+		//control();
 
 		Thread gameEventThread = new Thread(() -> {
 			gameEvent();
@@ -86,55 +86,58 @@ public final class Controller implements IController {
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
-		// Player move
-        Dimension2D movement;
-        switch (controllerOrder) {
-			case UP:
-				// Get next move
-			    movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY()-1));
-                // If next block is not solid
-			    if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-                    // move player
-                    model.getPlayer().moveUp();
-					// Process block action
-					preMove(model.getMap(), movement);
-                }
-				break;
-			case DOWN:
-				// Get next move
-				movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()),model.IndexPos(model.getPlayer().getPosY())+1);
-                if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-					// move player
-                    model.getPlayer().moveDown();
-					// Process block action
-					preMove(model.getMap(), movement);
-                }
-				break;
-			case LEFT:
-				// Get next move
-				movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())-1,model.IndexPos(model.getPlayer().getPosY()));
-				// If next block is not solid
-				if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-					// move player
-					model.getPlayer().moveLeft();
-					// Process block action
-					preMove(model.getMap(), movement);
-                }
-				break;
-			case RIGHT:
-				// Get next move
-				movement = new Dimension(model.IndexPos(model.getPlayer().getPosX())+1,model.IndexPos(model.getPlayer().getPosY()));
-				// If next block is not solid
-				if(!model.getMap().isSolid((int)movement.getWidth(), (int)movement.getHeight())) {
-					// move player
-                    model.getPlayer().moveRight();
-					// Process block action
-					preMove(model.getMap(), movement);
-                }
-				break;
-			case NOTHING:
-				model.getPlayer().setFrame(PlayerSprite.IDLE);
-				break;
+
+		if(!model.isDead()) {
+			// Player move
+			Dimension2D movement;
+			switch (controllerOrder) {
+				case UP:
+					// Get next move
+					movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY() - 1));
+					// If next block is not solid
+					if (!model.getMap().isSolid((int) movement.getWidth(), (int) movement.getHeight())) {
+						// move player
+						model.getPlayer().moveUp();
+						// Process block action
+						preMove(model.getMap(), movement);
+					}
+					break;
+				case DOWN:
+					// Get next move
+					movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()), model.IndexPos(model.getPlayer().getPosY()) + 1);
+					if (!model.getMap().isSolid((int) movement.getWidth(), (int) movement.getHeight())) {
+						// move player
+						model.getPlayer().moveDown();
+						// Process block action
+						preMove(model.getMap(), movement);
+					}
+					break;
+				case LEFT:
+					// Get next move
+					movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()) - 1, model.IndexPos(model.getPlayer().getPosY()));
+					// If next block is not solid
+					if (!model.getMap().isSolid((int) movement.getWidth(), (int) movement.getHeight())) {
+						// move player
+						model.getPlayer().moveLeft();
+						// Process block action
+						preMove(model.getMap(), movement);
+					}
+					break;
+				case RIGHT:
+					// Get next move
+					movement = new Dimension(model.IndexPos(model.getPlayer().getPosX()) + 1, model.IndexPos(model.getPlayer().getPosY()));
+					// If next block is not solid
+					if (!model.getMap().isSolid((int) movement.getWidth(), (int) movement.getHeight())) {
+						// move player
+						model.getPlayer().moveRight();
+						// Process block action
+						preMove(model.getMap(), movement);
+					}
+					break;
+				case NOTHING:
+					model.getPlayer().setFrame(PlayerSprite.IDLE);
+					break;
+			}
 		}
 	}
 

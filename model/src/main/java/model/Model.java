@@ -39,12 +39,14 @@ public final class Model extends Observable implements IModel {
 		Thread gravity = new Thread(() -> {
 			while (time > 0) {
 				mapGravity();
+
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+
 		});
 		gravity.start();
 	}
@@ -146,7 +148,7 @@ public final class Model extends Observable implements IModel {
 						nextBlock.setFalling(true);
 						actualBlock.setFalling(false);
 						try {
-							Thread.sleep(250);
+							Thread.sleep(150);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
