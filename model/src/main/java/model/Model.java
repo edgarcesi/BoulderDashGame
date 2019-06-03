@@ -3,6 +3,7 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Observable;
 
 import contract.IModel;
@@ -123,6 +124,7 @@ public final class Model extends Observable implements IModel {
 					// If player is under a falling block, game over
 					if(actualBlock.isFalling() && ((IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y))){
 						actualBlock.setFalling(false);
+						PlayerDeathAnnimation(player.getPosX(), player.getPosY());
 						setDead(true);
 					}
 
@@ -232,35 +234,39 @@ public final class Model extends Observable implements IModel {
 	public void setDead(boolean dead) {
 		this.dead = dead;
 	}
-/*
+
 	public void PlayerDeathAnnimation(int prevTopX, int prevTotY){
-		getPlayer().setFrame(PlayerSprite.DEAD);
-		if (!getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY)).equals(BlockType.WALL)){
+		ArrayList forbiddenBlocks = new ArrayList();
+		forbiddenBlocks.add(BlockType.ROCK);
+		forbiddenBlocks.add(BlockType.WALL);
+		forbiddenBlocks.add(BlockType.DIAMOND);
+
+		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY)))){
 			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY-OFFSET)).equals(BlockType.WALL)){
+		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY-OFFSET)))){
 			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY-OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY+OFFSET)).equals(BlockType.WALL)){
+		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY+OFFSET)))){
 			getMap().TransformToStar(IndexPos(prevTopX - OFFSET), IndexPos(prevTotY+OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY+OFFSET)).equals(BlockType.WALL)){
+		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY+OFFSET)))){
 			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY+OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY-OFFSET)).equals(BlockType.WALL)){
+		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX), IndexPos(prevTotY-OFFSET)))){
 			getMap().TransformToStar(IndexPos(prevTopX), IndexPos(prevTotY-OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY-OFFSET)).equals(BlockType.WALL)){
+		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY-OFFSET)))){
 			getMap().TransformToStar(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY-OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY+OFFSET)).equals(BlockType.WALL)){
+		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY+OFFSET)))){
 			getMap().TransformToStar(IndexPos(prevTopX + OFFSET), IndexPos(prevTotY+OFFSET));
 		}
-		if (!getMap().getBlockType(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY)).equals(BlockType.WALL)){
+		if (!forbiddenBlocks.contains(getMap().getBlockType(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY)))){
 			getMap().TransformToStar(IndexPos(prevTopX+OFFSET), IndexPos(prevTotY));
 		}
 	}
-*/
+
 	/** {@inheritDoc} */
 	@Override
 	public long getTime() {

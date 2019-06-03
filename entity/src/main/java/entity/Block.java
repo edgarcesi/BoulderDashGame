@@ -23,7 +23,7 @@ public class Block extends Map{
     private Image[] rockSprites;
     private Image[] endSprites;
     private Image emptySprite;
-    private Image starSprite;
+    private Image[] starSprite;
     private Image wallSprite;
     private Image dirtSprite;
 
@@ -62,7 +62,11 @@ public class Block extends Map{
 
         wallSprite = getSpriteSheet().getSubimage(0 * 16, 0*16, 16, 16);
 
-        starSprite = getSpriteSheet().getSubimage(11 * 16, 0*16, 16, 16);
+        starSprite = new Image[4];
+        starSprite[0] = getSpriteSheet().getSubimage(11 * 16, 0*16, 16, 16);
+        starSprite[1] = getSpriteSheet().getSubimage(11 * 16, 1*16, 16, 16);
+        starSprite[2] = getSpriteSheet().getSubimage(11 * 16, 2*16, 16, 16);
+        starSprite[3] = getSpriteSheet().getSubimage(11 * 16, 3*16, 16, 16);
 
         emptySprite = getSpriteSheet().getSubimage(2 * 16, 0*16, 16, 16);
 
@@ -165,7 +169,8 @@ public class Block extends Map{
                 if(frameIndex>rockSprites.length-1) frameIndex = 0;
                 return endSprites[frameIndex];
             case STAR:
-                return starSprite;
+                if(frameIndex>rockSprites.length-1) frameIndex = 0;
+                return starSprite[frameIndex];
             default:
                 return wallSprite;
         }
