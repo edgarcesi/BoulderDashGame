@@ -125,9 +125,9 @@ public final class Model extends Observable implements IModel {
 
 					// If player is under a falling block, game over
 					if(actualBlock.isFalling() && ((IndexPos(player.getPosX()) == x) && (IndexPos(player.getPosY() - 1) == y))){
+						setDead(true);
 						actualBlock.setFalling(false);
 						PlayerDeathAnnimation(IndexPos(player.getPosX()), IndexPos(player.getPosY()));
-						setDead(true);
 					}
 
 					// If block under is not empty stop gravity

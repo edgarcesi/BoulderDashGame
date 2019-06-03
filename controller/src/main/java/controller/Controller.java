@@ -34,8 +34,6 @@ public final class Controller implements IController {
 		this.setView(view);
 		this.setModel(model);
 
-		//control();
-
 		Thread gameEventThread = new Thread(() -> {
 			gameEvent();
 		});
