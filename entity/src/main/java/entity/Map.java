@@ -41,7 +41,7 @@ public class Map extends Entity {
 
         // fill sprites array
         try {
-            spriteSheet = ImageIO.read(new File("src/level.png"));
+            spriteSheet = ImageIO.read(Map.class.getClassLoader().getResourceAsStream("level.png"));
             sprites = new Image[7];
             // Wall
             sprites[0] = spriteSheet.getSubimage(0*16, id*64 + 0 * 16, 16, 16);

@@ -20,13 +20,13 @@ public class ModelTest {
 
     @Test
     public void realPos() {
-        int expected = 95;
-        assertEquals(expected, model.RealPos(6));
+        int expected = 96;
+        assertEquals(expected, model.RealPos(6)); // 6*16 = 96
     }
 
     @Test
     public void indexPos() {
         int expected = 4;
-        assertEquals(expected, model.IndexPos(60));
+        assertEquals(expected, model.IndexPos(64)); // 64/16=4
         }
 }

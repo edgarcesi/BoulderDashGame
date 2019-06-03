@@ -36,7 +36,7 @@ public class Player extends Entity {
     public Player(final int x, final int y) {
         try {
             frameIndex = 0;
-            spriteSheet = ImageIO.read(new File("src/player.png"));
+            spriteSheet = ImageIO.read(Player.class.getClassLoader().getResourceAsStream("player.png"));
             idleSprites = new Image[2];
             idleSprites[0] = spriteSheet.getSubimage(0*16, 0 * 16, 16, 16);
             idleSprites[1] = spriteSheet.getSubimage(3*16, 0 * 16, 16, 16);
