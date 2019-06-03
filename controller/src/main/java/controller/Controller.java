@@ -36,38 +36,10 @@ public final class Controller implements IController {
 
 		control();
 
-		// Start game event thread
-		new Thread(() -> {
-			while (!msgSet) {
-				// Win event
-                if(model.getWin() && !msgSet) {
-					view.playWinMusic();
-					view.printMessage("You have win ! "+model.getPlayer().getScore()+" diamonds collected.");
-                    msgSet = true;
-                    System.exit(0);
-                }
-				// Game over event
-				if(model.isDead() && !msgSet){
-					view.playGameoverMusic();
-					view.printMessage("Gameover ! Be careful to rocks...");
-					msgSet = true;
-					System.exit(0);
-				}
-				// Time over event
-				if(model.getTime()<=0 && !msgSet){
-					view.playGameoverMusic();
-					view.printMessage("Gameover ! Be faster.");
-					msgSet = true;
-					System.exit(0);
-				}
-
-				try {
-					Thread.sleep(250);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
+		Thread gameEventThread = new Thread(() -> {
+			gameEvent();
+		});
+		gameEventThread.start();
 	}
 
 	/**
@@ -181,4 +153,36 @@ public final class Controller implements IController {
                 break;
         }
     }
+
+    public void gameEvent(){
+			while (!msgSet) {
+				// Win event
+				if(model.getWin() && !msgSet) {
+					view.playWinMusic();
+					view.printMessage("You have win ! "+model.getPlayer().getScore()+" diamonds collected.");
+					msgSet = true;
+					System.exit(0);
+				}
+				// Game over event
+				if(model.isDead() && !msgSet){
+					view.playGameoverMusic();
+					view.printMessage("Gameover ! Be careful to rocks...");
+					msgSet = true;
+					System.exit(0);
+				}
+				// Time over event
+				if(model.getTime()<=0 && !msgSet){
+					view.playGameoverMusic();
+					view.printMessage("Gameover ! Be faster.");
+					msgSet = true;
+					System.exit(0);
+				}
+
+				try {
+					Thread.sleep(250);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+	}
 }
