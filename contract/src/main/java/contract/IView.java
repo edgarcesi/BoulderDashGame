@@ -14,4 +14,7 @@ public interface IView {
 	 *          the message
 	 */
 	void printMessage(final String message);
+
+	void playWinMusic();
+	void playGameoverMusic();
 }

@@ -38,7 +38,7 @@ class DAOMap extends DAOEntity<Map> {
     @Override
     public Map find(int id) {
         try {
-            String sqlMap = "{call getSchemaByMap(?)}";
+            String sqlMap = "{call getMap(?)}";
             CallableStatement callMap = this.getConnection().prepareCall(sqlMap);
             callMap.setInt(1, id);
             callMap.execute();
