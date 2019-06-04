@@ -20,7 +20,7 @@ import javax.swing.text.View;
  */
 public final class Model extends Observable implements IModel {
 	private final int OFFSET = 16; // Const offset 16px
-	private int mapID = 5; // Map to load
+	private int mapID = 2; // Map to load
 	private boolean win, dead = false;
 	private long time;
 
@@ -35,11 +35,9 @@ public final class Model extends Observable implements IModel {
 		this.player = new Player(RealPos(map.getStartX()), RealPos(map.getStartY()));
 
 		// Start gravity thread
-		time = getMap().getTime();
 		Thread gravity = new Thread(() -> {
 			while (time > 0) {
 				mapGravity();
-
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
@@ -101,6 +99,7 @@ public final class Model extends Observable implements IModel {
 				}
 			});
 			timer.start();
+
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}

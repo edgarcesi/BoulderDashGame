@@ -138,7 +138,7 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.setSize(model.RealPos(model.getMap().getLenght())+16,model.RealPos(model.getMap().getHeight())+60);
 		this.setLocationRelativeTo(null);
 
-		playMusic("src/got.wav");
+		playMusic("src/music.wav");
 	}
 
 	private void playMusic(String filepath){
